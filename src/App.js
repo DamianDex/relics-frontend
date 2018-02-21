@@ -1,21 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from "react";
+import "./App.css";
+
+import { Container, Row, Col } from 'reactstrap';
+import RelicDeck from "./relics/RelicDeck";
+import RelicNew from "./relics/RelicNew";
+
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Row>
+                    <Col xs="3">
+                        <RelicNew/>
+                    </Col>
+                    <Col xs="auto">
+                        <RelicDeck/>
+                        <RelicDeck/>
+                    </Col>
+                    <Col xs="3">.col-3</Col>
+                </Row>
+            </div>
+        );
+    }
 }
 
 export default App;
