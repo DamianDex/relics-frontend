@@ -5,14 +5,27 @@ import { Button, InputGroup, InputGroupAddon, Input } from 'reactstrap';
 class RelicNew extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            placeName: ""
+        };
+
+        this.handlePlaceNameChange = this.handlePlaceNameChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+
+    }
+
+    handlePlaceNameChange(e) {
+        this.setState({placeName: e.target.value})
     }
 
     handleClick(e) {
         console.log("Clicked!!");
+
+        var var_placeName = this.state.placeName;
+
         axios.post('http://localhost:8080/api/relics', {
             categories: [
                 {
-                    categoryDescription: "aaa",
                     categoryName: "aaa"
                 }
             ],
@@ -20,7 +33,7 @@ class RelicNew extends React.Component {
             districtName: "string",
             latitude: 0,
             longitude: 0,
-            placeName: "string",
+            placeName: var_placeName,
             voivodeshipName: "string"
         }, {
             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -37,12 +50,17 @@ class RelicNew extends React.Component {
         return (
             <div>
                 <InputGroup size="sm">
-                    <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
+                    <InputGroupAddon addonType="prepend">Place Name</InputGroupAddon>
+                    <Input type="text" placeholder="Pass place name..." value={this.state.placeName} onChange={this.handlePlaceNameChange} />
+                </InputGroup>
+                <br/>
+                <InputGroup size="sm">
+                    <InputGroupAddon addonType="prepend">Commune Name</InputGroupAddon>
                     <Input />
                 </InputGroup>
                 <br/>
                 <InputGroup size="sm">
-                    <InputGroupAddon addonType="prepend">Name</InputGroupAddon>
+                    <InputGroupAddon addonType="prepend">District Name</InputGroupAddon>
                     <Input />
                 </InputGroup>
                 <br/>
