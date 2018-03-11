@@ -22,6 +22,10 @@
     font-size: large;
 }
 
+.main-navbar{
+	flex-direction:row !important;
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
