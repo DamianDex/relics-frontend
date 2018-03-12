@@ -11,11 +11,13 @@ export default class LoginControl extends React.Component {
   }
 
   handleLoginClick() {
-    this.setState({isLoggedIn: true});
+	window.location = '/login'
+    //this.setState({isLoggedIn: true});
+	 
   }
 
   handleLogoutClick() {
-    this.setState({isLoggedIn: false});
+    //this.setState({isLoggedIn: false});
   }
 
   render() {

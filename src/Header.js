@@ -1,15 +1,19 @@
 import React from 'react';
-import {BrowserRouter, Link, Switch, Route } from 'react-router-dom';
-
 import CustomNavbar from './components/CustomNavbar'
-//import { LoginLink, LogoutLink, Authenticated, NotAuthenticated } from 'react-stormpath';
+
+import { Switch, Route } from 'react-router-dom'
+import LoginPage from "./components/LoginPage";
+import App from "./App";
+
  
 export default class Header extends React.Component {
   render() {
     return (
-    	<BrowserRouter>
+    	<div>
     		<CustomNavbar />
-    	</BrowserRouter>
+    	</div>
     );
   }
 }
+
+
