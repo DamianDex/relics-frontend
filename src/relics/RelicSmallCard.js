@@ -4,7 +4,7 @@ import {
     ModalHeader
 } from "reactstrap";
 
-class RelicCard extends React.Component {
+class RelicSmallCard extends React.Component {
     constructor(props) {
         super(props);
 
@@ -48,4 +48,4 @@ class RelicCard extends React.Component {
     }
 }
 
-export default RelicCard;
+export default RelicSmallCard;
