@@ -1,5 +1,5 @@
 import React from "react";
-import {CardDeck} from "reactstrap";
+import {Col, Container, Row} from "reactstrap";
 import RelicCard from "./RelicCard";
 
 class RelicDeck extends React.Component {
@@ -9,11 +9,13 @@ class RelicDeck extends React.Component {
 
     render() {
         return (
-            <CardDeck>
-                <RelicCard name="Zabytek 1" categories="kategoria1, kategoria2" description="Lorem ipsum dolor sit amet."/>
-                <RelicCard name="Zabytek 1" categories="kategoria1, kategoria2" description="Lorem ipsum dolor sit amet."/>
-                <RelicCard name="Zabytek 1" categories="kategoria1, kategoria2" description="Lorem ipsum dolor sit amet."/>
-            </CardDeck>
+            <Container>
+                <Row>
+                    <Col><RelicCard/></Col>
+                    <Col><RelicCard/></Col>
+                    <Col><RelicCard/></Col>
+                </Row>
+            </Container>
         );
     }
 }
