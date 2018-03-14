@@ -8,7 +8,7 @@ class RelicThreeSmallCardsDeck extends React.Component {
         this.fetchThreeRandomRelicsIds();
 
         this.state = {
-            IDs: [1, 2, 3]
+            IDs: ["Zabytek 1", "Zabytek 2"]
         };
     }
 
@@ -21,7 +21,7 @@ class RelicThreeSmallCardsDeck extends React.Component {
             <CardDeck>
                 {
                     this.state.IDs.map(function (name, index) {
-                            return <RelicSmallCard/>;
+                            return <RelicSmallCard name={name}/>;
                         }
                     )
                 }
