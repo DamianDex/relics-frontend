@@ -1,20 +1,33 @@
 import React from "react";
 import {CardDeck} from "reactstrap";
 import RelicSmallCard from "./RelicSmallCard";
+import axios from "axios";
 
 class RelicThreeSmallCardsDeck extends React.Component {
     constructor(props) {
         super(props);
-        this.fetchThreeRandomRelicsIds();
 
         this.state = {
-            IDs: ["Zabytek 1", "Zabytek 2"]
+            IDs: []
         };
     }
 
-    fetchThreeRandomRelicsIds() {
-        console.log("Execute in constructor");
+    componentDidMount() {
+        let self = this;
+        axios.get('http://localhost:8080/api/relics/random/3')
+            .then(function (response) {
+                console.log(response.data);
+                self.setState(
+                    {
+                        IDs: response.data
+                    }
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
+
 
     render() {
         return (
