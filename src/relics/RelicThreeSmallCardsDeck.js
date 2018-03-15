@@ -1,5 +1,5 @@
 import React from "react";
-import {CardDeck} from "reactstrap";
+import {CardGroup} from "reactstrap";
 import RelicSmallCard from "./RelicSmallCard";
 import axios from "axios";
 
@@ -28,17 +28,16 @@ class RelicThreeSmallCardsDeck extends React.Component {
             });
     }
 
-
     render() {
         return (
-            <CardDeck>
+            <CardGroup>
                 {
-                    this.state.IDs.map(function (name, index) {
+                    this.state.IDs.map(function (name) {
                             return <RelicSmallCard name={name}/>;
                         }
                     )
                 }
-            </CardDeck>
+            </CardGroup>
         );
     }
 }

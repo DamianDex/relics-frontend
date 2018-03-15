@@ -23,7 +23,6 @@ export default class CustomNavbar extends React.Component {
             <div>
                 <Navbar className="main-navbar" color="faded" light expand="md">
                     <NavbarBrand className="h1" href="/">Polskie Zabytki</NavbarBrand>
-
                     <div>
                         <InputGroup>
                             <Input placeholder="Zacznij coś pisać..."/>
