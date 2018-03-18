@@ -38,7 +38,7 @@ class RelicSmallCard extends React.Component {
 
     componentDidMount() {
         let self = this;
-        axios.get('http://localhost:8080/api/relics/'.concat(this.props.name))
+        axios.get('http://localhost:8090/api/relics/'.concat(this.props.name))
             .then(function (response) {
                 console.log(response.data);
                 self.setState(

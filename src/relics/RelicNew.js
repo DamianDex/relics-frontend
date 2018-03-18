@@ -47,7 +47,7 @@ class RelicNew extends React.Component {
         var communeName = this.state.communeName;
         var categories = this.state.categories;
 
-        axios.post('http://localhost:8080/api/relics', {
+        axios.post('http://localhost:8090/api/relics', {
             categories: categories,
             communeName: communeName,
             districtName: "string",

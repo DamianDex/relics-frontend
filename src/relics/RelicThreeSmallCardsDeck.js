@@ -14,7 +14,7 @@ class RelicThreeSmallCardsDeck extends React.Component {
 
     componentDidMount() {
         let self = this;
-        axios.get('http://localhost:8080/api/relics/random/3')
+        axios.get('http://localhost:8090/api/relics/random/3')
             .then(function (response) {
                 console.log(response.data);
                 self.setState(

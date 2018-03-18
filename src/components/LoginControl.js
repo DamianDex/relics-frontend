@@ -12,8 +12,7 @@ export default class LoginControl extends React.Component {
 
   handleLoginClick() {
 	window.location = '/login'
-    //this.setState({isLoggedIn: true});
-	 
+    //this.setState({isLoggedIn: true}); 
   }
 
   handleLogoutClick() {
@@ -32,7 +31,6 @@ export default class LoginControl extends React.Component {
 
     return (
       <div>
-        <span isLoggedIn={isLoggedIn} />
         {button}
       </div>
     );

@@ -2,12 +2,12 @@ import React, {Component} from "react";
 import { Form, Input, Label, Button, NavLink } from 'reactstrap';
 import axios from 'axios';
 
-export default class LoginPage extends Component {
+export default class RegistrationPage extends Component {
 	
 	
 	  constructor(props) {
 	        super(props);
-	        this.handleLogin = this.handleLogin.bind(this);
+	        this.handleRegistration = this.handleRegistration.bind(this);
 	        this.state={username:'', password:''};
 	        this.handleUsernameChange = this.handleUsernameChange.bind(this);
 	        this.handlePasswordChange = this.handlePasswordChange.bind(this);
@@ -21,25 +21,29 @@ export default class LoginPage extends Component {
 		   this.setState({password: e.target.value});
 	  }
 	  
-	  async handleLogin(e) {
+	  async handleRegistration(e) {
 		try {
-	    	var response = await axios.post('http://localhost:8090/login', 
-	    			JSON.stringify( {username:this.state.username, password:this.state.password}), 
-	    			{ withCredentials:true });
-	    	sessionStorage.setItem("jwtToken", response.headers['authorization']);
+			let data = JSON.stringify({
+		        username: this.state.username,
+		        password: this.state.password
+		    })
+	    	var response = await axios.post('http://localhost:8090/api/user/add', data, 
+	    			{
+	            		headers: {
+	            			'Content-Type': 'application/json',
+	            	}
+	    	});
 	    } catch (err) {
 	    	console.log(err);
 	    }
-	    console.log("sessionstoragetoken: " + sessionStorage.getItem("jwtToken"));
 	  }
 
     render() {
         return (
         	<Form>
-            	<label>Nie masz konta? <NavLink href="/register"> Zarejestruj sie!</NavLink></label>
             	<Input type="text" name="username" placeholder="Email" value={this.state.username} onChange={this.handleUsernameChange} />
                 <Input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
-                <Button type="button" onClick={this.handleLogin}>Login</Button><br/>
+                <Button type="button" onClick={this.handleRegistration}>Register</Button>
             </Form>
         );
     }

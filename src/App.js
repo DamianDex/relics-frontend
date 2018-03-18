@@ -9,6 +9,7 @@ import RelicsLocalizePage from "./components/RelicsLocalizePage";
 import RelicsRankingPage from "./components/RelicsRankingPage";
 import RelicsAddPage from "./components/RelicsAddPage";
 import RelicProfilePage from "./components/RelicProfilePage";
+import RegistrationPage from "./components/RegistrationPage";
 
 export default class App extends Component {
     render() {
@@ -23,7 +24,8 @@ export default class App extends Component {
 				<Route exact path='/ranking' component={RelicsRankingPage}/>
 				<Route exact path='/add' component={RelicsAddPage}/>
 				<Route exact path='/relic/:relicId' component={RelicProfilePage}/>
-	    	</Switch>
+		    	<Route exact path='/register' component={RegistrationPage}/>
+		    </Switch>
   		  </div>
         );
     }
