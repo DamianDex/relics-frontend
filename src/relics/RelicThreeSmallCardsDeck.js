@@ -1,45 +1,46 @@
 import React from "react";
 import {CardGroup} from "reactstrap";
 import RelicSmallCard from "./RelicSmallCard";
-import axios from "axios";
+import RelicController from "../controllers/RelicController";
 
-class RelicThreeSmallCardsDeck extends React.Component {
+export default class RelicThreeSmallCardsDeck extends React.Component {
     constructor(props) {
         super(props);
-
+        this.relicController = new RelicController();
         this.state = {
             IDs: []
         };
     }
 
     componentDidMount() {
-        let self = this;
-        axios.get('http://localhost:8090/api/relics/random/3')
-            .then(function (response) {
-                console.log(response.data);
-                self.setState(
-                    {
-                        IDs: response.data
-                    }
-                )
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.getRandomRelicIDs();
     }
 
     render() {
         return (
             <CardGroup>
                 {
-                    this.state.IDs.map(function (name) {
-                            return <RelicSmallCard name={name}/>;
+                    this.state.IDs.map(id => {
+                            return <RelicSmallCard name={id}/>;
                         }
                     )
                 }
             </CardGroup>
         );
     }
-}
 
-export default RelicThreeSmallCardsDeck;
+    getRandomRelicIDs() {
+        let self = this;
+        this.relicController.getRandomRelicIds(3)
+            .then(response => {
+                self.setState(
+                    {
+                        IDs: response.data
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+}
