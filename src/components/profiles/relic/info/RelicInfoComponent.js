@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import RelicMainPhoto from "./RelicMainPhoto";
 import RelicDetails from "./RelicDetails";
 import RelicRating from "./RelicRating";
-import {Col, Container, Row} from "reactstrap";
+import {Col, Row} from "reactstrap";
 
 export default class RelicInfoComponent extends Component {
     constructor(props) {
@@ -13,14 +13,13 @@ export default class RelicInfoComponent extends Component {
         return (
                 <Row>
                     <Col>
-                        <RelicMainPhoto/>
+                        <RelicMainPhoto id={this.props.id}/>
                     </Col>
                     <Col>
-                        <RelicDetails/>
-                        {this.props.id}
+                        <RelicDetails id={this.props.id}/>
                     </Col>
                     <Col>
-                        <RelicRating/>
+                        <RelicRating id={this.props.id}/>
                     </Col>
                 </Row>
         );

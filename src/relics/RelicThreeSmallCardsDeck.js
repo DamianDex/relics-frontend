@@ -6,7 +6,9 @@ import RelicController from "../controllers/RelicController";
 export default class RelicThreeSmallCardsDeck extends React.Component {
     constructor(props) {
         super(props);
+
         this.relicController = new RelicController();
+
         this.state = {
             IDs: []
         };
@@ -21,7 +23,7 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
             <CardGroup>
                 {
                     this.state.IDs.map(id => {
-                            return <RelicSmallCard name={id}/>;
+                            return <RelicSmallCard id={id}/>;
                         }
                     )
                 }

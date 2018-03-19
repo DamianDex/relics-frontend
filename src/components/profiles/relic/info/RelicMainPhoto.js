@@ -12,7 +12,7 @@ export default class RelicMainPhoto extends Component {
 
     render() {
         return (
-            <img src={process.env.PUBLIC_URL + this.state.imageSrc}/>
+                <img src={process.env.PUBLIC_URL + this.state.imageSrc}/>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Route, Switch} from 'react-router';
+import {Route, Switch} from "react-router";
+import "./App.css";
 
 import Header from "./Header";
 import MainPage from "./components/MainPage";
