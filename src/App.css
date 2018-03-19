@@ -22,8 +22,8 @@
     font-size: large;
 }
 
-.main-navbar{
-	flex-direction:row !important;
+.main-navbar {
+    flex-direction: row !important;
 }
 
 @keyframes App-logo-spin {

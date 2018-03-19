@@ -1,5 +1,5 @@
 import React from 'react';
-import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
+import {Circle, Gmaps, InfoWindow, Marker} from 'react-gmaps';
 
 const coords = {
     lat: 51.5258541,
@@ -7,9 +7,6 @@ const coords = {
 };
 
 const params = {v: '3.exp', key: 'AIzaSyCbRbS00bDAmgSC0zAwQPyAAX4DZMHd9aI'};
-
-//GMAPS page
-//https://www.npmjs.com/package/react-gmaps
 
 export default class MapComponent extends React.Component {
 
@@ -46,22 +43,22 @@ export default class MapComponent extends React.Component {
                     lat={coords.lat + 0.1}
                     lng={coords.lng + 0.1}
                     draggable={true}
-                    onDragEnd={this.onDragEnd} />
+                    onDragEnd={this.onDragEnd}/>
                 <Marker
                     lat={coords.lat}
                     lng={coords.lng}
                     draggable={true}
-                    onDragEnd={this.onDragEnd} />
+                    onDragEnd={this.onDragEnd}/>
                 <InfoWindow
                     lat={coords.lat}
                     lng={coords.lng}
                     content={'Hello, React :)'}
-                    onCloseClick={this.onCloseClick} />
+                    onCloseClick={this.onCloseClick}/>
                 <Circle
                     lat={coords.lat}
                     lng={coords.lng}
                     radius={500}
-                    onClick={this.onClick} />
+                    onClick={this.onClick}/>
             </Gmaps>
         );
     }
