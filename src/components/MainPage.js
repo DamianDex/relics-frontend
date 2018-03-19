@@ -7,7 +7,10 @@ export default class MainPage extends Component {
     render() {
         return (
             <Row>
-                <Col sm="12" md={{size: 10, offset: 1}}><RelicThreeSmallCardsDeck/></Col>
+                <Col sm="12" md={{size: 10, offset: 1}}>
+                    <br/>
+                    <RelicThreeSmallCardsDeck/>
+                </Col>
             </Row>
         );
     }
