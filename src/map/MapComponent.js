@@ -8,6 +8,9 @@ const coords = {
 
 const params = {v: '3.exp', key: 'AIzaSyCbRbS00bDAmgSC0zAwQPyAAX4DZMHd9aI'};
 
+//GMAPS page
+//https://www.npmjs.com/package/react-gmaps
+
 export default class MapComponent extends React.Component {
 
     onMapCreated(map) {
