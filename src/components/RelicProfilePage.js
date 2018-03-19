@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import MapComponent from "../map/MapComponent";
 
 export default class RelicProfilePage extends Component {
     constructor(props) {
@@ -7,7 +8,11 @@ export default class RelicProfilePage extends Component {
 
     render() {
         return (
-            <p>Relics Profile Page will be here !!!: {this.props.match.params.relicId}</p>
+            <div>
+                <p>Relics Profile Page will be here !!!: {this.props.match.params.relicId}</p>
+                <p>Map</p>
+                <MapComponent/>
+            </div>
         );
     }
 }
