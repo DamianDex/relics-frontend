@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {CONFIGURATION} from '../configuration/configuration'
 import {Button, Form, Input, NavLink} from 'reactstrap';
 import axios from 'axios';
 
@@ -7,9 +8,11 @@ export default class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
+        this.test = this.test.bind(this);
         this.state = {username: '', password: ''};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT
     }
 
     handleUsernameChange(e) {
@@ -22,16 +25,34 @@ export default class LoginPage extends Component {
 
     async handleLogin(e) {
         try {
-            var response = await axios.post('http://localhost:8090/login',
+            var response = await axios.post(this.endpoint + '/login',
                 JSON.stringify({username: this.state.username, password: this.state.password}),
                 {withCredentials: true});
-            sessionStorage.setItem("jwtToken", response.headers['authorization']);
+            var jwtToken = response.headers['authorization'];
+            if (jwtToken != null){
+                sessionStorage.setItem("jwtToken", response.headers['authorization']);
+            }
+            
         } catch (err) {
             console.log(err);
         }
         console.log("sessionstoragetoken: " + sessionStorage.getItem("jwtToken"));
     }
 
+    async test(e) {
+        try {
+            var response = await axios.post(this.endpoint + '/api/my-profile', {},
+            	{headers:{
+            		'authorization': sessionStorage.getItem('jwtToken')
+            	}},
+                {withCredentials: true});
+            console.log(response);
+            
+        } catch (err) {
+            console.log(err);
+        }
+    }
+    
     render() {
         return (
             <Form>
@@ -41,6 +62,7 @@ export default class LoginPage extends Component {
                 <Input type="password" name="password" placeholder="Password" value={this.state.password}
                        onChange={this.handlePasswordChange}/>
                 <Button type="button" onClick={this.handleLogin}>Login</Button><br/>
+                <Button type="button" onClick={this.test}>Profile test</Button><br/>
             </Form>
         );
     }
