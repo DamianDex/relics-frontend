@@ -19,5 +19,3 @@ export default class RelicInfoComponent extends Component {
         );
     }
 }
-
-

@@ -1,14 +1,21 @@
 import React from 'react';
 import {Circle, Gmaps, InfoWindow, Marker} from 'react-gmaps';
-
-const coords = {
-    lat: 51.5258541,
-    lng: -0.08040660000006028
-};
+import RelicController from "../controllers/RelicController";
 
 const params = {v: '3.exp', key: 'AIzaSyCbRbS00bDAmgSC0zAwQPyAAX4DZMHd9aI'};
 
 export default class MapComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+
+        this.relicController = new RelicController();
+
+        this.state = {
+            latitude: '',
+            longitude: ''
+        };
+    }
 
     onMapCreated(map) {
         map.setOptions({
@@ -28,39 +35,54 @@ export default class MapComponent extends React.Component {
         console.log('onClick', e);
     }
 
+    componentDidMount() {
+        this.getRelicDetails();
+    }
+
     render() {
         return (
             <Gmaps
                 width={'100%'}
                 height={'600px'}
-                lat={coords.lat}
-                lng={coords.lng}
+                lat={this.state.latitude}
+                lng={this.state.longitude}
                 zoom={12}
                 loadingMessage={'Be happy'}
                 params={params}
                 onMapCreated={this.onMapCreated}>
                 <Marker
-                    lat={coords.lat + 0.1}
-                    lng={coords.lng + 0.1}
-                    draggable={true}
-                    onDragEnd={this.onDragEnd}/>
-                <Marker
-                    lat={coords.lat}
-                    lng={coords.lng}
+                    lat={this.state.latitude}
+                    lng={this.state.longitude}
                     draggable={true}
                     onDragEnd={this.onDragEnd}/>
                 <InfoWindow
-                    lat={coords.lat}
-                    lng={coords.lng}
+                    lat={this.state.latitude}
+                    lng={this.state.longitude}
                     content={'Hello, React :)'}
                     onCloseClick={this.onCloseClick}/>
                 <Circle
-                    lat={coords.lat}
-                    lng={coords.lng}
+                    lat={this.state.latitude}
+                    lng={this.state.longitude}
                     radius={500}
                     onClick={this.onClick}/>
             </Gmaps>
         );
+    }
+
+    getRelicDetails() {
+        let self = this;
+        this.relicController.getGeographicLocation(this.props.id)
+            .then(response => {
+                self.setState(
+                    {
+                        longitude: response.data.longitude,
+                        latitude: response.data.latitude
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }
 
 };

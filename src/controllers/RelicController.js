@@ -15,4 +15,9 @@ export default class RelicController {
         var response = axios.get(this.endpoint + 'relics/' + id);
         return response;
     }
+
+    getGeographicLocation(id) {
+        var response = axios.get(this.endpoint + 'geographic/' + id);
+        return response;
+    }
 }
