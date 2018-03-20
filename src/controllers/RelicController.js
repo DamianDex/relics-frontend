@@ -3,11 +3,21 @@ import axios from "axios";
 
 export default class RelicController {
     constructor() {
-        this.endpoint = CONFIGURATION.HOST + ':' + CONFIGURATION.PORT
+        this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT + '/api/'
     }
 
     getRandomRelicIds(count) {
-        var response = axios.get('http://' + this.endpoint + '/api/relics/random/' + count);
+        var response = axios.get(this.endpoint + 'relics/random/' + count);
+        return response;
+    }
+
+    getRelicDetails(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id);
+        return response;
+    }
+
+    getGeographicLocation(id) {
+        var response = axios.get(this.endpoint + 'geographic/' + id);
         return response;
     }
 }
