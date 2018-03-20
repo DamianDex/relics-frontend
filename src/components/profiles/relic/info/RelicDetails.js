@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import RelicController from "../../../../controllers/RelicController";
+import {Card, CardBody, CardHeader, CardText, CardTitle} from "reactstrap";
 
 export default class RelicDetails extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class RelicDetails extends Component {
         this.state = {
             modal: false,
             id: '',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             identification: '',
             datingOfObject: '',
             registerNumber: '',
@@ -24,13 +25,18 @@ export default class RelicDetails extends Component {
 
     render() {
         return (
-            <div>
-                <h3>{this.state.identification}</h3>
-                <br/>
-                <h5>{this.state.registerNumber}</h5>
-                <h5>{this.state.datingOfObject}</h5>
-                <p>{this.state.description}</p>
-            </div>
+                <Card>
+                    <CardHeader>Więcej informacji</CardHeader>
+                    <CardBody>
+                        <CardTitle>Special Title Treatment</CardTitle>
+                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+                        <h3>{this.state.identification}</h3>
+                        <br/>
+                        <h5>{this.state.registerNumber}</h5>
+                        <h5>{this.state.datingOfObject}</h5>
+                        <p>{this.state.description}</p>
+                    </CardBody>
+                </Card>
         );
     }
 
