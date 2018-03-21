@@ -7,6 +7,18 @@ import {CardGroup} from "reactstrap";
 export default class RelicInfoComponent extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            identification: '',
+            description: '',
+            geographicLocation: '',
+            categories: [],
+            registerNumber: '',
+            datingOfObject: ''
+        }
+    }
+
+    componentDidMount() {
+
     }
 
     render() {

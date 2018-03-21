@@ -2,7 +2,6 @@
     color: black;
 }
 
-.relic-gallery {
+.relic-gallery, .relic-review {
     background: #F7F7F7;
-    color: #0B74D1;
 }
