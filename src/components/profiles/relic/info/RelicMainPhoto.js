@@ -18,7 +18,9 @@ export default class RelicMainPhoto extends Component {
             <Card>
                 <CardHeader>Teraz poznajesz</CardHeader>
                 <CardBody>
-                    <CardTitle>{this.props.identification}</CardTitle>
+                    <CardTitle>
+                        <p class="main-photo-body">{this.props.identification}</p>
+                    </CardTitle>
                     <CardText>
                         <p class="main-photo-body">Numer w rejestrze: {this.props.registerNumber}</p>
                     </CardText>
