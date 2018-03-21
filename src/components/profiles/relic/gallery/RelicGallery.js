@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
+    Card,
+    CardBody,
+    CardHeader,
     Carousel,
-    CarouselItem,
+    CarouselCaption,
     CarouselControl,
     CarouselIndicators,
-    CarouselCaption
+    CarouselItem
 } from 'reactstrap';
 
 import './RelicGallery.css'
@@ -30,7 +33,7 @@ const items = [
 export default class RelicGallery extends Component {
     constructor(props) {
         super(props);
-        this.state = { activeIndex: 0 };
+        this.state = {activeIndex: 0};
         this.next = this.next.bind(this);
         this.previous = this.previous.bind(this);
         this.goToIndex = this.goToIndex.bind(this);
@@ -49,22 +52,22 @@ export default class RelicGallery extends Component {
     next() {
         if (this.animating) return;
         const nextIndex = this.state.activeIndex === items.length - 1 ? 0 : this.state.activeIndex + 1;
-        this.setState({ activeIndex: nextIndex });
+        this.setState({activeIndex: nextIndex});
     }
 
     previous() {
         if (this.animating) return;
         const nextIndex = this.state.activeIndex === 0 ? items.length - 1 : this.state.activeIndex - 1;
-        this.setState({ activeIndex: nextIndex });
+        this.setState({activeIndex: nextIndex});
     }
 
     goToIndex(newIndex) {
         if (this.animating) return;
-        this.setState({ activeIndex: newIndex });
+        this.setState({activeIndex: newIndex});
     }
 
     render() {
-        const { activeIndex } = this.state;
+        const {activeIndex} = this.state;
 
         const slides = items.map((item) => {
             return (
@@ -73,23 +76,28 @@ export default class RelicGallery extends Component {
                     onExited={this.onExited}
                     key={item.src}
                 >
-                    <img class="carousel-photo" src={item.src} alt={item.altText} />
-                    <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+                    <img class="carousel-photo" src={item.src} alt={item.altText}/>
+                    <CarouselCaption captionText={item.caption} captionHeader={item.caption}/>
                 </CarouselItem>
             );
         });
 
         return (
-            <Carousel
-                activeIndex={activeIndex}
-                next={this.next}
-                previous={this.previous}
-            >
-                <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex} />
-                {slides}
-                <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
-                <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
-            </Carousel>
+            <Card>
+                <CardHeader>Zobacz zdjęcia</CardHeader>
+                <CardBody>
+                    <Carousel
+                        activeIndex={activeIndex}
+                        next={this.next}
+                        previous={this.previous}
+                    >
+                        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
+                        {slides}
+                        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous}/>
+                        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next}/>
+                    </Carousel>
+                </CardBody>
+            </Card>
         );
     }
 }

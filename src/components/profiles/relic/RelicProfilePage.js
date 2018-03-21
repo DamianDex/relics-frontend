@@ -4,6 +4,7 @@ import RelicInfoComponent from "./info/RelicInfoComponent";
 import MapComponent from "../../../map/MapComponent";
 import RelicGallery from "./gallery/RelicGallery";
 import "./RelicProfilePage.css"
+import ReviewComponent from "./reviews/ReviewComponent";
 
 export default class RelicProfilePage extends Component {
     constructor(props) {
@@ -18,7 +19,6 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <RelicInfoComponent id={this.props.match.params.relicId}/>
-                            <br/>
                         </Col>
                     </Row>
                 </div>
@@ -27,7 +27,6 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <RelicGallery/>
-                            <br/>
                         </Col>
                     </Row>
                 </div>
@@ -36,6 +35,15 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <MapComponent id={this.props.match.params.relicId}/>
+                        </Col>
+                    </Row>
+                </div>
+                <div class="relic-review">
+                    <Row>
+                        <Col sm="12" md={{size: 10, offset: 1}}>
+                            <br/>
+                            <ReviewComponent id={this.props.match.params.relicId}/>
+                            <br/>
                         </Col>
                     </Row>
                 </div>
