@@ -19,7 +19,6 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <RelicInfoComponent id={this.props.match.params.relicId}/>
-                            <br/>
                         </Col>
                     </Row>
                 </div>
@@ -28,7 +27,6 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <RelicGallery/>
-                            <br/>
                         </Col>
                     </Row>
                 </div>
@@ -37,7 +35,6 @@ export default class RelicProfilePage extends Component {
                         <Col sm="12" md={{size: 10, offset: 1}}>
                             <br/>
                             <MapComponent id={this.props.match.params.relicId}/>
-                            <br/>
                         </Col>
                     </Row>
                 </div>

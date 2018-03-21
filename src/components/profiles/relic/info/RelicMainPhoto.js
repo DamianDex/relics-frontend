@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 
 import {Card, CardBody, CardHeader, CardText, CardTitle} from 'reactstrap';
+import "./RelicMainPhoto.css"
 
 export default class RelicMainPhoto extends Component {
 
@@ -14,14 +15,16 @@ export default class RelicMainPhoto extends Component {
 
     render() {
         return (
-                <Card>
-                    <CardHeader>Teraz poznajesz</CardHeader>
-                    <CardBody>
-                        <CardTitle>Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                        <img src={process.env.PUBLIC_URL + this.state.imageSrc}/>
-                    </CardBody>
-                </Card>
+            <Card>
+                <CardHeader>Teraz poznajesz</CardHeader>
+                <CardBody>
+                    <CardTitle>{this.props.identification}</CardTitle>
+                    <CardText>
+                        <p class="main-photo-body">Numer w rejestrze: {this.props.registerNumber}</p>
+                    </CardText>
+                    <img src={process.env.PUBLIC_URL + this.state.imageSrc}/>
+                </CardBody>
+            </Card>
         );
     }
 }
