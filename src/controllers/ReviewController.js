@@ -22,7 +22,7 @@ export default class ReviewController {
                 id: id
             }
         }, {
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+            headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authentication': sessionStorage.getItem("jwtToken")}
         }).then(function (response) {
             console.log(response);
         })
