@@ -1,9 +1,10 @@
 import React, {Component} from "react";
+import RelicNew from "../relics/RelicNew";
 
 export default class RelicsAddPage extends Component {
     render() {
         return (
-            <p>Relics Add Page will be here !!!</p>
+            <RelicNew>Relics Add Page will be here !!!</RelicNew>
         );
     }
 }

@@ -10,16 +10,27 @@ export default class ReviewComponent extends Component {
 
         this.state = {
             reviews: [],
-            isReviewed: false
+            isReviewed: false,
+            comment: '',
+            rating: ''
         }
 
         this.postReview = this.postReview.bind(this);
-
+        this.handleCommentChange = this.handleCommentChange.bind(this);
+        this.handleRatingChange = this.handleRatingChange.bind(this);
     }
 
     componentDidMount() {
         this.getRelicReviews();
         this.checkIfUserReviewRelic();
+    }
+
+    handleRatingChange(e) {
+        this.setState({rating: e.target.value})
+    }
+
+    handleCommentChange(e) {
+        this.setState({comment: e.target.value})
     }
 
     render() {
@@ -52,7 +63,7 @@ export default class ReviewComponent extends Component {
     }
 
     postReview() {
-        this.reviewController.postReview(1, 10, 10);
+        this.reviewController.postReview(this.props.id, this.state.rating, this.state.comment);
     }
 
     renderReviewForm() {
@@ -62,16 +73,17 @@ export default class ReviewComponent extends Component {
                     <CardHeader>Czekamy na Twoją opinię!</CardHeader>
                     <CardBody>
                         <FormGroup>
-                            <Input type="select">
+                            <Input type="select" value={this.state.rating} onChange={this.handleRatingChange}>
                                 <option>Wybierz swoją ocenę...</option>
-                                <option>Rewelacja (5)</option>
-                                <option>Bardzo fajne miejsce (4)</option>
-                                <option>Naprawdę warto (3)</option>
-                                <option>Tylko, gdy będziesz w pobliżu (2)</option>
-                                <option>Stanowczo odradzam (1)</option>
+                                <option>5</option>
+                                <option>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
                             </Input>
-                            <Input type="textarea" placeholder="Miejsce na Twój komentarz..." name="text"
-                                   id="exampleText"/>
+                            <Input value={this.state.comment} type="textarea" placeholder="Miejsce na Twój komentarz..."
+                                   name="text"
+                                   id="exampleText" onChange={this.handleCommentChange}/>
                         </FormGroup>
                         <Button color="primary" onClick={this.postReview}>Zatwierdź ocenę!</Button>
                     </CardBody>

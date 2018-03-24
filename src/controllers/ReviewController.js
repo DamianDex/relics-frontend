@@ -13,13 +13,13 @@ export default class ReviewController {
 
     postReview(id, rating, comment) {
         axios.post(this.endpoint + 'relics/review', {
-            rating: '5',
-            comment: 'Słaby',
+            rating: rating,
+            comment: comment,
             appUser: {
                 id: 1
             },
             relic: {
-                id: 591683
+                id: id
             }
         }, {
             headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}

@@ -20,7 +20,6 @@ export default class MainPage extends Component {
                         </CardBody>
                     </Card>
                 </Col>
-
                 <br/>
                 <Col sm="12" md={{size: 10, offset: 1}}>
                     <Card>
