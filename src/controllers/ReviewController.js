@@ -11,6 +11,16 @@ export default class ReviewController {
         return response;
     }
 
+    getAvgRating(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id + '/review/avg');
+        return response;
+    }
+
+    getRatingCount(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id + '/review/count');
+        return response;
+    }
+
     postReview(id, rating, comment) {
         axios.post(this.endpoint + 'relics/review', {
             rating: rating,
@@ -22,7 +32,11 @@ export default class ReviewController {
                 id: id
             }
         }, {
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json', 'Authentication': sessionStorage.getItem("jwtToken")}
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': sessionStorage.getItem("jwtToken")
+            }
         }).then(function (response) {
             console.log(response);
         })

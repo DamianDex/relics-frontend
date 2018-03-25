@@ -1,3 +1,5 @@
-.main-photo-body {
-    padding-left: 15px;
+.main-photo {
+    height: 100%;
+    width: 100%;
+    padding: 30px;
 }

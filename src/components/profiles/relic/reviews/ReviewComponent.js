@@ -95,13 +95,13 @@ export default class ReviewComponent extends Component {
 
     renderReviews() {
         return (
-            this.state.reviews.map((item, index) => (
+            this.state.reviews.map((review, index) => (
                 <div>
                     <Card>
-                        <CardHeader>Nazwa użytkownika</CardHeader>
+                        <CardHeader>{review.appUser.username}</CardHeader>
                         <CardBody>
-                            <CardText>Ocena: {item.rating} / 10</CardText>
-                            <p>Recenzja: {item.comment}</p>
+                            <CardText>Ocena: {review.rating} / 10</CardText>
+                            <p>Recenzja: {review.comment}</p>
                         </CardBody>
                     </Card>
                     <br/>
@@ -113,6 +113,7 @@ export default class ReviewComponent extends Component {
         let self = this;
         this.reviewController.getAllReviewsByRelicId(this.props.id)
             .then(response => {
+                console.log(response);
                 self.setState(
                     {
                         reviews: response.data
