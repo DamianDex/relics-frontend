@@ -1,17 +1,39 @@
 import React, {Component} from "react";
 import "../App.css";
 import RelicThreeSmallCardsDeck from "../relics/RelicThreeSmallCardsDeck";
-import {Col, Row} from "reactstrap";
+import {Card, CardBody, CardHeader, Col, Row} from "reactstrap";
 
 export default class MainPage extends Component {
     render() {
         return (
-            <Row>
+            <div>
+                <br/>
                 <Col sm="12" md={{size: 10, offset: 1}}>
-                    <br/>
-                    <RelicThreeSmallCardsDeck/>
+                    <Card>
+                        <CardHeader>Wybrane losowo</CardHeader>
+                        <CardBody>
+                            <Row>
+                                <Col>
+                                    <RelicThreeSmallCardsDeck/>
+                                </Col>
+                            </Row>
+                        </CardBody>
+                    </Card>
                 </Col>
-            </Row>
+                <br/>
+                <Col sm="12" md={{size: 10, offset: 1}}>
+                    <Card>
+                        <CardHeader>Rekomendowane dla Ciebie</CardHeader>
+                        <CardBody>
+                            <Row>
+                                <Col>
+                                    <RelicThreeSmallCardsDeck/>
+                                </Col>
+                            </Row>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </div>
         );
     }
 }

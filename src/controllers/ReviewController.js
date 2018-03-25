@@ -11,18 +11,32 @@ export default class ReviewController {
         return response;
     }
 
+    getAvgRating(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id + '/review/avg');
+        return response;
+    }
+
+    getRatingCount(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id + '/review/count');
+        return response;
+    }
+
     postReview(id, rating, comment) {
         axios.post(this.endpoint + 'relics/review', {
-            rating: '5',
-            comment: 'Słaby',
+            rating: rating,
+            comment: comment,
             appUser: {
                 id: 1
             },
             relic: {
-                id: 591683
+                id: id
             }
         }, {
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': sessionStorage.getItem("jwtToken")
+            }
         }).then(function (response) {
             console.log(response);
         })

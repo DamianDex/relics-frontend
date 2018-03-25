@@ -37,7 +37,6 @@ class RelicNew extends React.Component {
             }
         }
         this.setState({categories: categories});
-        console.log(categories);
     }
 
     handleClick(e) {
@@ -71,7 +70,7 @@ class RelicNew extends React.Component {
             <Form>
                 <FormGroup>
                     <Label>Place Name</Label>
-                    <Input type="text" placeholder="Place name" value={this.state.placeName}
+                    <Input type="text" placeholder={this.props.dupa} value={this.state.placeName}
                            onChange={this.handlePlaceNameChange}/>
                 </FormGroup>
                 <FormGroup size="sm">

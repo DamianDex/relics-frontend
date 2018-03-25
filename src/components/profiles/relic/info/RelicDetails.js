@@ -1,42 +1,49 @@
 import React, {Component} from "react";
 import RelicController from "../../../../controllers/RelicController";
-import {Card, CardBody, CardHeader, CardText, CardTitle} from "reactstrap";
+import {Card, CardBody, CardHeader} from "reactstrap";
+import GeographyController from "../../../../controllers/GeographyController";
+import "./RelicDetails.css"
 
 export default class RelicDetails extends Component {
     constructor(props) {
         super(props);
 
         this.relicController = new RelicController();
+        this.geographyController = new GeographyController();
 
-        this.state = {
-            modal: false,
-            id: '',
-            description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            identification: '',
-            datingOfObject: '',
-            registerNumber: '',
-            href: ''
-        };
+        this.state = {};
     }
 
     componentDidMount() {
         this.getRelicDetails();
+        this.getRelicGeography();
     }
 
     render() {
         return (
-                <Card>
-                    <CardHeader>Więcej informacji</CardHeader>
-                    <CardBody>
-                        <CardTitle>Special Title Treatment</CardTitle>
-                        <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-                        <h3>{this.state.identification}</h3>
+            <Card>
+                <CardHeader>Informacje</CardHeader>
+                <CardBody>
+                    <div class="details-body">
+                        <h2>Dane ogólne</h2>
+                        <b>Nazwa miejsca:</b> {this.state.identification} <br/>
+                        <b>Opis:</b> {this.state.description} <br/>
+                        <b>Rejestr:</b> {this.state.registerNumber} <br/>
+                        <b>Datowany:</b> {this.state.datingOfObject} <br/>
+
                         <br/>
-                        <h5>{this.state.registerNumber}</h5>
-                        <h5>{this.state.datingOfObject}</h5>
-                        <p>{this.state.description}</p>
-                    </CardBody>
-                </Card>
+
+                        <h2>Dane geograficzne</h2>
+                        <b>Szerokość geograficzna:</b> {this.state.latitude} <br/>
+                        <b>Długość geograficzna:</b> {this.state.longitude} <br/>
+                        <b>Województwo:</b> {this.state.voivodeshipName} <br/>
+                        <b>Dzielnica:</b> {this.state.districtName} <br/>
+                        <b>Gmina:</b> {this.state.communeName} <br/>
+                        <b>Miejsce:</b> {this.state.placeName} <br/>
+                        <b>Ulica:</b> {this.state.street} <br/>
+                    </div>
+                </CardBody>
+            </Card>
         );
     }
 
@@ -49,9 +56,30 @@ export default class RelicDetails extends Component {
                     {
                         id: response.data.id,
                         identification: response.data.identification,
-                        registerNumber: 'Numer w rejestrze: '.concat(response.data.registerNumber),
-                        datingOfObject: 'Datowany: '.concat(response.data.datingOfObject),
-                        href: 'relic/'.concat(response.data.id),
+                        description: response.data.description,
+                        registerNumber: response.data.registerNumber,
+                        datingOfObject: response.data.datingOfObject,
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    getRelicGeography() {
+        let self = this;
+        this.geographyController.getRelicGeography(this.props.id)
+            .then(response => {
+                self.setState(
+                    {
+                        longitude: response.data.longitude,
+                        latitude: response.data.latitude,
+                        voivodeshipName: response.data.voivodeshipName,
+                        districtName: response.data.districtName,
+                        communeName: response.data.communeName,
+                        placeName: response.data.placeName,
+                        street: response.data.street
                     }
                 )
             })
