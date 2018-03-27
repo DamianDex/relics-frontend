@@ -98,7 +98,10 @@ export default class ReviewComponent extends Component {
             this.state.reviews.map((review, index) => (
                 <div>
                     <Card>
-                        <CardHeader>{review.appUser.username}</CardHeader>
+                        <CardHeader>
+                            <p>{review.appUser.username}</p>
+                            <p>{review.creationDate}</p>
+                        </CardHeader>
                         <CardBody>
                             <CardText>Ocena: {review.rating} / 10</CardText>
                             <p>Recenzja: {review.comment}</p>
