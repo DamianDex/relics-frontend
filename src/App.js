@@ -7,7 +7,7 @@ import MainPage from "./components/MainPage";
 import LoginPage from "./components/LoginPage";
 import RelicsDBPage from "./components/RelicsDbPage";
 import RelicsLocalizePage from "./components/RelicsLocalizePage";
-import RelicsRankingPage from "./components/RelicsRankingPage";
+import RelicsRankingPage from "./components/ranking/RelicsRankingPage";
 import RelicsAddPage from "./components/RelicsAddPage";
 import RelicProfilePage from "./components/profiles/relic/RelicProfilePage";
 import RegistrationPage from "./components/RegistrationPage";

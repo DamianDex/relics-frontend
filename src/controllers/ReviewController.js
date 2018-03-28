@@ -21,6 +21,11 @@ export default class ReviewController {
         return response;
     }
 
+    getTopRankedRelicIDs(quantity) {
+        var response = axios.get(this.endpoint + 'relics/review/ranking/' + quantity);
+        return response;
+    }
+
     postReview(id, rating, comment) {
         axios.post(this.endpoint + 'relics/review', {
             rating: rating,
