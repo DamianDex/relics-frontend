@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import RelicController from "../../controllers/RelicController";
+import {Button} from "reactstrap";
 
 export default class RelicRankingCard extends Component {
     constructor(props) {
@@ -7,6 +8,7 @@ export default class RelicRankingCard extends Component {
         this.relicController = new RelicController();
 
         this.state = {
+            id: '',
             identification: ''
         }
     }
@@ -19,6 +21,7 @@ export default class RelicRankingCard extends Component {
         return (
             <div>
                 <p>{this.state.identification}</p>
+                <Button color="success" href={this.state.href}>Do profilu!</Button>
             </div>
         );
     }
@@ -30,7 +33,8 @@ export default class RelicRankingCard extends Component {
                 console.log(response);
                 self.setState(
                     {
-                        identification: response.data.identification
+                        identification: response.data.identification,
+                        href: 'relic/'.concat(response.data.id)
                     }
                 )
             })

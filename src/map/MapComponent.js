@@ -43,7 +43,7 @@ export default class MapComponent extends React.Component {
     render() {
         return (
             <Card>
-                <CardHeader>Zobacz zdjęcia</CardHeader>
+                <CardHeader>Zobacz lokalizację</CardHeader>
                 <CardBody>
                     <Gmaps
                         width={'100%'}

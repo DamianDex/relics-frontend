@@ -36,9 +36,6 @@ export default class ReviewController {
         axios.post(this.endpoint + 'relics/review', {
             rating: rating,
             comment: comment,
-            appUser: {
-                id: 1
-            },
             relic: {
                 id: id
             }
