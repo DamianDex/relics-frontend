@@ -15,11 +15,10 @@ export default class RelicRankingCard extends Component {
         this.getRelicDetails();
     }
 
-
     render() {
         return (
             <div>
-                <p>{this.state.relicId}</p>
+                <p>{this.state.identification}</p>
             </div>
         );
     }
@@ -31,7 +30,7 @@ export default class RelicRankingCard extends Component {
                 console.log(response);
                 self.setState(
                     {
-                        relicId: response.data.identification,
+                        identification: response.data.identification
                     }
                 )
             })
