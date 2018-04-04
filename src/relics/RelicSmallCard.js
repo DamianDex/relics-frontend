@@ -26,7 +26,8 @@ export default class RelicSmallCard extends React.Component {
             identification: '',
             datingOfObject: '',
             registerNumber: '',
-            href: ''
+            href: '',
+            imageSrc: '/images/icon.jpg'
         };
 
         this.toggle = this.toggle.bind(this);
@@ -46,14 +47,14 @@ export default class RelicSmallCard extends React.Component {
         return (
             <Card>
                 <CardImg top width="100%"
-                         src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180"
+                         src={process.env.PUBLIC_URL + this.state.imageSrc}
                          alt="Card image cap"/>
                 <CardBody>
                     <CardTitle>{this.state.identification}</CardTitle>
                     <CardSubtitle>{this.state.registerNumber}</CardSubtitle>
                     <CardText>{this.state.datingOfObject}</CardText>
-                    <Button color="primary" onClick={this.toggle}>Dowiedz się więcej!</Button>
-                    <Button color="success" href={this.state.href}>Do profilu!</Button>
+                    <Button outline color="primary" onClick={this.toggle}>Dowiedz się więcej!</Button>
+                    <Button outline color="success" href={this.state.href}>Do profilu!</Button>
 
                     <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                         <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>

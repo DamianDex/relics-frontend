@@ -23,12 +23,14 @@ export default class RelicsRankingPage extends Component {
         this.handleVoivodeshipFilterChange = this.handleVoivodeshipFilterChange.bind(this);
         this.getTopRankedRelicIDsWithFilter = this.getTopRankedRelicIDsWithFilter.bind(this);
 
+        this.removeFilter = this.removeFilter.bind(this);
+
         this.handleMore = this.handleMore.bind(this);
         this.handleLess = this.handleLess.bind(this);
     }
 
     componentDidMount() {
-        this.getTopRankedRelicIDsWithFilter(this.state.rankingSize);
+        this.getTopRankedRelicIDsWithFilter(this.state.rankingSize, this.state.categoryFilter, this.state.voivodeshipFilter);
     }
 
     handleCategoryFilterChange(e) {
@@ -47,16 +49,21 @@ export default class RelicsRankingPage extends Component {
                     <Card>
                         <CardHeader>Filtruj ranking</CardHeader>
                         <CardBody>
-                            <Form inline>
-                                <CategoryFilterDropdown value={this.state.categoryFilter}
-                                                        onChangeValue={this.handleCategoryFilterChange}/>
-                                <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
-                                                           onChangeValue={this.handleVoivodeshipFilterChange}/>
-                                <Button color="success" onClick={this.getTopRankedRelicIDsWithFilter}>Filtruj
-                                    wyniki</Button>
-                                <Button color="primary" onClick={this.getTopRankedRelicIDs}>Wyczyść filtr</Button>
-                            </Form>
-                            <p>Obecny filtr to: {this.state.categoryFilter} + {this.state.voivodeshipFilter}</p>
+                            <div className="filter-component">
+                                <Form inline>
+                                    <CategoryFilterDropdown value={this.state.categoryFilter}
+                                                            onChangeValue={this.handleCategoryFilterChange}/>
+                                    <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
+                                                               onChangeValue={this.handleVoivodeshipFilterChange}/>
+                                </Form>
+                                <br/>
+                                <Button outline color="success"
+                                        onClick={() => this.getTopRankedRelicIDsWithFilter(this.state.rankingSize, this.state.categoryFilter, this.state.voivodeshipFilter)}>Filtruj
+                                    wyniki</Button>{'   '}
+                                <Button outline color="primary"
+                                        onClick={this.removeFilter}>Wyczyść
+                                    filtr</Button>
+                            </div>
                         </CardBody>
                     </Card>
                 </Col>
@@ -93,7 +100,7 @@ export default class RelicsRankingPage extends Component {
 
     handleMore() {
         let newQuantity = this.state.rankingSize + 2;
-        this.getTopRankedRelicIDsWithFilter(newQuantity)
+        this.getTopRankedRelicIDsWithFilter(newQuantity, this.state.categoryFilter, this.state.voivodeshipFilter)
         this.setState(
             {
                 rankingSize: newQuantity,
@@ -103,7 +110,7 @@ export default class RelicsRankingPage extends Component {
 
     handleLess() {
         let newQuantity = this.state.rankingSize - 2;
-        this.getTopRankedRelicIDsWithFilter(newQuantity)
+        this.getTopRankedRelicIDsWithFilter(newQuantity, this.state.categoryFilter, this.state.voivodeshipFilter)
         this.setState(
             {
                 rankingSize: newQuantity,
@@ -111,9 +118,19 @@ export default class RelicsRankingPage extends Component {
         )
     }
 
-    getTopRankedRelicIDsWithFilter(size) {
+    removeFilter() {
+        this.getTopRankedRelicIDsWithFilter(this.state.rankingSize, '', '');
+        this.setState(
+            {
+                categoryFilter: '',
+                voivodeshipFilter: ''
+            }
+        )
+    }
+
+    getTopRankedRelicIDsWithFilter(size, category, voivodeship) {
         let self = this;
-        this.reviewController.getTopRankedRelicIDsWithFilter(size, this.state.categoryFilter, this.state.voivodeshipFilter)
+        this.reviewController.getTopRankedRelicIDsWithFilter(size, category, voivodeship)
             .then(response => {
                 self.setState(
                     {

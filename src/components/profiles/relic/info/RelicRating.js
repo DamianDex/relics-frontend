@@ -25,7 +25,6 @@ export default class RelicRating extends Component {
                         <b>Ocena użytkowników:</b> {this.state.avg} / 5.0 <br/>
                         <b>Liczba głosów:</b> {this.state.count} <br/>
                         <b>Twoja ocena:</b> {this.state.registerNumber} <br/>
-                        <b>Datowany:</b> {this.state.datingOfObject} <br/>
                     </div>
                 </CardBody>
             </Card>
