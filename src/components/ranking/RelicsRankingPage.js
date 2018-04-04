@@ -1,22 +1,11 @@
 import React, {Component} from "react";
 import ReviewController from "../../controllers/ReviewController";
-import RelicRankingCard from "./RelicRankingCard";
-import {
-    Card,
-    CardBody,
-    CardHeader,
-    Col,
-    Form,
-    FormGroup,
-    Input,
-    Label,
-    ListGroup,
-    ListGroupItem,
-    ListGroupItemHeading,
-    ListGroupItemText
-} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Form, ListGroup} from "reactstrap";
 
 import './RelicsRankingPage.css'
+import CategoryFilterDropdown from "./filter/CategoryFilterDropdown";
+import VoivodeshipFilterDropdown from "./filter/VoivodeshipFilterDropdown";
+import RankingListItem from "./RankingListItem";
 
 export default class RelicsRankingPage extends Component {
     constructor(props) {
@@ -24,13 +13,27 @@ export default class RelicsRankingPage extends Component {
         this.reviewController = new ReviewController();
 
         this.state = {
-            IDs: []
+            IDs: [],
+            categoryFilter: '',
+            voivodeshipFilter: ''
         };
 
+        this.handleCategoryFilterChange = this.handleCategoryFilterChange.bind(this);
+        this.handleVoivodeshipFilterChange = this.handleVoivodeshipFilterChange.bind(this);
+        this.getTopRankedRelicIDsWithFilter = this.getTopRankedRelicIDsWithFilter.bind(this);
+        this.getTopRankedRelicIDs = this.getTopRankedRelicIDs.bind(this);
     }
 
     componentDidMount() {
         this.getTopRankedRelicIDs();
+    }
+
+    handleCategoryFilterChange(e) {
+        this.setState({categoryFilter: e.target.value})
+    }
+
+    handleVoivodeshipFilterChange(e) {
+        this.setState({voivodeshipFilter: e.target.value})
     }
 
     render() {
@@ -42,32 +45,14 @@ export default class RelicsRankingPage extends Component {
                         <CardHeader>Filtruj ranking</CardHeader>
                         <CardBody>
                             <Form inline>
-                                <div class="category-filter">
-                                    <FormGroup>
-                                        <Label for="exampleSelect1">Kategoria</Label>
-                                        <Input type="select" name="select" id="exampleSelect1">
-                                            <option></option>
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                        </Input>
-                                    </FormGroup>
-                                </div>
-
-                                <FormGroup class="voivodeship-filter">
-                                    <Label for="exampleSelect">Województwo</Label>
-                                    <Input type="select" name="select" id="exampleSelect">
-                                        <option></option>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </Input>
-                                </FormGroup>
+                                <CategoryFilterDropdown value={this.state.categoryFilter}
+                                                        onChangeValue={this.handleCategoryFilterChange}/>
+                                <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
+                                                           onChangeValue={this.handleVoivodeshipFilterChange}/>
+                                <Button color="success" onClick={this.getTopRankedRelicIDsWithFilter}>Filtruj wyniki</Button>
+                                <Button color="primary" onClick={this.getTopRankedRelicIDs}>Wyczyść filtr</Button>
                             </Form>
+                            <p>Obecny filtr to: {this.state.categoryFilter} + {this.state.voivodeshipFilter}</p>
                         </CardBody>
                     </Card>
                 </Col>
@@ -80,12 +65,7 @@ export default class RelicsRankingPage extends Component {
                                 {
                                     this.state.IDs.map(id => {
                                             return (
-                                                <ListGroupItem>
-                                                    <ListGroupItemHeading>List group item heading</ListGroupItemHeading>
-                                                    <ListGroupItemText>
-                                                        <RelicRankingCard relicId={id}/>
-                                                    </ListGroupItemText>
-                                                </ListGroupItem>
+                                                <RankingListItem id={id}/>
                                             );
                                         }
                                     )
@@ -95,14 +75,27 @@ export default class RelicsRankingPage extends Component {
                     </Card>
                 </Col>
             </div>
-
-
         );
     }
 
     getTopRankedRelicIDs() {
         let self = this;
         this.reviewController.getTopRankedRelicIDs(5)
+            .then(response => {
+                self.setState(
+                    {
+                        IDs: response.data
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    getTopRankedRelicIDsWithFilter() {
+        let self = this;
+        this.reviewController.getTopRankedRelicIDsWithFilter(5, 'TODO', 'TODO')
             .then(response => {
                 self.setState(
                     {

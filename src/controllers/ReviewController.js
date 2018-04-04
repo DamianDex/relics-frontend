@@ -26,13 +26,16 @@ export default class ReviewController {
         return response;
     }
 
+    getTopRankedRelicIDsWithFilter(quantity, category, voivodeship) {
+        var filterChain = "?category=Mieszkalny&voivodeship=opolskie";
+        var response = axios.get(this.endpoint + 'relics/review/ranking/' + quantity + '/filter' + filterChain);
+        return response;
+    }
+
     postReview(id, rating, comment) {
         axios.post(this.endpoint + 'relics/review', {
             rating: rating,
             comment: comment,
-            appUser: {
-                id: 1
-            },
             relic: {
                 id: id
             }
