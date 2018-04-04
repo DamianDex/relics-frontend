@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Col, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
+import {Button, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavbarBrand, NavItem, NavLink} from 'reactstrap';
 import LoginControl from '../components/LoginControl'
 
 export default class CustomNavbar extends React.Component {

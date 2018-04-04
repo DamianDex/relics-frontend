@@ -23,7 +23,7 @@ export default class VoivodeshipFilterDropdown extends Component {
             <FormGroup class="voivodeship-filter">
                 <Label for="exampleSelect">Województwo</Label>
                 <Input type="select"
-                       name="select"
+                       name="voivodeship"
                        id="exampleSelect"
                        value={this.props.value}
                        onChange={this.props.onChangeValue}>
