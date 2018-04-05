@@ -27,7 +27,7 @@ export default class ReviewController {
     }
 
     getTopRankedRelicIDsWithFilter(quantity, category, voivodeship) {
-        var filterChain = "?category=Mieszkalny&voivodeship=opolskie";
+        var filterChain = "?category=" + category + "&voivodeship=" + voivodeship;
         var response = axios.get(this.endpoint + 'relics/review/ranking/' + quantity + '/filter' + filterChain);
         return response;
     }

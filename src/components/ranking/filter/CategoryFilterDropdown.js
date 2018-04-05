@@ -20,7 +20,7 @@ export default class CategoryFilterDropdown extends Component {
         return (
             <FormGroup>
                 <Label for="exampleSelect1">Kategoria</Label>
-                <Input type="select" name="select"
+                <Input type="select" name="category"
                        id="exampleSelect1"
                        value={this.props.value}
                        onChange={this.props.onChangeValue}>

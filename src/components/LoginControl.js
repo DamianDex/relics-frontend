@@ -24,9 +24,9 @@ export default class LoginControl extends React.Component {
 
         let button = null;
         if (isLoggedIn) {
-            button = <Button color="primary" onClick={this.handleLogoutClick}>Logout</Button>;
+            button = <Button outline color="success" onClick={this.handleLogoutClick}>Logout</Button>;
         } else {
-            button = <Button color="primary" onClick={this.handleLoginClick}>Login</Button>;
+            button = <Button outline color="success" onClick={this.handleLoginClick}>Login</Button>;
         }
 
         return (
