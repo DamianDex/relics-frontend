@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Form, Input} from 'reactstrap';
+import {Card, CardBody, CardHeader, Col, Form, Button, Input} from 'reactstrap';
 import axios from 'axios';
 
 export default class RegistrationPage extends Component {
@@ -40,13 +40,20 @@ export default class RegistrationPage extends Component {
 
     render() {
         return (
-            <Form>
-                <Input type="text" name="username" placeholder="Email" value={this.state.username}
-                       onChange={this.handleUsernameChange}/>
-                <Input type="password" name="password" placeholder="Password" value={this.state.password}
-                       onChange={this.handlePasswordChange}/>
-                <Button type="button" onClick={this.handleRegistration}>Register</Button>
-            </Form>
+        	<Form className="small-flex">
+    		<Col sm="12" md={{ size: 5}}>
+            	<Card >
+            		<CardHeader>Rejestracja</CardHeader>                	
+        			<CardBody>
+                    	<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
+                    			onChange={this.handleUsernameChange}/>
+                    	<Input className="sm-outside-marigins" type="password" name="password" placeholder="Password" value={this.state.password}
+                    			onChange={this.handlePasswordChange}/>
+                    	<Button outline color="success" className="float-right" onClick={this.handleRegistration}>Zarejestruj</Button>
+            		</CardBody>
+            	</Card>
+            </Col>
+        </Form>
         );
     }
 

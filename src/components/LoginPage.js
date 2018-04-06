@@ -1,7 +1,10 @@
 import React, {Component} from "react";
+import "../App.css";
 import {CONFIGURATION} from '../configuration/configuration'
-import {Button, Form, Input, NavLink} from 'reactstrap';
+import {Card, CardBody, CardHeader, CardFooter, Col, Label, Button, Input, NavLink, Form} from 'reactstrap';
 import axios from 'axios';
+import View from 'react-flexbox';
+
 
 export default class LoginPage extends Component {
 
@@ -52,18 +55,29 @@ export default class LoginPage extends Component {
             console.log(err);
         }
     }
-    
+	//<Button className="sm-bottom-marigin" type="button" onClick={this.test}>Profile test</Button><br/>
+
     render() {
         return (
-            <Form>
-                <label>Nie masz konta? <NavLink href="/register"> Zarejestruj sie!</NavLink></label>
-                <Input type="text" name="username" placeholder="Email" value={this.state.username}
-                       onChange={this.handleUsernameChange}/>
-                <Input type="password" name="password" placeholder="Password" value={this.state.password}
-                       onChange={this.handlePasswordChange}/>
-                <Button type="button" onClick={this.handleLogin}>Login</Button><br/>
-                <Button type="button" onClick={this.test}>Profile test</Button><br/>
-            </Form>
+        	<div className="small-flex">
+        		<Col sm="12" md={{ size: 5}}>
+                	<Card >
+                		<CardHeader>Zaloguj się</CardHeader>                	
+            			<CardBody>
+                			<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
+                					onChange={this.handleUsernameChange}/>
+                			<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
+                					onChange={this.handlePasswordChange}/>
+                			<Button outline color="success" className="float-right" onClick={this.handleLogin}>Login</Button><br/><br/>
+                            <CardFooter >
+                				<Label>Nie posiadasz jeszcze konta?</Label>
+                				<NavLink style={{display:'contents'}} href="/register"> Zarejestruj sie!</NavLink>
+                			</CardFooter>
+                		</CardBody>
+                	</Card>
+                </Col>
+            </div>
+
         );
     }
 

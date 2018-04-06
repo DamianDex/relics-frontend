@@ -30,6 +30,28 @@
     background: grey;
 }
 
+.small-flex {
+    display: flex;
+    height: 400px;
+    justify-content: center;
+	align-items: center;	
+}
+
+.sm-outside-marigins {
+	margin-bottom: 3px;
+	margin-top: 2px;
+}
+
+@media(max-height: 400px){
+.small-flex {
+    display: flex;
+    height: 280px;
+    justify-content: center;
+	align-items: center;	
+}
+	
+}
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
