@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {FormGroup, Input, Label} from 'reactstrap';
+import {FormGroup, Input, Label,Col} from 'reactstrap';
 import CategoryController from "../../../controllers/CategoryController";
 import "../../../constants/Voivodeships";
 import {VOIVODESHIPS} from "../../../constants/Voivodeships";
@@ -20,8 +20,9 @@ export default class VoivodeshipFilterDropdown extends Component {
 
     render() {
         return (
-            <FormGroup class="voivodeship-filter">
-                <Label for="exampleSelect">Województwo</Label>
+            <FormGroup class="voivodeship-filter" row>
+                <Label for="exampleSelect" sm={2}>Województwo</Label>
+                <Col sm={10}>
                 <Input type="select"
                        name="voivodeship"
                        id="exampleSelect"
@@ -36,6 +37,7 @@ export default class VoivodeshipFilterDropdown extends Component {
                         })
                     }
                 </Input>
+                </Col>
             </FormGroup>
         );
     }

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {FormGroup, Input, Label,Col} from 'reactstrap';
 import CategoryController from "../../../controllers/CategoryController";
 
-export default class CategoryFilterDropdown extends Component {
+export default class CategoryMultipleDropdown extends Component {
     constructor(props) {
         super(props);
         this.categoryController = new CategoryController();
@@ -18,14 +18,11 @@ export default class CategoryFilterDropdown extends Component {
 
     render() {
         return (
-            <FormGroup row>
-                <Label for="exampleSelect1" sm={2}>Kategoria</Label>
+            <FormGroup>
+                <Label for="category" sm={2}>Kategoria</Label>
                 <Col sm={10}>
-                <Input type="select" name="category"
-                       id="exampleSelect1"
-                       value={[this.props.value]}
-                       onChange={this.props.onChangeValue}>
-                    <option></option>
+                            <select name="category[]" id="inscompSelected" multiple="multiple" class="lstSelected"
+                            value={this.state.value} onChange={this.handleChange}>
                     {
                         this.state.categories.map(item => {
                             return (
@@ -33,7 +30,7 @@ export default class CategoryFilterDropdown extends Component {
                             );
                         })
                     }
-                </Input>
+                            </select>
                 </Col>
             </FormGroup>
         );
@@ -55,5 +52,3 @@ export default class CategoryFilterDropdown extends Component {
     }
 
 }
-
-
