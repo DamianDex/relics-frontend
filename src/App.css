@@ -42,6 +42,13 @@
 	margin-top: 2px;
 }
 
+.error-label {
+    display: block;
+    text-align: center;
+	font-size: .85em;
+    color: red;
+}
+
 @media(max-height: 400px){
 .small-flex {
     display: flex;
@@ -49,7 +56,6 @@
     justify-content: center;
 	align-items: center;	
 }
-	
 }
 
 @keyframes App-logo-spin {

@@ -47,7 +47,7 @@ export default class RegistrationPage extends Component {
         			<CardBody>
                     	<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
                     			onChange={this.handleUsernameChange}/>
-                    	<Input className="sm-outside-marigins" type="password" name="password" placeholder="Password" value={this.state.password}
+                    	<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
                     			onChange={this.handlePasswordChange}/>
                     	<Button outline color="success" className="float-right" onClick={this.handleRegistration}>Zarejestruj</Button>
             		</CardBody>

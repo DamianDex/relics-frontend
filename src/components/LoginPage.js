@@ -3,7 +3,6 @@ import "../App.css";
 import {CONFIGURATION} from '../configuration/configuration'
 import {Card, CardBody, CardHeader, CardFooter, Col, Label, Button, Input, NavLink, Form} from 'reactstrap';
 import axios from 'axios';
-import View from 'react-flexbox';
 
 
 export default class LoginPage extends Component {
@@ -66,8 +65,10 @@ export default class LoginPage extends Component {
             			<CardBody>
                 			<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
                 					onChange={this.handleUsernameChange}/>
+                			<Label className="error-label">Jakas wiadomosc</Label>
                 			<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
                 					onChange={this.handlePasswordChange}/>
+                			<Label className="error-label">Jakas wiadomosc</Label>
                 			<Button outline color="success" className="float-right" onClick={this.handleLogin}>Login</Button><br/><br/>
                             <CardFooter >
                 				<Label>Nie posiadasz jeszcze konta?</Label>
