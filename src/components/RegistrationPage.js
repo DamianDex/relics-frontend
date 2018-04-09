@@ -1,16 +1,17 @@
 import React, {Component} from "react";
-import {Card, CardBody, CardHeader, Col, Form, Button, Input} from 'reactstrap';
+import {Card, CardBody, CardHeader, Col, Form, Button, Input, Label} from 'reactstrap';
 import axios from 'axios';
 
 export default class RegistrationPage extends Component {
-
-
+	
+	
     constructor(props) {
         super(props);
         this.handleRegistration = this.handleRegistration.bind(this);
-        this.state = {username: '', password: ''};
+        this.state = {username: '', password: '', errorMessage: null};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.changeErrorMessage = this.changeErrorMessage.bind(this);
     }
 
     handleUsernameChange(e) {
@@ -21,6 +22,10 @@ export default class RegistrationPage extends Component {
         this.setState({password: e.target.value});
     }
 
+    changeErrorMessage(errorMsg){
+    	this.setState({errorMessage: errorMsg});
+    }
+    
     async handleRegistration(e) {
         try {
             let data = JSON.stringify({
@@ -33,6 +38,11 @@ export default class RegistrationPage extends Component {
                         'Content-Type': 'application/json',
                     }
                 });
+            if (response.data['result'] === "ERROR"){
+                this.changeErrorMessage(response.data['description']);
+            } else {
+            	window.location = "/login";
+            }
         } catch (err) {
             console.log(err);
         }
@@ -49,7 +59,8 @@ export default class RegistrationPage extends Component {
                     			onChange={this.handleUsernameChange}/>
                     	<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
                     			onChange={this.handlePasswordChange}/>
-                    	<Button outline color="success" className="float-right" onClick={this.handleRegistration}>Zarejestruj</Button>
+                    	<Label className="error-label">{this.state.errorMessage}</Label>
+                    	<Button outline color="success" className="float-right" onClick={this.handleRegistration}>Zarejestruj</Button>     			
             		</CardBody>
             	</Card>
             </Col>

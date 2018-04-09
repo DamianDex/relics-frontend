@@ -1,16 +1,43 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import {BrowserRouter} from 'react-router-dom'
+import Header from "./Header";
+import { Router } from 'react-router'
+import { createBrowserHistory } from 'history'
+import { createStore } from 'redux';
+import { Provider } from 'react-redux'
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-//Jak chcecie poczytac o routerach to polecam:
-//https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
+const loginReducer = (state, action) => {
+  switch (action.type) {
+    case 'LOGIN':
+      return { ...state, logged: true };
+    case 'LOGOUT':
+      return { ...state, logged: false };
+    default:
+      return { ...state, persistedState };
+    }
+};
+
+const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+
+const store = createStore(
+	  loginReducer,
+	  persistedState
+)
+
+store.subscribe(()=>{
+	  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
+})
+
+export const history = createBrowserHistory();
 
 ReactDOM.render((
-    <BrowserRouter>
-        <App/>
-    </BrowserRouter>
+	<Provider store={store}>
+		<Router history={history}>
+       		<App/>
+       	</Router>
+    </Provider>
 ), document.getElementById('root'))

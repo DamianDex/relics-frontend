@@ -14,9 +14,10 @@ import RegistrationPage from "./components/RegistrationPage";
 
 export default class App extends Component {
     render() {
+        window.logged = true;
         return (
             <div>
-                <Header/>
+    			<Header/>
                 <Switch>
                     <Route exact path='/' component={MainPage}/>
                     <Route exact path='/login' component={LoginPage}/>

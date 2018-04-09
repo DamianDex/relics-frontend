@@ -1,17 +1,24 @@
-import React, {Component} from "react";
+import React, {Component } from "react";
 import "../App.css";
 import {CONFIGURATION} from '../configuration/configuration'
 import {Card, CardBody, CardHeader, CardFooter, Col, Label, Button, Input, NavLink, Form} from 'reactstrap';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
+import { history } from '../index'
 
 
-export default class LoginPage extends Component {
 
+class LoginPage extends Component {
+	
+	static propTypes = {
+		onLogin: PropTypes.func
+    };
+	
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
-        this.test = this.test.bind(this);
-        this.state = {username: '', password: ''};
+        this.state = {username: '', password: '', errorMessage: null};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT
@@ -24,8 +31,13 @@ export default class LoginPage extends Component {
     handlePasswordChange(e) {
         this.setState({password: e.target.value});
     }
+    
+    changeErrorMessage(errorMsg){
+    	this.setState({errorMessage: errorMsg});
+    }
 
     async handleLogin(e) {
+    	const { onLogin } = this.props;      
         try {
             var response = await axios.post(this.endpoint + '/login',
                 JSON.stringify({username: this.state.username, password: this.state.password}),
@@ -33,27 +45,27 @@ export default class LoginPage extends Component {
             var jwtToken = response.headers['authorization'];
             if (jwtToken != null){
                 sessionStorage.setItem("jwtToken", response.headers['authorization']);
-            }
-            
-        } catch (err) {
-            console.log(err);
+                onLogin();
+                history.goBack();
+            }   
+        } catch (error) {
+        	console.log(error);
+            this.changeErrorMessage(error.response.data['message']);
         }
-        console.log("sessionstoragetoken: " + sessionStorage.getItem("jwtToken"));
     }
 
-    async test(e) {
-        try {
-            var response = await axios.post(this.endpoint + '/api/my-profile', {},
-            	{headers:{
-            		'authorization': sessionStorage.getItem('jwtToken')
-            	}},
-                {withCredentials: true});
-            console.log(response);
-            
-        } catch (err) {
-            console.log(err);
-        }
-    }
+//    async test(e) {
+//        try {
+//            var response = await axios.post(this.endpoint + '/api/my-profile', {},
+//            	{headers:{
+//            		'authorization': sessionStorage.getItem('jwtToken')
+//            	}},
+//                {withCredentials: true});            
+//        } catch (error) {
+//            this.changeErrorMessage(error.response.data['message']);
+//
+//        }
+//    }
 	//<Button className="sm-bottom-marigin" type="button" onClick={this.test}>Profile test</Button><br/>
 
     render() {
@@ -65,10 +77,9 @@ export default class LoginPage extends Component {
             			<CardBody>
                 			<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
                 					onChange={this.handleUsernameChange}/>
-                			<Label className="error-label">Jakas wiadomosc</Label>
                 			<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
                 					onChange={this.handlePasswordChange}/>
-                			<Label className="error-label">Jakas wiadomosc</Label>
+                			<Label className="error-label">{ this.state.errorMessage}</Label>
                 			<Button outline color="success" className="float-right" onClick={this.handleLogin}>Login</Button><br/><br/>
                             <CardFooter >
                 				<Label>Nie posiadasz jeszcze konta?</Label>
@@ -83,5 +94,18 @@ export default class LoginPage extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+	  return { logged: state.logged };
+};
+
+const mapDispatchToProps = (dispatch) => {
+	  return {
+	    onLogin: () => dispatch({ type: 'LOGIN' }),
+	  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+
 
 
