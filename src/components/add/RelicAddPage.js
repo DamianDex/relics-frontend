@@ -235,7 +235,7 @@ export default class RelicAddPage extends React.Component {
                               </Col>
                             </FormGroup>
                             <FormGroup check row>
-                              <Col sm={{ size: 10, offset: 10 }}>
+                              <Col sm={{ size: 2, offset: 10 }}>
                                 <Button outline color = "primary" onClick={this.handleClick}>Dodaj Zabytek</Button>
                               </Col>
                             </FormGroup>
