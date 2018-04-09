@@ -101,6 +101,7 @@ export default class ReviewComponent extends Component {
                         <CardHeader>
                             <p>{review.appUser.username}</p>
                             <p>{review.creationDate}</p>
+                            <p>{review.id}</p>
                         </CardHeader>
                         <CardBody>
                             <CardText>Ocena: {review.rating} / 10</CardText>
