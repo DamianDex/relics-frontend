@@ -1,12 +1,11 @@
 import React, {Component } from "react";
 import "../App.css";
 import {CONFIGURATION} from '../configuration/configuration'
-import {Card, CardBody, CardHeader, CardFooter, Col, Label, Button, Input, NavLink, Form} from 'reactstrap';
+import {Card, CardBody, CardHeader, CardFooter, Col, Label, Button, Input, NavLink, Alert} from 'reactstrap';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import { history } from '../index'
-
 
 
 class LoginPage extends Component {
@@ -17,11 +16,13 @@ class LoginPage extends Component {
 	
     constructor(props) {
         super(props);
+        var logout = window.location.search == '?logout' ? true: null;
+        var tokenExpired = window.location.search == '?expired' ? true: null;
         this.handleLogin = this.handleLogin.bind(this);
-        this.state = {username: '', password: '', errorMessage: null};
+        this.state = {username: '', password: '', errorMessage: null, logout: logout, tokenExpired: tokenExpired};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
-        this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT
+        this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT;
     }
 
     handleUsernameChange(e) {
@@ -69,9 +70,19 @@ class LoginPage extends Component {
 	//<Button className="sm-bottom-marigin" type="button" onClick={this.test}>Profile test</Button><br/>
 
     render() {
+    	let alert = null; 
+    	console.log(this.state.logout)
+    	console.log(this.state.tokenExpired)
+    	if (this.state.logout != null){
+    		alert = <Alert color="success" visibility={this.state.logout}>Zostałeś pomyślnie wylogowany.</Alert>
+    	} else if (this.state.tokenExpired != null){
+    		alert = <Alert color="danger" visibility={this.state.logout}>Sesja wygasła, zaloguj się ponownie.</Alert>
+    	}
+    	
         return (
         	<div className="small-flex">
         		<Col sm="12" md={{ size: 5}}>
+					{alert}
                 	<Card >
                 		<CardHeader>Zaloguj się</CardHeader>                	
             			<CardBody>

@@ -14,7 +14,6 @@ import RegistrationPage from "./components/RegistrationPage";
 
 export default class App extends Component {
     render() {
-        window.logged = true;
         return (
             <div>
     			<Header/>

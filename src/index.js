@@ -21,16 +21,14 @@ const loginReducer = (state, action) => {
     }
 };
 
-const persistedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {}
+console.log(sessionStorage.getItem('jwtToken'));
+
+const persistedState = sessionStorage.getItem('jwtToken') ? {logged: true} : {logged: false}
 
 const store = createStore(
 	  loginReducer,
 	  persistedState
 )
-
-store.subscribe(()=>{
-	  localStorage.setItem('reduxState', JSON.stringify(store.getState()))
-})
 
 export const history = createBrowserHistory();
 

@@ -52,7 +52,7 @@
 @media(max-height: 400px){
 .small-flex {
     display: flex;
-    height: 280px;
+    height: 320px;
     justify-content: center;
 	align-items: center;	
 }
