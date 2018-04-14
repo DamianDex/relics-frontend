@@ -89,9 +89,7 @@ export default class RelicsRankingPage extends Component {
                         </CardBody>
                     </Card>
                 </Col>
-
                 <br/>
-
                 <Col sm="12" md={{size: 10, offset: 1}}>
                     <Button block outline color="success" onClick={this.handleMore}>Załaduj więcej (+2)
                         / {this.state.rankingSize}</Button>

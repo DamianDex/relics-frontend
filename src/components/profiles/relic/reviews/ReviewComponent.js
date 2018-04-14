@@ -1,12 +1,14 @@
 import React, {Component} from "react";
 import {Button, Card, CardBody, CardHeader, CardText, FormGroup, Input} from "reactstrap";
 import ReviewController from "../../../../controllers/ReviewController";
+import VoteController from "../../../../controllers/VoteController";
 
 export default class ReviewComponent extends Component {
     constructor(props) {
         super(props);
 
         this.reviewController = new ReviewController();
+        this.voteController = new VoteController();
 
         this.state = {
             reviews: [],
@@ -66,6 +68,10 @@ export default class ReviewComponent extends Component {
         this.reviewController.postReview(this.props.id, this.state.rating, this.state.comment);
     }
 
+    positiveVote(id) {
+        this.voteController.postVote(id)
+    }
+
     renderReviewForm() {
         return (
             <div>
@@ -101,11 +107,14 @@ export default class ReviewComponent extends Component {
                         <CardHeader>
                             <p>{review.appUser.username}</p>
                             <p>{review.creationDate}</p>
-                            <p>{review.id}</p>
                         </CardHeader>
                         <CardBody>
                             <CardText>Ocena: {review.rating} / 10</CardText>
                             <p>Recenzja: {review.comment}</p>
+                            <p>{review.positiveVotes} użytkowników lubi tą recenzję.</p>
+                            <p>{review.negativeVotes} uzytkowników nie lubi tej recenzji.</p>
+                            <Button color="success"  outline onClick={() => this.positiveVote(review.id)}>Recenzja przydatna!</Button>
+                            <Button color="danger" outline  onClick={this.postReview}>Recenzja słaba!</Button>
                         </CardBody>
                     </Card>
                     <br/>
