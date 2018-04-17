@@ -10,8 +10,8 @@ export default class CoordinatesPicker extends Component {
 
         this.state = {
             coordinates: {
-                latitude: '52',
-                longitude: '21'
+                latitude: '',
+                longitude: ''
             }
         }
     }
@@ -24,15 +24,15 @@ export default class CoordinatesPicker extends Component {
                     <Gmaps
                         width={'100%'}
                         height={'600px'}
-                        lat={this.props.coordinates.latitude}
-                        lng={this.props.coordinates.longitude}
-                        zoom={12}
+                        lat='52'
+                        lng='19'
+                        zoom={6}
                         loadingMessage={'Be happy'}
                         params={params}
                         onMapCreated={this.onMapCreated}>
                         <Marker
-                            lat={this.props.coordinates.latitude}
-                            lng={this.props.coordinates.longitude}
+                        lat='52'
+                        lng='21'
                             draggable={true}
                             onDragEnd={this.props.onChangeValue}/>
                     </Gmaps>

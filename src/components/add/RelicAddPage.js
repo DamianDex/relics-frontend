@@ -13,10 +13,10 @@ import {
     Label,
     Row,
     Alert,
-        Modal,
-        ModalBody,
-        ModalFooter,
-        ModalHeader
+    Modal,
+    ModalBody,
+    ModalFooter,
+    ModalHeader
 } from 'reactstrap';
 import axios from "axios";
 import CategoryFilterDropdown from "../ranking/filter/CategoryFilterDropdown";
@@ -323,15 +323,15 @@ export default class RelicAddPage extends React.Component {
                                     </Form>
                                     <p> * pola wymagane</p>
                                 </Col>
-                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                        <ModalHeader toggle={this.toggle}>Uzupełnij pola wymagane</ModalHeader>
-                        <ModalBody>
-                            Pola oznaczone *, są polami wymaganymi. Uzupełnij wymagane pola i spróbuj ponownie.
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button color="primary" onClick={this.toggle}>OK</Button>
-                        </ModalFooter>
-                    </Modal>
+                                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                                    <ModalHeader toggle={this.toggle}>Uzupełnij pola wymagane</ModalHeader>
+                                    <ModalBody>
+                                        Pola oznaczone *, są polami wymaganymi. Uzupełnij wymagane pola i spróbuj ponownie.
+                                    </ModalBody>
+                                    <ModalFooter>
+                                        <Button color="primary" onClick={this.toggle}>OK</Button>
+                                    </ModalFooter>
+                                </Modal>
                             </CardBody>
                         </Card>
                     </Col>
