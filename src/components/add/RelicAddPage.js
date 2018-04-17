@@ -11,7 +11,12 @@ import {
     InputGroup,
     InputGroupAddon,
     Label,
-    Row
+    Row,
+    Alert,
+        Modal,
+        ModalBody,
+        ModalFooter,
+        ModalHeader
 } from 'reactstrap';
 import axios from "axios";
 import CategoryFilterDropdown from "../ranking/filter/CategoryFilterDropdown";
@@ -34,6 +39,8 @@ export default class RelicAddPage extends React.Component {
             communeName: '',
             category: '',
             images: '',
+            visible: false,
+            modal: false,
 
             isPickerOpen: false,
             coordinates: {
@@ -56,6 +63,7 @@ export default class RelicAddPage extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleCoordinatesChange = this.handleCoordinatesChange.bind(this);
         this.handlePickerClick = this.handlePickerClick.bind(this);
+        this.toggle = this.toggle.bind(this);
     }
 
     handleIdentificationChange(e) {
@@ -117,11 +125,18 @@ export default class RelicAddPage extends React.Component {
         })
     }
 
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
     handleClick(e) {
         if (this.state.identification === '' || this.state.registerNumber === '' || this.state.category === '') {
-            alert('Uzupełnij wymagane pola');
+            this.setState({modal:true})
         }
         else {
+            this.setState({visible:true})
             var identification = this.state.identification;
             var description = this.state.description;
             var registerNumber = this.state.registerNumber;
@@ -170,7 +185,6 @@ export default class RelicAddPage extends React.Component {
             })
                 .then(function (response) {
                     console.log(response);
-                    alert('Zabytek został dodany do bazy');
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -303,12 +317,23 @@ export default class RelicAddPage extends React.Component {
                                                     Zabytek</Button>
                                             </Col>
                                         </FormGroup>
+                                        <Alert color="success" isOpen={this.state.visible} >
+                                            Zabytek został dodany do bazy.
+                                        </Alert>
                                     </Form>
                                     <p> * pola wymagane</p>
                                 </Col>
+                    <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <ModalHeader toggle={this.toggle}>Uzupełnij pola wymagane</ModalHeader>
+                        <ModalBody>
+                            Pola oznaczone *, są polami wymaganymi. Uzupełnij wymagane pola i spróbuj ponownie.
+                        </ModalBody>
+                        <ModalFooter>
+                            <Button color="primary" onClick={this.toggle}>OK</Button>
+                        </ModalFooter>
+                    </Modal>
                             </CardBody>
                         </Card>
-                        <br/>
                     </Col>
                 </Row>
 
