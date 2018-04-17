@@ -216,7 +216,7 @@ export default class RelicAddPage extends React.Component {
                                                        onChange={this.handleIdentificationChange}/>
                                             </Col>
                                         </FormGroup>
-                                        <CategoryFilterDropdown value={this.state.category}
+                                        <CategoryFilterDropdown labelName='Kategoria *' value={this.state.category}
                                                                 onChangeValue={this.handleCategory}/>
                                         <FormGroup row>
                                             <Label for="registerNumber" sm={2}>Numer w rejestrze *</Label>
@@ -323,10 +323,11 @@ export default class RelicAddPage extends React.Component {
                                     </Form>
                                     <p> * pola wymagane</p>
                                 </Col>
-                                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                                <Modal isOpen={this.state.modal} toggle={this.toggle}>
                                     <ModalHeader toggle={this.toggle}>Uzupełnij pola wymagane</ModalHeader>
                                     <ModalBody>
-                                        Pola oznaczone *, są polami wymaganymi. Uzupełnij wymagane pola i spróbuj ponownie.
+                                        Pola oznaczone *, są polami wymaganymi. Uzupełnij wymagane pola
+                                        i spróbuj ponownie.
                                     </ModalBody>
                                     <ModalFooter>
                                         <Button color="primary" onClick={this.toggle}>OK</Button>

@@ -52,7 +52,7 @@ export default class RelicsRankingPage extends Component {
                             <div className="filter-component">
                                 <Form inline >
                                     <Col sm={6}>
-                                    <CategoryFilterDropdown value={this.state.categoryFilter}
+                                    <CategoryFilterDropdown labelName="Kategoria" value={this.state.categoryFilter}
                                                             onChangeValue={this.handleCategoryFilterChange}/>
                                     </Col>
                                     <Col sm={6}>

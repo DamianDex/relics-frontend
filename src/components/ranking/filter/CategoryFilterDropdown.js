@@ -19,7 +19,7 @@ export default class CategoryFilterDropdown extends Component {
     render() {
         return (
             <FormGroup row>
-                <Label for="exampleSelect1" sm={2}>Kategoria</Label>
+                <Label for="exampleSelect1" sm={2}>{this.props.labelName}</Label>
                 <Col sm={10}>
                 <Input type="select" name="category"
                        id="exampleSelect1"
