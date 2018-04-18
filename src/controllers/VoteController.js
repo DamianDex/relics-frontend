@@ -6,9 +6,9 @@ export default class VoteController {
         this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT + '/api/'
     }
 
-    postVote(id) {
+    postVote(id, value) {
         axios.post(this.endpoint + 'review/' + id + '/vote', {
-            isPositive: true
+            isPositive: value
         }, {
             headers: {
                 'Accept': 'application/json',
@@ -21,5 +21,15 @@ export default class VoteController {
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    getPositiveVotesQuantity(id) {
+        var response = axios.get(this.endpoint + 'review/' + id + '/vote/positive');
+        return response;
+    }
+
+    getNegativeVotesQuantity(id) {
+        var response = axios.get(this.endpoint + 'review/' + id + '/vote/negative');
+        return response;
     }
 }

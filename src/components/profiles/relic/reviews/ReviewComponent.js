@@ -69,7 +69,11 @@ export default class ReviewComponent extends Component {
     }
 
     positiveVote(id) {
-        this.voteController.postVote(id)
+        this.voteController.postVote(id, true)
+    }
+
+    negativeVote(id) {
+        this.voteController.postVote(id, false)
     }
 
     renderReviewForm() {
@@ -111,10 +115,10 @@ export default class ReviewComponent extends Component {
                         <CardBody>
                             <CardText>Ocena: {review.rating} / 10</CardText>
                             <p>Recenzja: {review.comment}</p>
-                            <p>{review.positiveVotes} użytkowników lubi tą recenzję.</p>
-                            <p>{review.negativeVotes} uzytkowników nie lubi tej recenzji.</p>
+                            <p>{this.showPositiveVotes(review.votes)} użytkowników lubi tą recenzję.</p>
+                            <p>{this.showNegativeVotes(review.votes)} uzytkowników nie lubi tej recenzji.</p>
                             <Button color="success"  outline onClick={() => this.positiveVote(review.id)}>Recenzja przydatna!</Button>
-                            <Button color="danger" outline  onClick={this.postReview}>Recenzja słaba!</Button>
+                            <Button color="danger" outline  onClick={() => this.negativeVote(review.id)}>Recenzja słaba!</Button>
                         </CardBody>
                     </Card>
                     <br/>
@@ -153,4 +157,15 @@ export default class ReviewComponent extends Component {
             });
     }
 
+    showPositiveVotes(votes) {
+        return votes.filter(vote => {
+            return vote.isPositive
+        }).length
+    }
+
+    showNegativeVotes(votes) {
+        return votes.filter(vote => {
+            return !vote.isPositive
+        }).length
+    }
 }
