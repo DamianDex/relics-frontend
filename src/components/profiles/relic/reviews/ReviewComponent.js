@@ -3,6 +3,7 @@ import {Button, Card, CardBody, CardHeader, CardText, FormGroup, Input} from "re
 import ReviewController from "../../../../controllers/ReviewController";
 import VoteController from "../../../../controllers/VoteController";
 import ReviewCommentModal from "./ReviewCommentModal";
+import SingleReviewComponent from "./SingleReviewComponent";
 
 export default class ReviewComponent extends Component {
     constructor(props) {
@@ -16,16 +17,11 @@ export default class ReviewComponent extends Component {
             isReviewed: false,
             comment: '',
             rating: '',
-
-            isCommentModalOpen: false,
-            reviewIdToComment: -1,
         }
 
         this.postReview = this.postReview.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
         this.handleRatingChange = this.handleRatingChange.bind(this);
-        this.handleReviewCommentClick = this.handleReviewCommentClick.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentDidMount() {
@@ -41,11 +37,6 @@ export default class ReviewComponent extends Component {
         this.setState({comment: e.target.value})
     }
 
-    handleCancel(e) {
-        this.setState({
-            isCommentModalOpen: !this.state.isCommentModalOpen
-        })
-    }
 
     render() {
         if ((!this.state.isReviewed) && (this.state.reviews.length > 0)) {
@@ -53,10 +44,6 @@ export default class ReviewComponent extends Component {
                 <div>
                     {this.renderReviewForm()}
                     {this.renderReviews()}
-                    <ReviewCommentModal isOpen={this.state.isCommentModalOpen}
-                                        handleCancel={this.handleCancel}
-                                        handleAccept={this.handleCancel}
-                                        reviewId={this.state.reviewIdToComment}/>
                 </div>
             )
         }
@@ -80,14 +67,6 @@ export default class ReviewComponent extends Component {
 
     postReview() {
         this.reviewController.postReview(this.props.id, this.state.rating, this.state.comment);
-    }
-
-    positiveVote(id) {
-        this.voteController.postVote(id, true)
-    }
-
-    negativeVote(id) {
-        this.voteController.postVote(id, false)
     }
 
     renderReviewForm() {
@@ -120,37 +99,13 @@ export default class ReviewComponent extends Component {
     renderReviews() {
         return (
             this.state.reviews.map((review, index) => (
-                <div>
-                    <Card>
-                        <CardHeader>
-                            <p>{review.appUser.username}</p>
-                            <p>{review.creationDate}</p>
-                        </CardHeader>
-                        <CardBody>
-                            <CardText>Ocena: {review.rating} / 10</CardText>
-                            <p>Recenzja: {review.comment}</p>
-                            <p>{this.showPositiveVotes(review.votes)} użytkowników lubi tą recenzję.</p>
-                            <p>{this.showNegativeVotes(review.votes)} uzytkowników nie lubi tej recenzji.</p>
-                            <Button color="success" outline onClick={() => this.positiveVote(review.id)}>Recenzja
-                                przydatna!</Button>{' '}
-                            <Button color="danger" outline onClick={() => this.negativeVote(review.id)}>Recenzja
-                                słaba!</Button>{' '}
-                            <Button color="primary" outline
-                                    onClick={() => this.handleReviewCommentClick(review.id)}>Skomentuj!</Button>{' '}
-                            <Button color="info" outline onClick={() => this.handleReviewCommentClick(review.id)}>Pokaż
-                                komentarze!</Button>
-                        </CardBody>
-                    </Card>
-                    <br/>
-                </div>
+                <SingleReviewComponent username={review.appUser.username}
+                                       creationDate={review.creationDate}
+                                       rating={review.rating}
+                                       comment={review.comment}
+                                       votes={review.votes}
+                                       id={review.id}/>
             )));
-    }
-
-    handleReviewCommentClick(id) {
-        this.setState({
-            reviewIdToComment: id,
-            isCommentModalOpen: !this.state.isCommentModalOpen
-        })
     }
 
     getRelicReviews() {
@@ -182,17 +137,5 @@ export default class ReviewComponent extends Component {
             .catch(error => {
                 console.log(error);
             });
-    }
-
-    showPositiveVotes(votes) {
-        return votes.filter(vote => {
-            return vote.isPositive
-        }).length
-    }
-
-    showNegativeVotes(votes) {
-        return votes.filter(vote => {
-            return !vote.isPositive
-        }).length
     }
 }
