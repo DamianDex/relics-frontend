@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Button, Card, CardBody, CardHeader, CardText, FormGroup, Input} from "reactstrap";
 import ReviewController from "../../../../controllers/ReviewController";
 import VoteController from "../../../../controllers/VoteController";
+import ReviewCommentModal from "./ReviewCommentModal";
 
 export default class ReviewComponent extends Component {
     constructor(props) {
@@ -14,12 +15,17 @@ export default class ReviewComponent extends Component {
             reviews: [],
             isReviewed: false,
             comment: '',
-            rating: ''
+            rating: '',
+
+            isCommentModalOpen: false,
+            reviewIdToComment: -1,
         }
 
         this.postReview = this.postReview.bind(this);
         this.handleCommentChange = this.handleCommentChange.bind(this);
         this.handleRatingChange = this.handleRatingChange.bind(this);
+        this.handleReviewCommentClick = this.handleReviewCommentClick.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
 
     componentDidMount() {
@@ -35,13 +41,22 @@ export default class ReviewComponent extends Component {
         this.setState({comment: e.target.value})
     }
 
-    render() {
+    handleCancel(e) {
+        this.setState({
+            isCommentModalOpen: !this.state.isCommentModalOpen
+        })
+    }
 
+    render() {
         if ((!this.state.isReviewed) && (this.state.reviews.length > 0)) {
             return (
                 <div>
                     {this.renderReviewForm()}
                     {this.renderReviews()}
+                    <ReviewCommentModal isOpen={this.state.isCommentModalOpen}
+                                        handleCancel={this.handleCancel}
+                                        handleAccept={this.handleCancel}
+                                        reviewId={this.state.reviewIdToComment}/>
                 </div>
             )
         }
@@ -61,7 +76,6 @@ export default class ReviewComponent extends Component {
                 </div>
             )
         }
-
     }
 
     postReview() {
@@ -95,7 +109,7 @@ export default class ReviewComponent extends Component {
                                    name="text"
                                    id="exampleText" onChange={this.handleCommentChange}/>
                         </FormGroup>
-                        <Button color="primary" onClick={this.postReview}>Zatwierdź ocenę!</Button>
+                        <Button color="primary" outline onClick={this.postReview}>Zatwierdź ocenę!</Button>
                     </CardBody>
                 </Card>
                 <br/>
@@ -117,13 +131,26 @@ export default class ReviewComponent extends Component {
                             <p>Recenzja: {review.comment}</p>
                             <p>{this.showPositiveVotes(review.votes)} użytkowników lubi tą recenzję.</p>
                             <p>{this.showNegativeVotes(review.votes)} uzytkowników nie lubi tej recenzji.</p>
-                            <Button color="success"  outline onClick={() => this.positiveVote(review.id)}>Recenzja przydatna!</Button>
-                            <Button color="danger" outline  onClick={() => this.negativeVote(review.id)}>Recenzja słaba!</Button>
+                            <Button color="success" outline onClick={() => this.positiveVote(review.id)}>Recenzja
+                                przydatna!</Button>{' '}
+                            <Button color="danger" outline onClick={() => this.negativeVote(review.id)}>Recenzja
+                                słaba!</Button>{' '}
+                            <Button color="primary" outline
+                                    onClick={() => this.handleReviewCommentClick(review.id)}>Skomentuj!</Button>{' '}
+                            <Button color="info" outline onClick={() => this.handleReviewCommentClick(review.id)}>Pokaż
+                                komentarze!</Button>
                         </CardBody>
                     </Card>
                     <br/>
                 </div>
             )));
+    }
+
+    handleReviewCommentClick(id) {
+        this.setState({
+            reviewIdToComment: id,
+            isCommentModalOpen: !this.state.isCommentModalOpen
+        })
     }
 
     getRelicReviews() {
