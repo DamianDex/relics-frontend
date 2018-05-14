@@ -15,7 +15,7 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
     }
 
     componentDidMount() {
-        this.getRandomRelicIDs();
+        this.getThreeCloseToMeRandomRelics(this.props.latitude, this.props.longitude, this.props.maximum);
     }
 
     render() {
@@ -34,6 +34,21 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
     getRandomRelicIDs() {
         let self = this;
         this.relicController.getRandomRelicIds(3)
+            .then(response => {
+                self.setState(
+                    {
+                        IDs: response.data
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    getThreeCloseToMeRandomRelics(latitude, longitude, maximum) {
+        let self = this;
+        this.relicController.getRandomRelicIDsByDistance(3, latitude, longitude, maximum)
             .then(response => {
                 self.setState(
                     {

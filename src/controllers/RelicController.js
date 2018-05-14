@@ -20,4 +20,10 @@ export default class RelicController {
         var response = axios.get(this.endpoint + 'geographic/' + id);
         return response;
     }
+
+    getRandomRelicIDsByDistance(count, latitude, longitude, maximum) {
+        var filterChain = "?latitude=" + latitude + "&longitude=" + longitude + "&maximum=" + maximum;
+        var response = axios.get(this.endpoint + 'relics/random/distance/' + count + filterChain);
+        return response;
+    }
 }
