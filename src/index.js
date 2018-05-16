@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
+import 'bootstrap/dist/css/glyphicon.css';
 
 const loginReducer = (state, action) => {
   switch (action.type) {

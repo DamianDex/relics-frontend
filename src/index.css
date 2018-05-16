@@ -1,5 +1,13 @@
-body {
+html, body {
+    height: 100%;
+    width: 100%;
     margin: 0;
-    padding: 0;
-    font-family: sans-serif;
+}
+ 
+#inner_fixed {
+    height: 60px;
+}
+ 
+#inner_remaining {
+    height: calc(100% - 60px);    
 }
