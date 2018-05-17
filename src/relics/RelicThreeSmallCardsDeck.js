@@ -19,8 +19,15 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
     }
 
     render() {
-        return (
-            <CardGroup>
+        if (this.state.IDs.length == 0) {
+            return (
+                <div>
+                    <p>Trwa wyszukiwanie zabytków w pobliżu</p>
+                </div>
+            )
+        }
+
+        return (<CardGroup>
                 {
                     this.state.IDs.map(id => {
                             return <RelicSmallCard id={id}/>;
@@ -28,7 +35,8 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
                     )
                 }
             </CardGroup>
-        );
+        )
+
     }
 
     getRandomRelicIDs() {
