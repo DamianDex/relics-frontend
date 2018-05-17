@@ -33,7 +33,7 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
 
     getRandomRelicIDs() {
         let self = this;
-        this.relicController.getRandomRelicIds(3)
+        this.relicController.getRandomRelicIds(4)
             .then(response => {
                 self.setState(
                     {
@@ -48,7 +48,7 @@ export default class RelicThreeSmallCardsDeck extends React.Component {
 
     getThreeCloseToMeRandomRelics(latitude, longitude, maximum) {
         let self = this;
-        this.relicController.getRandomRelicIDsByDistance(3, latitude, longitude, maximum)
+        this.relicController.getRandomRelicIDsByDistance(4, latitude, longitude, maximum)
             .then(response => {
                 self.setState(
                     {

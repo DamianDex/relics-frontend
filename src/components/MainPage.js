@@ -38,19 +38,7 @@ export default class MainPage extends Component {
                 <Col sm="12" md={{size: 10, offset: 1}}>
                     <Card>
                         <CardHeader>
-                            <Form inline>
-                                <p>Blisko Ciebie - do</p>
-                                <Input type="select" name="select"
-                                       value={this.state.maximum}
-                                       onChange={this.handleChangeDistance}>
-                                    <option>10</option>
-                                    <option>25</option>
-                                    <option>50</option>
-                                    <option>100</option>
-                                    <option>150</option>
-                                </Input>
-                                <p>kilometrów</p>
-                            </Form>
+                                <p>Blisko Ciebie</p>
                             <p>Twoja lokalizacja to: {this.state.latitude} {this.state.longitude}</p>
                         </CardHeader>
                         <CardBody>
@@ -71,9 +59,7 @@ export default class MainPage extends Component {
                         <CardBody>
                             <Row>
                                 <Col>
-                                    <RelicThreeSmallCardsDeck latitude='49.9888913'
-                                                              longitude='19.904049699999998'
-                                                              maximum={this.state.maximum}/>
+
                                 </Col>
                             </Row>
                         </CardBody>
