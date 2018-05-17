@@ -1,29 +1,16 @@
 import React, {Component} from "react";
 import "../App.css";
-import RelicThreeSmallCardsDeck from "../relics/RelicThreeSmallCardsDeck";
-import {Card, CardBody, CardHeader, Col, Form, Input, Row} from "reactstrap";
+import RelicsRecommendedByDistance from "../relics/RelicRecommendedByDistance";
+import RelicsRecommendedByUsers from "../relics/RelicRecommendedByUsers";
+import RandomRelics from "../relics/RandomRelics";
 
 export default class MainPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            maximum: 10,
-        };
 
         this.handleChangeDistance = this.handleChangeDistance.bind(this);
     }
 
-    componentDidMount() {
-        navigator.geolocation.watchPosition((position) => {
-
-            this.setState(
-                {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                }
-            )
-        });
-    }
 
     handleChangeDistance(e) {
         this.setState({
@@ -35,36 +22,17 @@ export default class MainPage extends Component {
         return (
             <div>
                 <br/>
-                <Col sm="12" md={{size: 10, offset: 1}}>
-                    <Card>
-                        <CardHeader>
-                                <p>Blisko Ciebie</p>
-                            <p>Twoja lokalizacja to: {this.state.latitude} {this.state.longitude}</p>
-                        </CardHeader>
-                        <CardBody>
-                            <Row>
-                                <Col>
-                                    <RelicThreeSmallCardsDeck latitude='49.9888913'
-                                                              longitude='19.904049699999998'
-                                                              maximum={this.state.maximum}/>
-                                </Col>
-                            </Row>
-                        </CardBody>
-                    </Card>
-                </Col>
+                <RandomRelics/>
                 <br/>
-                <Col sm="12" md={{size: 10, offset: 1}}>
-                    <Card>
-                        <CardHeader>Rekomendowane dla Ciebie</CardHeader>
-                        <CardBody>
-                            <Row>
-                                <Col>
+                <RelicsRecommendedByDistance latitude='49.9888913'
+                                             longitude='19.904049699999998'/>
 
-                                </Col>
-                            </Row>
-                        </CardBody>
-                    </Card>
-                </Col>
+                <br/>
+                <br/>
+                <RelicsRecommendedByUsers latitude='49.9888913'
+                                          longitude='19.904049699999998'/>
+
+                <br/>
             </div>
         );
     }
