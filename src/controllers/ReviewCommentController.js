@@ -22,4 +22,9 @@ export default class ReviewCommentController {
                 console.log(error);
             });
     }
+
+    getComments(id) {
+        var response = axios.get(this.endpoint + 'relics/review/' + id + '/comments')
+        return response;
+    }
 }

@@ -50,14 +50,14 @@ export default class RelicsRankingPage extends Component {
                         <CardHeader>Filtruj ranking</CardHeader>
                         <CardBody>
                             <div className="filter-component">
-                                <Form inline >
+                                <Form inline>
                                     <Col sm={6}>
-                                    <CategoryFilterDropdown labelName="Kategoria" value={this.state.categoryFilter}
-                                                            onChangeValue={this.handleCategoryFilterChange}/>
+                                        <CategoryFilterDropdown labelName="Kategoria" value={this.state.categoryFilter}
+                                                                onChangeValue={this.handleCategoryFilterChange}/>
                                     </Col>
                                     <Col sm={6}>
-                                    <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
-                                                               onChangeValue={this.handleVoivodeshipFilterChange}/>
+                                        <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
+                                                                   onChangeValue={this.handleVoivodeshipFilterChange}/>
                                     </Col>
                                 </Form>
                                 <br/>
@@ -131,6 +131,13 @@ export default class RelicsRankingPage extends Component {
     }
 
     getTopRankedRelicIDsWithFilter(size, category, voivodeship) {
+
+        this.setState(
+            {
+                IDs: []
+            }
+        )
+
         let self = this;
         this.reviewController.getTopRankedRelicIDsWithFilter(size, category, voivodeship)
             .then(response => {

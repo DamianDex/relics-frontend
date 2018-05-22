@@ -45,7 +45,7 @@ export default class SingleReviewComponent extends Component {
                 </Card>
                 <br/>
 
-                <ReviewCommentList isOpen={this.state.isCommentListOpen}/>
+                <ReviewCommentList isOpen={this.state.isCommentListOpen} reviewId={this.props.id}/>
 
                 <ReviewCommentModal isOpen={this.state.isCommentModalOpen}
                                     handleCancel={this.toogleCommentModal}
