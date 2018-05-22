@@ -196,7 +196,7 @@ export default class RelicAddPage extends React.Component {
         return (
             <div>
                 <Row>
-                    <Col sm="12" md={{size: 10, offset: 1}}>
+                    <Col sm="12" md={{size: 6, offset: 3}}>
                         <br/>
                         <Card>
                             <CardHeader align="center">Dodawanie zabytku</CardHeader>
