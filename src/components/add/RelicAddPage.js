@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Alert,
     Button,
     Card,
     CardBody,
@@ -11,12 +12,11 @@ import {
     InputGroup,
     InputGroupAddon,
     Label,
-    Row,
-    Alert,
     Modal,
     ModalBody,
     ModalFooter,
-    ModalHeader
+    ModalHeader,
+    Row
 } from 'reactstrap';
 import axios from "axios";
 import CategoryFilterDropdown from "../ranking/filter/CategoryFilterDropdown";
@@ -133,10 +133,10 @@ export default class RelicAddPage extends React.Component {
 
     handleClick(e) {
         if (this.state.identification === '' || this.state.registerNumber === '' || this.state.category === '') {
-            this.setState({modal:true})
+            this.setState({modal: true})
         }
         else {
-            this.setState({visible:true})
+            this.setState({visible: true})
             var identification = this.state.identification;
             var description = this.state.description;
             var registerNumber = this.state.registerNumber;
@@ -317,7 +317,7 @@ export default class RelicAddPage extends React.Component {
                                                     Zabytek</Button>
                                             </Col>
                                         </FormGroup>
-                                        <Alert color="success" isOpen={this.state.visible} >
+                                        <Alert color="success" isOpen={this.state.visible}>
                                             Zabytek został dodany do bazy.
                                         </Alert>
                                     </Form>
@@ -341,7 +341,11 @@ export default class RelicAddPage extends React.Component {
                 <CoordinatesPicker coordinates={this.state.coordinates}
                                    onChangeValue={this.handleCoordinatesChange}
                                    isOpen={this.state.isPickerOpen}
-                                   handlePickerClick={this.handlePickerClick}/>
+                                   handlePickerClick={this.handlePickerClick}
+                                   modalTitle="Wskaż zabytek na mapie"
+                                   btnText="Zapisz współrzędne"
+                                   mLongitude={21}
+                                   mLatitude={52}/>
             </div>
         );
     }

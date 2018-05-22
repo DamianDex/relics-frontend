@@ -19,7 +19,7 @@ export default class CoordinatesPicker extends Component {
     render() {
         return (
             <Modal isOpen={this.props.isOpen}>
-                <ModalHeader toggle={this.toggle}>Wskaż zabytek na mapie</ModalHeader>
+                <ModalHeader toggle={this.toggle}>{this.props.modalTitle}</ModalHeader>
                 <ModalBody>
                     <Gmaps
                         width={'100%'}
@@ -31,14 +31,14 @@ export default class CoordinatesPicker extends Component {
                         params={params}
                         onMapCreated={this.onMapCreated}>
                         <Marker
-                        lat='52'
-                        lng='21'
+                        lat={this.props.mLatitude}
+                        lng={this.props.mLongitude}
                             draggable={true}
                             onDragEnd={this.props.onChangeValue}/>
                     </Gmaps>
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={this.props.handlePickerClick}>Zapisz współrzędne</Button>
+                    <Button color="primary" onClick={this.props.handlePickerClick}>{this.props.btnText}</Button>
                 </ModalFooter>
             </Modal>
         );

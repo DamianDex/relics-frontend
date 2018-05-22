@@ -39,6 +39,14 @@ export default class RelicRecommendedByUsers extends React.Component {
         var cards;
         var header;
 
+        var buttonText = "Pokaż";
+
+        if (this.state.collapse) {
+            buttonText = "Ukryj";
+        } else {
+            buttonText = "Pokaż";
+        }
+
         if (this.state.IDs.length != 0) {
             cards = (
                 <CardGroup>
@@ -54,7 +62,7 @@ export default class RelicRecommendedByUsers extends React.Component {
             header = (
                 <CardHeader>
                     <p>Rekomendowane ze względu na oceny - wyszukano</p>
-                    <Button color="primary" onClick={this.toggle} style={{marginBottom: '1rem'}}>Pokaż</Button>
+                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         } else {
@@ -67,7 +75,7 @@ export default class RelicRecommendedByUsers extends React.Component {
             header = (
                 <CardHeader>
                     <p>Rekomendowane ze względu na oceny - wyszukuje</p>
-                    <Button color="primary" onClick={this.toggle} style={{marginBottom: '1rem'}}>Pokaż</Button>
+                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         }
