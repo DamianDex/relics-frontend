@@ -37,9 +37,9 @@ export default class RelicDetails extends Component {
                         <b>Szerokość geograficzna:</b> {this.state.latitude} <br/>
                         <b>Długość geograficzna:</b> {this.state.longitude} <br/>
                         <b>Województwo:</b> {this.state.voivodeshipName} <br/>
-                        <b>Dzielnica:</b> {this.state.districtName} <br/>
+                        <b>Powiat:</b> {this.state.districtName} <br/>
                         <b>Gmina:</b> {this.state.communeName} <br/>
-                        <b>Miejsce:</b> {this.state.placeName} <br/>
+                        <b>Miejscowość:</b> {this.state.placeName} <br/>
                         <b>Ulica:</b> {this.state.street} <br/>
                     </div>
                 </CardBody>

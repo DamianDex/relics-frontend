@@ -23,17 +23,12 @@ export default class RelicProfilePage extends Component {
                     </Row>
                 </div>
                 <div class="relic-gallery">
+                    <br/>
                     <Row>
-                        <Col sm="12" md={{size: 10, offset: 1}}>
-                            <br/>
+                        <Col sm="12" md={{size: 5, offset: 1}}>
                             <RelicGallery/>
                         </Col>
-                    </Row>
-                </div>
-                <div class="relic-map">
-                    <Row>
-                        <Col sm="12" md={{size: 10, offset: 1}}>
-                            <br/>
+                        <Col sm="12" md={{size: 5, offset: -1}}>
                             <MapComponent id={this.props.match.params.relicId}/>
                         </Col>
                     </Row>

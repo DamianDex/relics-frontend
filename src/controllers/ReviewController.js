@@ -7,7 +7,18 @@ export default class ReviewController {
     }
 
     getAllReviewsByRelicId(id) {
-        var response = axios.get(this.endpoint + 'relics/' + id + '/review');
+        var response = axios.get(this.endpoint + 'relics/' + id + '/review')
+        return response;
+    }
+
+    getMyRating(id) {
+        var response = axios.get(this.endpoint + 'relics/' + id + '/user', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': sessionStorage.getItem("jwtToken")
+            }
+        });
         return response;
     }
 

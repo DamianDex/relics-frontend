@@ -14,19 +14,13 @@ import './RelicGallery.css'
 
 const items = [
     {
-        src: process.env.PUBLIC_URL + '/images/hd.png',
-        altText: 'Slide 1',
-        caption: 'Slide 1'
+        src: process.env.PUBLIC_URL + '/images/slide1.jpg',
     },
     {
-        src: process.env.PUBLIC_URL + '/images/hd.png',
-        altText: 'Slide 2',
-        caption: 'Slide 2'
+        src: process.env.PUBLIC_URL + '/images/slide2.jpg',
     },
     {
-        src: process.env.PUBLIC_URL + '/images/hd.png',
-        altText: 'Slide 3',
-        caption: 'Slide 3'
+        src: process.env.PUBLIC_URL + '/images/slide3.jpg',
     }
 ];
 

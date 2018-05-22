@@ -59,16 +59,6 @@ export default class MapComponent extends React.Component {
                             lng={this.state.longitude}
                             draggable={true}
                             onDragEnd={this.onDragEnd}/>
-                        <InfoWindow
-                            lat={this.state.latitude}
-                            lng={this.state.longitude}
-                            content={'Hello, React :)'}
-                            onCloseClick={this.onCloseClick}/>
-                        <Circle
-                            lat={this.state.latitude}
-                            lng={this.state.longitude}
-                            radius={500}
-                            onClick={this.onClick}/>
                     </Gmaps>
                 </CardBody>
             </Card>

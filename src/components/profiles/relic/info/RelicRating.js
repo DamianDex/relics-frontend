@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Card, CardBody, CardHeader} from "reactstrap";
 import ReviewController from "../../../../controllers/ReviewController";
 import "./RelicRating.css"
+import UserController from "../../../../controllers/UserController";
 
 export default class RelicRating extends Component {
     constructor(props) {
@@ -9,9 +10,11 @@ export default class RelicRating extends Component {
         this.state = {};
 
         this.reviewController = new ReviewController();
+        this.userController = new UserController();
     }
 
     componentDidMount() {
+        this.getMyRating();
         this.getAvgRating();
         this.getRatingCount();
     }
@@ -22,9 +25,9 @@ export default class RelicRating extends Component {
                 <CardHeader>Wasze oceny</CardHeader>
                 <CardBody>
                     <div class="ratings-body">
-                        <b>Ocena użytkowników:</b> {this.state.avg} / 5.0 <br/>
+                        <b>Ocena użytkowników:</b> {Math.round(this.state.avg * 100) / 100} / 5.00 <br/>
                         <b>Liczba głosów:</b> {this.state.count} <br/>
-                        <b>Twoja ocena:</b> {this.state.registerNumber} <br/>
+                        <b>Twoja ocena:</b> {this.state.myRating} <br/>
                     </div>
                 </CardBody>
             </Card>
@@ -59,6 +62,32 @@ export default class RelicRating extends Component {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    getMyRating() {
+        let self = this;
+
+        this.reviewController.getMyRating(this.props.id)
+            .then(response => {
+
+                if (response.data != "") {
+                    self.setState(
+                        {
+                            myRating: response.data
+                        }
+                    )
+                } else {
+                    self.setState(
+                        {
+                            myRating: "--"
+                        }
+                    )
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
     }
 }
 
