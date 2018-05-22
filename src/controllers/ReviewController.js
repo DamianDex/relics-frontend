@@ -64,8 +64,14 @@ export default class ReviewController {
             });
     }
 
-    checkIfUserReviewRelic(relicId, userId) {
-        var response = axios.get(this.endpoint + 'relics/' + relicId + '/review/' + userId);
+    checkIfUserReviewRelic(relicId) {
+        var response = axios.get(this.endpoint + 'relics/' + relicId + '/isReviewed', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': sessionStorage.getItem("jwtToken")
+            }
+        });
         return response;
     }
 }

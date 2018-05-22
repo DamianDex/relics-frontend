@@ -3,6 +3,7 @@ import RelicController from "../../controllers/RelicController";
 import {Button, Col, Container, Row} from "reactstrap";
 import GeographyController from "../../controllers/GeographyController";
 import ReviewController from "../../controllers/ReviewController";
+import CoordinatesPicker from "../add/CoordinatesPicker";
 
 export default class RelicRankingCard extends Component {
     constructor(props) {
@@ -14,8 +15,11 @@ export default class RelicRankingCard extends Component {
         this.state = {
             id: '',
             identification: '',
-            imageSrc: '/images/icon.jpg'
+            imageSrc: '/images/icon.jpg',
+            myRating: ''
         }
+
+        this.modalMapClick = this.modalMapClick.bind(this);
     }
 
     componentDidMount() {
@@ -23,6 +27,7 @@ export default class RelicRankingCard extends Component {
         this.getRelicGeography();
         this.getAvgRating();
         this.getRatingCount();
+        this.getMyRating();
     }
 
     render() {
@@ -40,14 +45,15 @@ export default class RelicRankingCard extends Component {
                         </Col>
                         <Col xs="3">
                             <b>Województwo:</b> {this.state.voivodeshipName} <br/>
-                            <b>Dzielnica:</b> {this.state.districtName} <br/>
+                            <b>Powiat:</b> {this.state.districtName} <br/>
                             <b>Gmina:</b> {this.state.communeName} <br/>
-                            <b>Miejsce:</b> {this.state.placeName} <br/>
+                            <b>Miejscowość:</b> {this.state.placeName} <br/>
                             <b>Ulica:</b> {this.state.street} <br/>
                         </Col>
                         <Col xs="auto">
                             <b>Ocena użytkowników:</b> {this.state.avg} / 5.0 <br/>
                             <b>Liczba głosów:</b> {this.state.count} <br/>
+                            <b>Twoja ocena: </b> {this.state.myRating} <br/>
                         </Col>
                     </Row>
                 </Container>
@@ -55,7 +61,15 @@ export default class RelicRankingCard extends Component {
                     <Row>
                         <Col xs="4">
                             <Button outline color="success" href={this.state.href}>Do profilu!</Button>{'   '}
-                            <Button outline color="primary" href={this.state.href}>Szybki podgląd!</Button>
+                            <Button outline color="primary" onClick={this.modalMapClick}>Lokalizacja</Button>
+                            <CoordinatesPicker coordinates={this.state.coordinates}
+                                               onChangeValue={this.handleCoordinatesChange}
+                                               isOpen={this.state.isMapOpen}
+                                               handlePickerClick={this.modalMapClick}
+                                               modalTitle="Lokalizacja zabytku"
+                                               btnText="Zamknij"
+                                               mLongitude={this.state.longitude}
+                                               mLatitude={this.state.latitude}/>
                         </Col>
                     </Row>
                 </Container>
@@ -131,6 +145,36 @@ export default class RelicRankingCard extends Component {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    modalMapClick() {
+        this.setState({
+            isMapOpen: !this.state.isMapOpen
+        })
+    }
+
+    getMyRating() {
+        let self = this;
+
+        var ratingToSet = "Nie jesteś zalogowany";
+
+        this.reviewController.getMyRating(this.props.relicId)
+            .then(response => {
+
+                if (response.data != "") {
+                    ratingToSet = response.data;
+                } else {
+                    ratingToSet = "--";
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
+
+        this.setState({
+            myRating: ratingToSet
+        });
     }
 }
 

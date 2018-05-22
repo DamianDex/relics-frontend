@@ -80,16 +80,19 @@ export default class RelicGallery extends Component {
             <Card>
                 <CardHeader>Zobacz zdjęcia</CardHeader>
                 <CardBody>
-                    <Carousel
-                        activeIndex={activeIndex}
-                        next={this.next}
-                        previous={this.previous}
-                    >
-                        <CarouselIndicators items={items} activeIndex={activeIndex} onClickHandler={this.goToIndex}/>
-                        {slides}
-                        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous}/>
-                        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next}/>
-                    </Carousel>
+                    <div style={{padding: "15px"}}>
+                        <Carousel
+                            activeIndex={activeIndex}
+                            next={this.next}
+                            previous={this.previous}
+                        >
+                            <CarouselIndicators items={items} activeIndex={activeIndex}
+                                                onClickHandler={this.goToIndex}/>
+                            {slides}
+                            <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous}/>
+                            <CarouselControl direction="next" directionText="Next" onClickHandler={this.next}/>
+                        </Carousel>
+                    </div>
                 </CardBody>
             </Card>
         );

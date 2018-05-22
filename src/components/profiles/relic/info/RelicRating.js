@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Card, CardBody, CardHeader} from "reactstrap";
 import ReviewController from "../../../../controllers/ReviewController";
 import "./RelicRating.css"
-import UserController from "../../../../controllers/UserController";
 
 export default class RelicRating extends Component {
     constructor(props) {
@@ -10,7 +9,6 @@ export default class RelicRating extends Component {
         this.state = {};
 
         this.reviewController = new ReviewController();
-        this.userController = new UserController();
     }
 
     componentDidMount() {
@@ -67,6 +65,10 @@ export default class RelicRating extends Component {
     getMyRating() {
         let self = this;
 
+        this.setState({
+            myRating: "Nie jesteś zalogowany"
+        })
+
         this.reviewController.getMyRating(this.props.id)
             .then(response => {
 
@@ -87,7 +89,6 @@ export default class RelicRating extends Component {
             .catch(error => {
                 console.log(error);
             })
-
     }
 }
 

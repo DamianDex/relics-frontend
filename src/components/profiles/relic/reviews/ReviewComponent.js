@@ -1,16 +1,15 @@
 import React, {Component} from "react";
-import {Button, Card, CardBody, CardHeader, CardText, FormGroup, Input} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, FormGroup, Input} from "reactstrap";
 import ReviewController from "../../../../controllers/ReviewController";
-import VoteController from "../../../../controllers/VoteController";
-import ReviewCommentModal from "./ReviewCommentModal";
 import SingleReviewComponent from "./SingleReviewComponent";
+import UserController from "../../../../controllers/UserController";
 
 export default class ReviewComponent extends Component {
     constructor(props) {
         super(props);
 
         this.reviewController = new ReviewController();
-        this.voteController = new VoteController();
+        this.userController = new UserController();
 
         this.state = {
             reviews: [],
@@ -27,6 +26,7 @@ export default class ReviewComponent extends Component {
     componentDidMount() {
         this.getRelicReviews();
         this.checkIfUserReviewRelic();
+        this.checkIfUserIsLogged();
     }
 
     handleRatingChange(e) {
@@ -70,25 +70,41 @@ export default class ReviewComponent extends Component {
     }
 
     renderReviewForm() {
+
+        var disabled, text;
+
+        if (this.state.isLogged) {
+            disabled = false;
+            text = "Czekamy na Twoją opinię!";
+        } else {
+            disabled = true;
+            text = "Czekamy na Twoją opinię! - zaloguj się, aby oceniać";
+        }
+
         return (
             <div>
                 <Card>
-                    <CardHeader>Czekamy na Twoją opinię!</CardHeader>
+                    <CardHeader>{text}</CardHeader>
                     <CardBody>
-                        <FormGroup>
-                            <Input type="select" value={this.state.rating} onChange={this.handleRatingChange}>
-                                <option>Wybierz swoją ocenę...</option>
-                                <option>5</option>
-                                <option>4</option>
-                                <option>3</option>
-                                <option>2</option>
-                                <option>1</option>
-                            </Input>
-                            <Input value={this.state.comment} type="textarea" placeholder="Miejsce na Twój komentarz..."
-                                   name="text"
-                                   id="exampleText" onChange={this.handleCommentChange}/>
-                        </FormGroup>
-                        <Button color="primary" outline onClick={this.postReview}>Zatwierdź ocenę!</Button>
+                        <div style={{padding: "15px"}}>
+                            <FormGroup>
+                                <Input type="select" disabled={disabled} value={this.state.rating}
+                                       onChange={this.handleRatingChange}>
+                                    <option>Wybierz swoją ocenę...</option>
+                                    <option>5</option>
+                                    <option>4</option>
+                                    <option>3</option>
+                                    <option>2</option>
+                                    <option>1</option>
+                                </Input><br/>
+                                <Input value={this.state.comment} disabled={disabled} type="textarea"
+                                       placeholder="Miejsce na Twój komentarz..."
+                                       name="text"
+                                       id="exampleText" onChange={this.handleCommentChange}/>
+                            </FormGroup>
+                            <Button color="primary" outline hidden={disabled} onClick={this.postReview}>Zatwierdź
+                                ocenę!</Button>
+                        </div>
                     </CardBody>
                 </Card>
                 <br/>
@@ -126,11 +142,26 @@ export default class ReviewComponent extends Component {
 
     checkIfUserReviewRelic() {
         let self = this;
-        this.reviewController.checkIfUserReviewRelic(10, 10)
+        this.reviewController.checkIfUserReviewRelic(this.props.id)
             .then(response => {
                 self.setState(
                     {
-                        isReviewed: false
+                        isReviewed: response.data
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    checkIfUserIsLogged() {
+        let self = this;
+        this.userController.checkIfUserIsLogged()
+            .then(response => {
+                self.setState(
+                    {
+                        isLogged: response.data
                     }
                 )
             })

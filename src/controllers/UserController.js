@@ -6,7 +6,7 @@ export default class UserController {
         this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT + '/api/'
     }
 
-    checkIfUserIsLogged(id) {
+    checkIfUserIsLogged() {
         var response = axios.get(this.endpoint + 'user/logged', {
             headers: {
                 'Accept': 'application/json',

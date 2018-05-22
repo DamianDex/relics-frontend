@@ -1,5 +1,5 @@
 import React from 'react';
-import {Circle, Gmaps, InfoWindow, Marker} from 'react-gmaps';
+import {Gmaps, Marker} from 'react-gmaps';
 import RelicController from "../controllers/RelicController";
 import {Card, CardBody, CardHeader} from "reactstrap";
 
@@ -45,21 +45,23 @@ export default class MapComponent extends React.Component {
             <Card>
                 <CardHeader>Zobacz lokalizację</CardHeader>
                 <CardBody>
-                    <Gmaps
-                        width={'100%'}
-                        height={'600px'}
-                        lat={this.state.latitude}
-                        lng={this.state.longitude}
-                        zoom={12}
-                        loadingMessage={'Be happy'}
-                        params={params}
-                        onMapCreated={this.onMapCreated}>
-                        <Marker
+                    <div style={{padding: "15px"}}>
+                        <Gmaps
+                            width={'100%'}
+                            height={'600px'}
                             lat={this.state.latitude}
                             lng={this.state.longitude}
-                            draggable={true}
-                            onDragEnd={this.onDragEnd}/>
-                    </Gmaps>
+                            zoom={12}
+                            loadingMessage={'Be happy'}
+                            params={params}
+                            onMapCreated={this.onMapCreated}>
+                            <Marker
+                                lat={this.state.latitude}
+                                lng={this.state.longitude}
+                                draggable={true}
+                                onDragEnd={this.onDragEnd}/>
+                        </Gmaps>
+                    </div>
                 </CardBody>
             </Card>
         );

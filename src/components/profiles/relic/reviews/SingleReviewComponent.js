@@ -15,7 +15,7 @@ export default class SingleReviewComponent extends Component {
 
         this.voteController = new VoteController();
         this.toogleCommentModal = this.toogleCommentModal.bind(this);
-        this.toogleCommentList= this.toogleCommentList.bind(this);
+        this.toogleCommentList = this.toogleCommentList.bind(this);
     }
 
     render() {
@@ -27,18 +27,20 @@ export default class SingleReviewComponent extends Component {
                         <p>{this.props.creationDate}</p>
                     </CardHeader>
                     <CardBody>
-                        <CardText>Ocena: {this.props.rating} / 10</CardText>
-                        <p>Recenzja: {this.props.comment}</p>
-                        <p>{this.showPositiveVotes(this.props.votes)} użytkowników lubi tą recenzję.</p>
-                        <p>{this.showNegativeVotes(this.props.votes)} uzytkowników nie lubi tej recenzji.</p>
-                        <Button color="success" outline onClick={() => this.positiveVote(this.props.id)}>Recenzja
-                            przydatna!</Button>{' '}
-                        <Button color="danger" outline onClick={() => this.negativeVote(this.props.id)}>Recenzja
-                            słaba!</Button>{' '}
-                        <Button color="primary" outline
-                                onClick={this.toogleCommentModal}>Skomentuj!</Button>{' '}
-                        <Button color="info" outline
-                                onClick={this.toogleCommentList}>Pokaż komentarze!</Button>
+                        <div style={{padding: "15px"}}>
+                            <CardText>Ocena: {this.props.rating} / 10</CardText>
+                            <p>Recenzja: {this.props.comment}</p>
+                            <p>{this.showPositiveVotes(this.props.votes)} użytkowników lubi tą recenzję.</p>
+                            <p>{this.showNegativeVotes(this.props.votes)} uzytkowników nie lubi tej recenzji.</p>
+                            <Button color="success" outline onClick={() => this.positiveVote(this.props.id)}>Recenzja
+                                przydatna!</Button>{' '}
+                            <Button color="danger" outline onClick={() => this.negativeVote(this.props.id)}>Recenzja
+                                słaba!</Button>{' '}
+                            <Button color="primary" outline
+                                    onClick={this.toogleCommentModal}>Skomentuj!</Button>{' '}
+                            <Button color="info" outline
+                                    onClick={this.toogleCommentList}>Pokaż komentarze!</Button>
+                        </div>
                     </CardBody>
                 </Card>
                 <br/>
