@@ -64,13 +64,14 @@ const MapWithDirections = compose(
         			return {location: new google.maps.LatLng(loc.lat(), loc.lng())}
         		}
         	})
+        	waypts = waypts.filter(function(n){ return n != undefined }); 
         	startLocation = waypts[0];
         	endLocation = waypts[waypts.length-1]
         	waypts.splice(0, 1);
         	waypts.splice(waypts.length-1, waypts.length);
         	if ((typeof startLocation != 'undefined') && (typeof endLocation === 'undefined')){
             	endLocation = startLocation;
-            }
+            } 	
             if ((typeof startLocation != 'undefined') && (typeof endLocation != 'undefined')){
             DirectionsService.route({
                 origin: startLocation.location,

@@ -65,7 +65,7 @@ export default class DirectionsWindow extends Component {
     }
     
     render() {
-    	let startRow = this.renderRow("default", "0")
+    	let startRow = this.renderRow("default", 0)
     	let endRow = null;
     	if (this.state.firstRender){
     		endRow = this.renderDummyRow("default", "end")
