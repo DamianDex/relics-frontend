@@ -21,9 +21,20 @@ export default class RelicController {
         return response;
     }
 
-    getRandomRelicIDsByDistance(count, latitude, longitude, maximum) {
-        var filterChain = "?latitude=" + latitude + "&longitude=" + longitude + "&maximum=" + maximum;
-        var response = axios.get(this.endpoint + 'relics/random/distance/' + count + filterChain);
+    getRandomRelicIDsByDistance(latitude, longitude) {
+        var filterChain = "?latitude=" + latitude + "&longitude=" + longitude;
+        var response = axios.get(this.endpoint + 'relics/recommend/distance' + filterChain);
+        return response;
+    }
+
+    recommendByUserReviews() {
+        var response = axios.get(this.endpoint + 'relics/recommend/reviews', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': sessionStorage.getItem("jwtToken")
+            }
+        });
         return response;
     }
 }

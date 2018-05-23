@@ -17,7 +17,7 @@ export default class RelicRecommendedByDistance extends React.Component {
     }
 
     componentDidMount() {
-        this.getThreeCloseToMeRandomRelics(this.props.latitude, this.props.longitude, this.props.maximum);
+        this.getThreeCloseToMeRandomRelics(this.props.latitude, this.props.longitude);
 
         navigator.geolocation.watchPosition((position) => {
 
@@ -99,10 +99,10 @@ export default class RelicRecommendedByDistance extends React.Component {
 
     }
 
-    getThreeCloseToMeRandomRelics(latitude, longitude, maximum) {
+    getThreeCloseToMeRandomRelics(latitude, longitude) {
         let self = this;
 
-        this.relicController.getRandomRelicIDsByDistance(4, latitude, longitude, 10)
+        this.relicController.getRandomRelicIDsByDistance(latitude, longitude)
             .then(response => {
                 self.setState(
                     {

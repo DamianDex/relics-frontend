@@ -2,12 +2,14 @@ import React from "react";
 import {Button, Card, CardBody, CardGroup, CardHeader, Col, Collapse, Row} from "reactstrap";
 import RelicSmallCard from "./RelicSmallCard";
 import RelicController from "../controllers/RelicController";
+import UserController from "../controllers/UserController";
 
 export default class RelicRecommendedByUsers extends React.Component {
     constructor(props) {
         super(props);
 
         this.relicController = new RelicController();
+        this.userController = new UserController();
 
         this.state = {
             IDs: []
@@ -17,17 +19,8 @@ export default class RelicRecommendedByUsers extends React.Component {
     }
 
     componentDidMount() {
-        this.getThreeCloseToMeRandomRelics(this.props.latitude, this.props.longitude, this.props.maximum);
-
-        navigator.geolocation.watchPosition((position) => {
-
-            this.setState(
-                {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                }
-            )
-        });
+        this.getThreeByUserReviews();
+        this.checkIfUserIsLogged();
     }
 
     toggle() {
@@ -35,7 +28,6 @@ export default class RelicRecommendedByUsers extends React.Component {
     }
 
     render() {
-
         var cards;
         var header;
 
@@ -47,7 +39,21 @@ export default class RelicRecommendedByUsers extends React.Component {
             buttonText = "Pokaż";
         }
 
-        if (this.state.IDs.length != 0) {
+        if (!this.state.isLogged) {
+            cards = (
+                <CardGroup>
+                    <p>Zaloguj się...</p>
+                </CardGroup>
+            )
+
+            header = (
+                <CardHeader>
+                    <p>Rekomendowane ze względu na oceny - zaloguj się, aby otrzymać rekomendacje</p>
+                    <Button color="primary" outline onClick={this.toggle}
+                            style={{marginBottom: '1rem'}}>{buttonText}</Button>
+                </CardHeader>
+            )
+        } else if (this.state.IDs.length != 0) {
             cards = (
                 <CardGroup>
                     {
@@ -62,7 +68,8 @@ export default class RelicRecommendedByUsers extends React.Component {
             header = (
                 <CardHeader>
                     <p>Rekomendowane ze względu na oceny - wyszukano</p>
-                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
+                    <Button color="primary" outline onClick={this.toggle}
+                            style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         } else {
@@ -75,7 +82,8 @@ export default class RelicRecommendedByUsers extends React.Component {
             header = (
                 <CardHeader>
                     <p>Rekomendowane ze względu na oceny - wyszukuje</p>
-                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
+                    <Button color="primary" outline onClick={this.toggle}
+                            style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         }
@@ -99,9 +107,9 @@ export default class RelicRecommendedByUsers extends React.Component {
 
     }
 
-    getThreeCloseToMeRandomRelics(latitude, longitude, maximum) {
+    getThreeByUserReviews() {
         let self = this;
-        this.relicController.getRandomRelicIDsByDistance(4, latitude, longitude, 10)
+        this.relicController.recommendByUserReviews()
             .then(response => {
                 self.setState(
                     {
@@ -112,5 +120,23 @@ export default class RelicRecommendedByUsers extends React.Component {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    checkIfUserIsLogged() {
+        let self = this;
+        this.userController.checkIfUserIsLogged()
+            .then(response => {
+                self.setState(
+                    {
+                        isLogged: response.data
+                    }
+                )
+            })
+            .catch(error => {
+                console.log(error);
+                self.setState({
+                    isLogged: false
+                })
+            });
     }
 }

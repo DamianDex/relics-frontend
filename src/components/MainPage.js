@@ -11,7 +11,6 @@ export default class MainPage extends Component {
         this.handleChangeDistance = this.handleChangeDistance.bind(this);
     }
 
-
     handleChangeDistance(e) {
         this.setState({
             maximum: e.target.value
@@ -29,9 +28,7 @@ export default class MainPage extends Component {
 
                 <br/>
                 <br/>
-                <RelicsRecommendedByUsers latitude='49.9888913'
-                                          longitude='19.904049699999998'/>
-
+                <RelicsRecommendedByUsers/>
                 <br/>
             </div>
         );
