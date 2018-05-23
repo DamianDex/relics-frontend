@@ -1,10 +1,9 @@
 import React from 'react';
-import {Button, Modal} from "reactstrap";
+import {Button} from "reactstrap";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
 import {CONFIGURATION} from '../configuration/configuration'
 import axios from 'axios';
-
 
 class LoginControl extends React.Component {
     

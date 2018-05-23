@@ -21,7 +21,7 @@ export default class RelicsLocalizePage extends Component {
     render() {
         return (
             <div>
-        	    <SideBar isOpen={this.state.sidebarOpen} handleViewSidebar={this.handleViewSidebar} />
+        	    <SideBar isOpen={this.state.sidebarOpen} />
         	    <Content isOpen={this.state.sidebarOpen} handleViewSidebar={this.handleViewSidebar} />
         	</div>
         );

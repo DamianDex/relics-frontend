@@ -16,8 +16,8 @@ class LoginPage extends Component {
 	
     constructor(props) {
         super(props);
-        var logout = window.location.search == '?logout' ? true: null;
-        var tokenExpired = window.location.search == '?expired' ? true: null;
+        var logout = window.location.search === '?logout' ? true: null;
+        var tokenExpired = window.location.search === '?expired' ? true: null;
         this.handleLogin = this.handleLogin.bind(this);
         this.state = {username: '', password: '', errorMessage: null, logout: logout, tokenExpired: tokenExpired};
         this.handleUsernameChange = this.handleUsernameChange.bind(this);

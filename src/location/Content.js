@@ -1,15 +1,21 @@
 import React, {Component} from "react";
 import "../location/Location.css";
-import {Gmaps} from "react-gmaps";
 import {Container, Button} from "reactstrap";
+import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps"
+import {SearchBox} from "react-google-maps/lib/components/places/SearchBox";
 
+import MapWithLocations from "../location/MapWithLocations";
+const _ = require("lodash");
 
-const params = {v: '3.exp', key: 'AIzaSyCbRbS00bDAmgSC0zAwQPyAAX4DZMHd9aI'};
 
 export default class Content extends Component {
+	
+	constructor(props) {
+		super(props);
+	}
+	
     render() {
         var contentClass = this.props.isOpen ? 'content open' : 'content';
-        
         let span = null;
         if (this.props.isOpen) {
         	span = <span className="glyphicon glyphicon-chevron-left" />
@@ -21,17 +27,8 @@ export default class Content extends Component {
   	    	<Button onClick={this.props.handleViewSidebar} className="sidebar-toggle">
        			{span}
        		</Button>
-	       	<Gmaps
-	       		width={'100%'}
-	       		height={'100%'}
-	       		lat='52'
-	       		lng='19'
-	       		zoom={7}
-	       		loadingMessage={'Loading...'}
-	       		params={params}
-	       		onMapCreated={this.onMapCreated}>
-	       	</Gmaps>
-          </div>
+       		<MapWithLocations/>
+       	</div>
         );
     }
 }
