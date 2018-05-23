@@ -42,7 +42,7 @@ export default class RelicRecommendedByUsers extends React.Component {
         if (!this.state.isLogged) {
             cards = (
                 <CardGroup>
-                    <p>Zaloguj się...</p>
+                    <p style={{padding: "15px"}}>Zaloguj się...</p>
                 </CardGroup>
             )
 
@@ -67,7 +67,7 @@ export default class RelicRecommendedByUsers extends React.Component {
 
             header = (
                 <CardHeader>
-                    <p>Rekomendowane ze względu na oceny - wyszukano</p>
+                    <p>Rekomendowane ze względu na oceny</p>
                     <Button color="primary" outline onClick={this.toggle}
                             style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
@@ -75,13 +75,13 @@ export default class RelicRecommendedByUsers extends React.Component {
         } else {
             cards = (
                 <CardGroup>
-                    <p>Proszę czekać trwa wyszukiwanie....</p>
+                    <p style={{padding: "15px"}}>W tym momencie nie możemy nic zarekomendować...</p>
                 </CardGroup>
             )
 
             header = (
                 <CardHeader>
-                    <p>Rekomendowane ze względu na oceny - wyszukuje</p>
+                    <p>Rekomendowane ze względu na oceny</p>
                     <Button color="primary" outline onClick={this.toggle}
                             style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>

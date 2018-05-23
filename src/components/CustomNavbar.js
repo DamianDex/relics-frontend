@@ -8,14 +8,21 @@ export default class CustomNavbar extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            searchPhrase: ''
         };
+
+        this.handleSearchPhrase = this.handleSearchPhrase.bind(this);
     }
 
     toggle() {
         this.setState({
             isOpen: !this.state.isOpen
         });
+    }
+
+    handleSearchPhrase(e) {
+        this.setState({searchPhrase: e.target.value})
     }
 
     render() {
@@ -27,9 +34,10 @@ export default class CustomNavbar extends React.Component {
                         <NavbarBrand className="h1" href="/">Polskie Zabytki</NavbarBrand>
                         <div>
                             <InputGroup>
-                                <Input placeholder="Zacznij coś pisać..."/>
+                                <Input value={this.state.searchPhrase} onChange={this.handleSearchPhrase}
+                                       placeholder="Powiedz czego szukasz..."/>
                                 <InputGroupAddon addonType="append">
-                                    <Button>Szukaj !</Button>
+                                    <Button href={"/relics/" + this.state.searchPhrase}>Szukaj !</Button>
                                 </InputGroupAddon>
                             </InputGroup>
                         </div>

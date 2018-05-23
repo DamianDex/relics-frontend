@@ -61,21 +61,23 @@ export default class RelicRecommendedByDistance extends React.Component {
 
             header = (
                 <CardHeader>
-                    <p>Rekomendowane ze względu na odległość - wyszukano</p>
-                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
+                    <p>Rekomendowane ze względu na odległość</p>
+                    <Button color="primary" outline onClick={this.toggle}
+                            style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         } else {
             cards = (
                 <CardGroup>
-                    <p>Proszę czekać trwa wyszukiwanie....</p>
+                    <p>Proszę czekać trwa wyszukiwanie...</p>
                 </CardGroup>
             )
 
             header = (
                 <CardHeader>
-                    <p>Rekomendowane ze względu na odległość - wyszukuje</p>
-                    <Button color="primary" outline onClick={this.toggle} style={{marginBottom: '1rem'}}>{buttonText}</Button>
+                    <p>Rekomendowane ze względu na odległość</p>
+                    <Button color="primary" outline onClick={this.toggle}
+                            style={{marginBottom: '1rem'}}>{buttonText}</Button>
                 </CardHeader>
             )
         }
