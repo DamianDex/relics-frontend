@@ -5,8 +5,8 @@ import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps"
 import {SearchBox} from "react-google-maps/lib/components/places/SearchBox";
 
 import MapWithLocations from "../location/MapWithLocations";
-const _ = require("lodash");
 
+const _ = require("lodash");
 
 export default class Content extends Component {
 	
@@ -27,7 +27,7 @@ export default class Content extends Component {
   	    	<Button onClick={this.props.handleViewSidebar} className="sidebar-toggle">
        			{span}
        		</Button>
-       		<MapWithLocations/>
+       		<MapWithLocations />
        	</div>
         );
     }

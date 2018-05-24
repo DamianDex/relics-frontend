@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody, CardHeader, InputGroup, CardFooter, ListGroup, ListGroupItem, Col, Label, Button, Input, NavLink, Alert, Table} from 'reactstrap';
-
+import DragSortableList from 'react-drag-sortable'
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 export default class DirectionsWindow extends Component {
@@ -52,7 +52,8 @@ export default class DirectionsWindow extends Component {
     			<StandaloneSearchBox className="search-box" id={index}
 	    			ref={this.props.props.onSearchBoxMounted}
 	    			bounds={this.props.props.bounds}
-    				onPlacesChanged={() => this.props.props.onPlacesChanged(index)}
+    				onPlacesChanged={() => this.props.props.onPlacesChanged(index)
+    				}
     			>
 	    			<Input className={type}></Input>
 	    		</StandaloneSearchBox>

@@ -27,12 +27,15 @@ const MapWithDirections = compose(
     componentWillMount() {
       const DirectionsService = new google.maps.DirectionsService();
       var refs = new Map();
-      var route = {};  
-      
+      var directionsRef = {};
+      var startLoc = {};
+      var endLoc = {};
+      var waypts2 = [];
+
       this.setState({
         bounds: null,
         center: {
-          lat: 41.9, lng: -87.624
+          lat: 52, lng: 19
         },
         markers: [],
         onMapMounted: ref => {
@@ -52,6 +55,7 @@ const MapWithDirections = compose(
         		{ maxWait: 500 }
         ),
         onSearchBoxMounted: ref => {    
+          console.log('aa')
           refs.set(ref.props.id, ref)
           refs = new Map([...refs.entries()].sort());
         },
@@ -73,41 +77,67 @@ const MapWithDirections = compose(
             	endLocation = startLocation;
             } 	
             if ((typeof startLocation != 'undefined') && (typeof endLocation != 'undefined')){
-            DirectionsService.route({
-                origin: startLocation.location,
-                destination: endLocation.location,
-                travelMode: google.maps.TravelMode.DRIVING,
-                waypoints: waypts
-                
-              }, (result, status) => {
-                if (status === google.maps.DirectionsStatus.OK) {
-                  route = result;
-                  
-                  this.setState({
-                    directions: result,
+              	startLoc = startLocation;
+              	endLoc = endLocation;
+              	waypts2 = waypts;
+            	
+            	DirectionsService.route({
+                    origin: startLocation.location,
+                    destination: endLocation.location,
+                    travelMode: google.maps.TravelMode.DRIVING,
+                    waypoints: waypts
+                    
+                }, (result, status) => {
+                    if (status === google.maps.DirectionsStatus.OK) {             
+                      this.setState({
+                        directions: result,
+                      });
+                    } else {
+                      console.error(`error fetching directions ${result}`);
+                    }
                   });
-                } else {
-                  console.error(`error fetching directions ${result}`);
-                }
-              });
             }       	     
         },
-      })
+  	  	directionsRef: ref => {    
+  	  		directionsRef = ref;
+  	  	},    
+  	  	getDirections: () => {
+  	  		console.log(directionsRef.getDirections())  
+  	  	}
+      });
+
+      DirectionsService.route({
+    	  origin: startLoc.location,
+          destination: endLoc.location,
+          travelMode: google.maps.TravelMode.DRIVING,
+          waypoints: waypts2
+            
+      }, (result, status) => {
+          if (status === google.maps.DirectionsStatus.OK) {             
+            this.setState({
+              directions: result,
+            });
+          } else {
+            console.error(`error fetching directions ${result}`);
+          }
+      });
     },
   })
 )(props =>
 <div>
-	<DirectionsWindow props={props} onRef={ref => (this.child = ref)}/>
+  <DirectionsWindow props={props} onRef={ref => (this.child = ref)}/>
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={15}
+    defaultZoom={6}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
     {props.directions && <DirectionsRenderer  
-    	directions={props.directions} 
+    	ref={props.directionsRef}
+		directions={props.directions}
+		options={{draggable:true}}
+		onDirectionsChanged={props.getDirections}
     />}
-    }
   </GoogleMap>
   </div>
 );
