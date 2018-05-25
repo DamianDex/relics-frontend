@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Card, CardBody, CardHeader, InputGroup, CardFooter, ListGroup, ListGroupItem, Col, Label, Button, Input, NavLink, Alert, Table} from 'reactstrap';
-import DragSortableList from 'react-drag-sortable'
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 export default class DirectionsWindow extends Component {
