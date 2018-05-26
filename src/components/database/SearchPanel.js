@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label} from "reactstrap";
+import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import VoivodeshipFilterDropdown from "../ranking/filter/VoivodeshipFilterDropdown";
 import CategoryFilterDropdown from "../ranking/filter/CategoryFilterDropdown";
 
@@ -38,10 +38,17 @@ export default class SearchPanel extends Component {
 
                         <CategoryFilterDropdown labelName='Kategoria'/>
 
+                        <div>
+                            <Button outline color="success">Szukaj</Button>
+                            {'   '}
+                            <Button outline color="primary">Wyczyść</Button>
+                        </div>
+
                     </Form>
                 </CardBody>
             </Card>
-        );
+        )
+            ;
     }
 }
 

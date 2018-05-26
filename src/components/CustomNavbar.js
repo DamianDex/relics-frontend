@@ -26,6 +26,16 @@ export default class CustomNavbar extends React.Component {
     }
 
     render() {
+        var searchBtn;
+
+        if (this.state.searchPhrase == "") {
+            searchBtn = (<Button color="danger" outline disabled href={"/relics/" + this.state.searchPhrase}>Szukaj !</Button>);
+
+        } else {
+            searchBtn = (<Button color="success" outline href={"/relics/" + this.state.searchPhrase}>Szukaj !</Button>);
+
+        }
+
         return (
             <Row>
                 <br/>
@@ -37,7 +47,7 @@ export default class CustomNavbar extends React.Component {
                                 <Input value={this.state.searchPhrase} onChange={this.handleSearchPhrase}
                                        placeholder="Powiedz czego szukasz..."/>
                                 <InputGroupAddon addonType="append">
-                                    <Button href={"/relics/" + this.state.searchPhrase}>Szukaj !</Button>
+                                    {searchBtn}
                                 </InputGroupAddon>
                             </InputGroup>
                         </div>

@@ -21,6 +21,7 @@ export default class App extends Component {
                     <Route exact path='/' component={MainPage}/>
                     <Route exact path='/login' component={LoginPage}/>
                     <Route exact path='/relics/:search' component={RelicsDBPage}/>
+                    <Route exact path='/relics' component={RelicsDBPage}/>
                     <Route exact path='/localize' component={RelicsLocalizePage}/>
                     <Route exact path='/ranking' component={RelicsRankingPage}/>
                     <Route exact path='/add' component={RelicAddPage}/>
