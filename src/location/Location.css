@@ -1,11 +1,14 @@
 .sidebar {
-  position: absolute;
-  top: 60px;
-  left: -30%;
-  height: inherit;
-  width: 30%;
+  width: calc(30% - 40px);
+}
+
+.sidebar-list {
+  position: absolute !important;
+  width: calc(30% - 40px);
   transition: left .3s ease-in-out;
   background-color: white;
+  max-height: calc(100% - 238px);
+  overflow: auto;
 }
 
 .directions-card {
@@ -18,11 +21,32 @@
 	left: 10px;
 }
 
+.buffer-text {
+	width: 40%;
+	margin-top: 0.5rem !important;
+	margin-bottom: 0;
+	margin-left: 20px;
+}
 
+.buffer-input {
+	width: 60%;
+	z-index: auto !important;
+	text-align: right; 
+}
+
+.buffer-button {
+	width: 100%;
+}
 
 .search-box {
 	position: inherit !important;
 	
+}
+
+.buffer-list {
+	height: inherit;
+	max-height: 100%;
+	overflow: auto; 
 }
 
 .sidebar-toggle {
@@ -76,4 +100,3 @@
 .searchitem.start {
 	background-color: lightskyblue !important;
 }
-
