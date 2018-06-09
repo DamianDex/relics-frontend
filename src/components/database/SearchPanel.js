@@ -8,8 +8,22 @@ export default class SearchPanel extends Component {
 
     constructor(props) {
         super(props);
-    }
 
+        this.state = {
+            name: this.props.searchPhrase,
+            register: "",
+            category: "",
+            voivodeship: "",
+            place: ""
+        }
+
+        this.handleSearch = this.handleSearch.bind(this);
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handleRegisterChange = this.handleRegisterChange.bind(this);
+        this.handleVoivodeshipChange = this.handleVoivodeshipChange.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handlePlaceChange = this.handlePlaceChange.bind(this);
+    }
 
     render() {
         return (
@@ -21,7 +35,8 @@ export default class SearchPanel extends Component {
                         <FormGroup row>
                             <Label for="identification" sm={4}>Nazwa zabytku</Label>
                             <Col sm={8}>
-                                <Input value={this.props.searchPhrase} type="text" name="identification"
+                                <Input value={this.state.name} onChange={this.handleNameChange} type="text"
+                                       name="identification"
                                        id="identification"/>
                             </Col>
                         </FormGroup>
@@ -29,17 +44,29 @@ export default class SearchPanel extends Component {
                         <FormGroup row>
                             <Label for="registerNumber" sm={4}>Numer w rejestrze</Label>
                             <Col sm={8}>
-                                <Input type="text" name="registerNumber"
+                                <Input value={this.state.register} onChange={this.handleRegisterChange} type="text"
+                                       name="registerNumber"
                                        id="registerNumber"/>
                             </Col>
                         </FormGroup>
 
-                        <VoivodeshipFilterDropdown/>
+                        <FormGroup row>
+                            <Label for="place" sm={4}>Miejscowość</Label>
+                            <Col sm={8}>
+                                <Input value={this.state.place} onChange={this.handlePlaceChange} type="text"
+                                       name="place"
+                                       id="place"/>
+                            </Col>
+                        </FormGroup>
 
-                        <CategoryFilterDropdown labelName='Kategoria'/>
+                        <VoivodeshipFilterDropdown value={this.state.voivodeship}
+                                                   onChangeValue={this.handleVoivodeshipChange}/>
+
+                        <CategoryFilterDropdown labelName='Kategoria' value={this.state.category}
+                                                onChangeValue={this.handleCategoryChange}/>
 
                         <div>
-                            <Button outline color="success">Szukaj</Button>
+                            <Button outline color="success" onClick={this.handleSearch}>Szukaj</Button>
                             {'   '}
                             <Button outline color="primary">Wyczyść</Button>
                         </div>
@@ -47,8 +74,32 @@ export default class SearchPanel extends Component {
                     </Form>
                 </CardBody>
             </Card>
-        )
-            ;
+        );
+    }
+
+    handleNameChange(e) {
+        this.setState({name: e.target.value})
+    }
+
+    handleRegisterChange(e) {
+        this.setState({register: e.target.value})
+    }
+
+    handleVoivodeshipChange(e) {
+        this.setState({voivodeship: e.target.value})
+    }
+
+    handleCategoryChange(e) {
+        this.setState({category: e.target.value})
+    }
+
+    handlePlaceChange(e) {
+        this.setState({place: e.target.value})
+    }
+
+    handleSearch() {
+        this.props.filterHandler(this.state.name, this.state.register,
+            this.state.voivodeship, this.state.category, this.state.place);
     }
 }
 

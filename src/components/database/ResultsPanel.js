@@ -13,17 +13,18 @@ export default class ResultsPanel extends Component {
 
         this.state = {
             IDs: [],
-            name: '',
-            register: '',
-            voivodeship: '',
-            category: ''
         }
     }
 
     componentDidMount() {
-        this.getDatabaseItemsWithFilter(this.state.name, this.state.register, this.state.voivodeship, this.state.category);
+        this.getDatabaseItemsWithFilter(this.props.name, this.props.register,
+            this.props.voivodeship, this.props.category, this.props.place);
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.getDatabaseItemsWithFilter(nextProps.name, nextProps.register,
+            nextProps.voivodeship, nextProps.category, nextProps.place);
+    }
 
     render() {
         return (
@@ -45,7 +46,7 @@ export default class ResultsPanel extends Component {
         );
     }
 
-    getDatabaseItemsWithFilter(name, register, voivodeship, category) {
+    getDatabaseItemsWithFilter(name, register, voivodeship, category, place) {
         this.setState(
             {
                 IDs: []
@@ -53,7 +54,7 @@ export default class ResultsPanel extends Component {
         )
 
         let self = this;
-        this.relicController.getDatabaseItemsWithFilter(name, register, voivodeship, category)
+        this.relicController.getDatabaseItemsWithFilter(name, register, voivodeship, category, place)
             .then(response => {
                 self.setState(
                     {

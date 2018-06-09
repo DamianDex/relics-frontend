@@ -38,8 +38,9 @@ export default class RelicController {
         return response;
     }
 
-    getDatabaseItemsWithFilter(name, register, voivodeship, category) {
-        var filterChain = "?name=" + name + "&register=" + register + "&voivodeship=" + voivodeship + "&category=" + category;
+    getDatabaseItemsWithFilter(name, register, voivodeship, category, place) {
+        var filterChain = "?name=" + name + "&register=" + register + "&voivodeship=" + voivodeship +
+            "&category=" + category + "&place=" + place;
         var response = axios.get(this.endpoint + 'relics/filter' + filterChain);
         return response;
     }
