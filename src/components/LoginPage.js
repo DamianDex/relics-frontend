@@ -46,7 +46,7 @@ class LoginPage extends Component {
             var jwtToken = response.headers['authorization'];
             if (jwtToken != null){
                 sessionStorage.setItem("jwtToken", response.headers['authorization']);
-                onLogin();
+                onLogin(true);
                 history.goBack();
             }   
         } catch (error) {
@@ -71,8 +71,6 @@ class LoginPage extends Component {
 
     render() {
     	let alert = null; 
-    	console.log(this.state.logout)
-    	console.log(this.state.tokenExpired)
     	if (this.state.logout != null){
     		alert = <Alert color="success" visibility={this.state.logout}>Zostałeś pomyślnie wylogowany.</Alert>
     	} else if (this.state.tokenExpired != null){
@@ -112,7 +110,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	  return {
-	    onLogin: () => dispatch({ type: 'LOGIN' }),
+	    onLogin: (data) => dispatch({ type: 'LOGIN', logged: data }),
 	  }
 };
 

@@ -4,35 +4,37 @@ import App from "./App";
 import Header from "./Header";
 import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
-import { createStore } from 'redux';
+import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux'
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap/dist/css/glyphicon.css';
 
-const loginReducer = (state, action) => {
+let state;
+
+function reducer(state = [], action) {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, logged: true };
-    case 'LOGOUT':
-      return { ...state, logged: false };
+      return { ...state, logged: action.logged };
+    case 'SEARCH_ROUTE':
+    	return { ...state, route_searched: action.dir_searched, route_buffer: parseFloat(action.route_buffer) }
+    case 'ROUTE_RELICS':
+    	return { ...state, route_relics: action.route_relics}
     default:
       return { ...state, persistedState };
     }
 };
 
-console.log(sessionStorage.getItem('jwtToken'));
-
 const persistedState = sessionStorage.getItem('jwtToken') ? {logged: true} : {logged: false}
 
 const store = createStore(
-	  loginReducer,
+	  reducer,
 	  persistedState
 )
 
 export const history = createBrowserHistory();
-
+ 
 ReactDOM.render((
 	<Provider store={store}>
 		<Router history={history}>

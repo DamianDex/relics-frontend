@@ -9,8 +9,7 @@ class LoginControl extends React.Component {
     
 	static propTypes = {
 		logged: PropTypes.bool,
-		onLogin: PropTypes.func,
-	    onLogout: PropTypes.func
+
     };
 	
 	constructor(props) {
@@ -25,9 +24,7 @@ class LoginControl extends React.Component {
     }
 
     async handleLogoutClick() {
-    	const { onLogout } = this.props;
     	var response = await axios.get(this.endpoint + '/api/logout'); 
-    	console.log(response);
     	this.setState({loggingOut: true});
     	sessionStorage.clear("jwtToken");
     	window.location = "/login?logout";
@@ -55,11 +52,4 @@ const mapStateToProps = (state) => {
 	  return { logged: state.logged };
 };
 
-const mapDispatchToProps = (dispatch) => {
-	  return {
-	    onLogin: () => dispatch({ type: 'LOGIN' }),
-	    onLogout: () => dispatch({ type: 'LOGOUT' })
-	  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginControl);
+export default connect(mapStateToProps, null)(LoginControl);
