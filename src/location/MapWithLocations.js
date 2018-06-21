@@ -1,9 +1,10 @@
 /*global google*/
-import React, {Component} from "react";
+import React from "react";
 import DirectionsWindow from '../location/DirectionsWindow'
-const _ = require("lodash");
 const debounce = require("lodash");
 const { compose, withProps, lifecycle } = require("recompose");
+const { connect } = require("react-redux");
+const PropTypes = require("prop-types")
 
 const {
   withScriptjs,
@@ -12,9 +13,8 @@ const {
   Marker,
   DirectionsRenderer,
 } = require("react-google-maps");
-const { SearchBox } = require("react-google-maps/lib/components/places/SearchBox");
 
-const MapWithDirections = compose(
+const MapWithLocations = compose(
   withProps({
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD24N1anR7QYVu1utTgsefbNB2oICWWpzg&libraries=places,geometry,drawing",
     loadingElement: <div style={{ height: `100%` }} />,
@@ -55,7 +55,6 @@ const MapWithDirections = compose(
         		{ maxWait: 500 }
         ),
         onSearchBoxMounted: ref => {    
-          console.log('aa')
           refs.set(ref.props.id, ref)
           refs = new Map([...refs.entries()].sort());
         },
@@ -63,20 +62,20 @@ const MapWithDirections = compose(
         	var startLocation = null;
         	var endLocation = null;
         	var waypts = Array.from(refs).map(x => {
-        		if (typeof x[1].getPlaces() != 'undefined'){
+        		if (typeof x[1].getPlaces() !== 'undefined'){
         			var loc = x[1].getPlaces()[0].geometry.location;
         			return {location: new google.maps.LatLng(loc.lat(), loc.lng())}
         		}
         	})
-        	waypts = waypts.filter(function(n){ return n != undefined }); 
+        	waypts = waypts.filter(function(n){ return n !== undefined }); 
         	startLocation = waypts[0];
         	endLocation = waypts[waypts.length-1]
         	waypts.splice(0, 1);
         	waypts.splice(waypts.length-1, waypts.length);
-        	if ((typeof startLocation != 'undefined') && (typeof endLocation === 'undefined')){
+        	if ((typeof startLocation !== 'undefined') && (typeof endLocation === 'undefined')){
             	endLocation = startLocation;
             } 	
-            if ((typeof startLocation != 'undefined') && (typeof endLocation != 'undefined')){
+            if ((typeof startLocation !== 'undefined') && (typeof endLocation !== 'undefined')){
               	startLoc = startLocation;
               	endLoc = endLocation;
               	waypts2 = waypts;
@@ -98,6 +97,7 @@ const MapWithDirections = compose(
                   });
             }       	     
         },
+        //add to compoonentWillupdate
   	  	directionsRef: ref => {    
   	  		directionsRef = ref;
   	  	},    
@@ -122,6 +122,20 @@ const MapWithDirections = compose(
           }
       });
     },
+    componentWillUpdate(nextProps, nextState){
+    	var { onSearch } = this.props;
+    	if (nextProps != this.props){
+    		if (typeof this.state.directions !== 'undefined'){
+    			var routePoints = []
+    			this.state.directions.routes[0].overview_path.forEach((point) => {
+    			    routePoints.push([point.lat(), point.lng()])
+    			});
+    			onSearch(routePoints)
+    		} else {
+    			console.log("Its undefined")
+    		}
+    	}
+    }
   })
 )(props =>
 <div>
@@ -141,5 +155,23 @@ const MapWithDirections = compose(
   </GoogleMap>
   </div>
 );
+MapWithLocations.propTypes = {
+	route_relics: PropTypes.array,
+	onSearch: PropTypes.func,		
+}
 
-export default MapWithDirections;
+const mapStateToProps = (state) => {
+  return {
+  	  route_searched: state.route_searched,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+	  return {
+		  onSearch: (found_relics) => (
+			  dispatch({ type: 'ROUTE_RELICS', route_relics: found_relics })
+		  )
+	  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapWithLocations);

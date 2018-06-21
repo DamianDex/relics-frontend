@@ -44,4 +44,15 @@ export default class RelicController {
         var response = axios.get(this.endpoint + 'relics/filter' + filterChain);
         return response;
     }
+
+    getRelicsInRouteBuffer(routeArray, buffer) {
+        axios.post(this.endpoint + 'relics/route-buffer', {
+           	routeArray: routeArray,
+           	buffer: buffer
+        }).then(function (response) {
+            console.log(response);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
 }
