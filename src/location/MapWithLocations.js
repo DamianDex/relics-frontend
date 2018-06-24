@@ -98,12 +98,13 @@ const MapWithLocations = compose(
                   });
             }       	     
         },
-        //add to compoonentWillupdate
-  	  	directionsRef: ref => {    
+  	  	directionsRef: ref => {
   	  		directionsRef = ref;
   	  	},    
   	  	getDirections: () => {
-  	  		console.log(directionsRef.getDirections())  
+  	  	    this.setState({
+  	  	        directions: directionsRef.getDirections(),
+  	  	    })
   	  	}
       });
 
