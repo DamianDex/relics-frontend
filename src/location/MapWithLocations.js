@@ -1,10 +1,16 @@
 /*global google*/
 import React from "react";
 import DirectionsWindow from '../location/DirectionsWindow'
+import "../location/Location.css";
 const debounce = require("lodash");
-const { compose, withProps, lifecycle } = require("recompose");
+const { compose, withProps, withHandlers, lifecycle } = require("recompose");
 const { connect } = require("react-redux");
+const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
+const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
+const {Card, CardImg, CardBody, CardSubtitle, CardHeader, Col} = require("reactstrap");
+
 const PropTypes = require("prop-types")
+
 
 const {
   withScriptjs,
@@ -17,11 +23,16 @@ const {
 
 const MapWithLocations = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD24N1anR7QYVu1utTgsefbNB2oICWWpzg&libraries=places,geometry,drawing",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD24N1anR7QYVu1utTgsefbNB2oICWWpzg&v=3.31&libraries=places,geometry,drawing",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `100%` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
+    withHandlers({
+      onMarkerClustererClick: () => (markerClusterer) => {
+        const clickedMarkers = markerClusterer.getMarkers()
+      },
+    }),
   withScriptjs,
   withGoogleMap,
   lifecycle({
@@ -35,12 +46,31 @@ const MapWithLocations = compose(
 
       this.setState({
         bounds: null,
+        refresh: 1,
         center: {
           lat: 52, lng: 19
         },
         markers: [],
+        imageSrc: '/images/icon.jpg',
         onMapMounted: ref => {
           refs.map = ref;
+        },
+        onShowMarkLabel: (id, show) => {
+          var BreakException = {};
+          try{
+            this.state.markers.forEach(function(marker) {
+              if (marker.id === id){
+                marker['labelVisible']=show
+                throw BreakException;
+              }
+            })
+          } catch (e){
+            if (e !== BreakException) throw e;
+          }
+          var newRefresh = -this.state.refresh
+          this.setState({
+            refresh: newRefresh
+          })
         },
         onBoundsChanged: () => debounce(
         	() => {
@@ -137,8 +167,12 @@ const MapWithLocations = compose(
     			console.log("Its undefined")
     		}
     	} else if (nextProps.found_buffer != this.props.found_buffer || nextProps.found_relics != this.props.found_relics){
+    	    nextProps.found_relics.forEach(function(relic) {
+    	        relic["labelVisible"] = false;
+    	    })
     	    this.setState({
     	        buffer: nextProps.found_buffer,
+    	        markers: nextProps.found_relics,
     	    })
     	}
     }
@@ -159,6 +193,32 @@ const MapWithLocations = compose(
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
+    <MarkerClusterer
+      onClick={props.onMarkerClustererClick}
+      averageCenter
+      enableRetinaIcons
+      gridSize={60}
+    >
+      {props.markers.map(marker => (
+         <MarkerWithLabel
+            key={marker.id}
+            position={{ lat: marker.geographicLocation.latitude, lng: marker.geographicLocation.longitude }}
+            labelAnchor={new google.maps.Point(0, 0)}
+            labelVisible={marker.labelVisible}
+            onMouseOver={() => props.onShowMarkLabel(marker.id, true)}
+            onMouseOut={() => props.onShowMarkLabel(marker.id, false)}
+         >
+            <Card className="marker-pop">
+              <CardHeader>
+                <CardSubtitle>{marker.identification}</CardSubtitle>
+              </CardHeader>
+              <CardBody>
+                <CardImg top width="100%" src={process.env.PUBLIC_URL + props.imageSrc} alt="Card image cap"/>
+              </CardBody>
+            </Card>
+         </MarkerWithLabel>
+      ))}
+    </MarkerClusterer>
     {props.directions && <DirectionsRenderer  
     	ref={props.directionsRef}
 		directions={props.directions}

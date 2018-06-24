@@ -106,6 +106,10 @@
     display: none;
 }
 
+.marker-pop {
+    width: 250px;
+}
+
 .loader {
     margin-left: 16px;
     margin-top: -5px;
