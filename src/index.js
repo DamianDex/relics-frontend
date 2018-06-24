@@ -21,6 +21,10 @@ function reducer(state = [], action) {
     	return { ...state, route_searched: action.dir_searched, route_buffer: parseFloat(action.route_buffer) }
     case 'ROUTE_RELICS':
     	return { ...state, route_relics: action.route_relics}
+    case 'PROCESSING_RELICS':
+        return {...state, pending: action.pending}
+    case 'ROUTE_RELICS_FOUND':
+        return {...state, found_relics: action.found_relics, found_buffer: action.found_buffer}
     default:
       return { ...state, persistedState };
     }

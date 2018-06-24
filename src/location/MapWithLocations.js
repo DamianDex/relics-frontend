@@ -12,6 +12,7 @@ const {
   GoogleMap,
   Marker,
   DirectionsRenderer,
+  Polygon,
 } = require("react-google-maps");
 
 const MapWithLocations = compose(
@@ -124,7 +125,7 @@ const MapWithLocations = compose(
     },
     componentWillUpdate(nextProps, nextState){
     	var { onSearch } = this.props;
-    	if (nextProps != this.props){
+    	if (nextProps.route_searched != this.props.route_searched){
     		if (typeof this.state.directions !== 'undefined'){
     			var routePoints = []
     			this.state.directions.routes[0].overview_path.forEach((point) => {
@@ -134,12 +135,23 @@ const MapWithLocations = compose(
     		} else {
     			console.log("Its undefined")
     		}
+    	} else if (nextProps.found_buffer != this.props.found_buffer || nextProps.found_relics != this.props.found_relics){
+    	    this.setState({
+    	        buffer: nextProps.found_buffer,
+    	    })
     	}
     }
   })
 )(props =>
 <div>
   <DirectionsWindow props={props} onRef={ref => (this.child = ref)}/>
+  <Polygon path={props.buffer} options={{
+                                           strokeColor: '#4169E1',
+                                           fillColor: '#87CEFA',
+                                           strokeOpacity: 0.6,
+                                           strokeWeight: 1,
+                                           fillOpacity: 0.3
+                                       }}/>
   <GoogleMap
     ref={props.onMapMounted}
     defaultZoom={6}
@@ -157,19 +169,23 @@ const MapWithLocations = compose(
 );
 MapWithLocations.propTypes = {
 	route_relics: PropTypes.array,
+	found_relics: PropTypes.array,
+	found_buffer: PropTypes.array,
 	onSearch: PropTypes.func,		
 }
 
 const mapStateToProps = (state) => {
   return {
   	  route_searched: state.route_searched,
+  	  found_relics: state.found_relics,
+  	  found_buffer: state.found_buffer
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
 	  return {
-		  onSearch: (found_relics) => (
-			  dispatch({ type: 'ROUTE_RELICS', route_relics: found_relics })
+		  onSearch: (routePoints) => (
+			  dispatch({ type: 'ROUTE_RELICS', route_relics: routePoints })
 		  )
 	  }
 };

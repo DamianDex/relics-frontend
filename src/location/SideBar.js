@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 class SideBar extends Component {
     
 	static propTypes = {
+	    pending: PropTypes.bool,
 		route_searched: PropTypes.number,
 		onSearch: PropTypes.func,
     };
@@ -30,20 +31,26 @@ class SideBar extends Component {
     }
 	
     render() {
-    	const { route_searched } = this.props;
+    	const { route_searched, pending } = this.props;
         let button = null;
+        let pendingWheel = null;
         if (route_searched === 1) {
             button = <Button className="buffer-button" color="primary" onClick={() => this.handleSearchClick(0)}>Wyszukaj</Button>	
         } else {
             button = <Button className="buffer-button" color="primary" onClick={() => this.handleSearchClick(1)}>Wyszukaj</Button>	
-        }   	
+        }
+        if (pending){
+            pendingWheel = <div className="loader"></div>
+        } else {
+            pendingWheel = <div></div>
+        }
         return (
         	<div id = "inner-remaining" className="sidebar">
         		<CardHeader>
         			Bufor odległości od trasy
         		</CardHeader>
         	    <InputGroup className="buffer-group">
-        	      	<CardSubtitle className="buffer-text" >Wielkość bufora [km]: </CardSubtitle>
+        	      	<CardSubtitle className="buffer-text" >Bufor [km]: {pendingWheel}</CardSubtitle>
         	       	<Input className="buffer-input" placeholder="Wpisz odległość od trasy..." type="number" step="1" min="0" 
         	       		value={this.state.buffer} onChange={this.handleBufferChange}/>
         	     </InputGroup>
@@ -105,7 +112,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
     return {
-    	route_searched: state.route_searched
+    	route_searched: state.route_searched,
+    	pending: state.pending
     }
 }
 

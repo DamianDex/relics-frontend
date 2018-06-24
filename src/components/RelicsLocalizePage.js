@@ -12,6 +12,8 @@ class RelicsLocalizePage extends Component {
 	static propTypes = {
 		route_relics: PropTypes.array,
 		route_buffer: PropTypes.number,
+		onRelicsBeingSearched: PropTypes.func,
+		onRelicsSearched: PropTypes.func
     };
 	
     constructor(props) {
@@ -24,7 +26,7 @@ class RelicsLocalizePage extends Component {
     }
 
     componentWillUpdate(nextProps, nextState) {
-    	  if (nextProps.route_relics != this.props.route_relics) {
+    	  if (nextProps.route_relics !== this.props.route_relics) {
     		  this.onSearchButtonClicked(nextProps.route_relics, nextProps.route_buffer);
     	  }
     	}
@@ -38,21 +40,13 @@ class RelicsLocalizePage extends Component {
     }
     
     onSearchButtonClicked(routeArray, buffer){
-    	this.relicsController.getRelicsInRouteBuffer(routeArray, buffer);
-//        axios.get('http://localhost:8090/api/relics/route-buffer', {
-//        	routeArray: routeArray,
-//        	buffer: buffer
-//        }, {
-//            headers: {
-//                'Accept': 'application/json',
-//                'Content-Type': 'application/json',
-//                'authorization': sessionStorage.getItem("jwtToken")
-//            }
-//        }).then(function (response) {
-//                console.log(response);
-//        }).catch(function (error) {
-//                console.log(error);
-//        });
+        var { onRelicsBeingSearched, onRelicsSearched } = this.props;
+        onRelicsBeingSearched(true);
+    	var response = this.relicsController.getRelicsInRouteBuffer(routeArray, buffer)
+    	    .then(function(result) {
+    	        onRelicsBeingSearched(false);
+    	        onRelicsSearched(result.data.relics, result.data.bufferPoints);
+    	});
     }
    
 
@@ -73,5 +67,13 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps)(RelicsLocalizePage);
+const mapDispatchToProps = (dispatch) => {
+	  return {
+	    onRelicsBeingSearched: (pending) => dispatch({ type: 'PROCESSING_RELICS', pending: pending}),
+	    onRelicsSearched: (relics, buffer) => dispatch({ type: 'ROUTE_RELICS_FOUND', found_relics: relics,
+	                                                                                 found_buffer: buffer})
+	  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RelicsLocalizePage);
 

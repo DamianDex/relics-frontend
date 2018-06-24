@@ -46,13 +46,13 @@ export default class RelicController {
     }
 
     getRelicsInRouteBuffer(routeArray, buffer) {
-        axios.post(this.endpoint + 'relics/route-buffer', {
-           	routeArray: routeArray,
-           	buffer: buffer
-        }).then(function (response) {
-            console.log(response);
-        }).catch(function (error) {
-            console.log(error);
-        });
+        try {
+            var response = axios.post(this.endpoint + 'relics/route-buffer', {
+                routeArray: routeArray,
+                buffer: buffer })
+                return response;
+            } catch (error) {
+               	console.log(error);
+            }
     }
 }
