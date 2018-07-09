@@ -121,6 +121,44 @@
     animation: spin 1s linear infinite;
 }
 
+.selected-loc-item {
+    background: lightsteelblue;
+}
+
+.selected-loc-item: focus, .selected-loc-item: hover, .loc-item:focus, .loc-item:hover {
+    background: lavender;
+}
+
+.list {
+  height: calc(100vh)
+}
+
+.list-container {
+    height: calc(100vh - 230px);
+}
+
+.list-item {
+    min-height: 200px;
+}
+
+.list-item-text {
+    width: 100%;
+    text-align: right;
+}
+
+.list-item-button {
+    float: left;
+    position: absolute;
+    z-index: 1;
+}
+
+.marked-list-item {
+    min-height: 200px;
+    background-color: lightskyblue !important;
+}
+
+
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }

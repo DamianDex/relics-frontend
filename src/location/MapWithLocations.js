@@ -3,11 +3,11 @@ import React from "react";
 import DirectionsWindow from '../location/DirectionsWindow'
 import "../location/Location.css";
 const debounce = require("lodash");
-const { compose, withProps, withHandlers, lifecycle } = require("recompose");
+const { compose, withProps, withState, withHandlers, lifecycle } = require("recompose");
 const { connect } = require("react-redux");
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 const { MarkerWithLabel } = require("react-google-maps/lib/components/addons/MarkerWithLabel");
-const {Card, CardImg, CardBody, CardSubtitle, CardHeader, Col} = require("reactstrap");
+const {Card, CardImg, CardBody, CardSubtitle, CardHeader} = require("reactstrap");
 
 const PropTypes = require("prop-types")
 
@@ -16,23 +16,23 @@ const {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-  Marker,
   DirectionsRenderer,
   Polygon,
 } = require("react-google-maps");
 
 const MapWithLocations = compose(
   withProps({
-    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD24N1anR7QYVu1utTgsefbNB2oICWWpzg&v=3.31&libraries=places,geometry,drawing",
+    googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyD24N1anR7QYVu1utTgsefbNB2oICWWpzg&v=3.33&libraries=places,geometry,drawing",
     loadingElement: <div style={{ height: `100%` }} />,
     containerElement: <div style={{ height: `100%` }} />,
     mapElement: <div style={{ height: `100%` }} />,
   }),
-    withHandlers({
-      onMarkerClustererClick: () => (markerClusterer) => {
-        const clickedMarkers = markerClusterer.getMarkers()
-      },
-    }),
+  withState('zoom', 'onZoomChange', 6),
+  withHandlers({
+    onMarkerClustererClick: () => (markerClusterer) => {
+      markerClusterer.getMarkers()
+    },
+  }),
   withScriptjs,
   withGoogleMap,
   lifecycle({
@@ -47,6 +47,7 @@ const MapWithLocations = compose(
       this.setState({
         bounds: null,
         refresh: 1,
+        zoom: 6,
         center: {
           lat: 52, lng: 19
         },
@@ -60,8 +61,10 @@ const MapWithLocations = compose(
           try{
             this.state.markers.forEach(function(marker) {
               if (marker.id === id){
-                marker['labelVisible']=show
+                marker['labelVisible']=show;
                 throw BreakException;
+              } else {
+                marker['labelVisible']=false;
               }
             })
           } catch (e){
@@ -71,6 +74,10 @@ const MapWithLocations = compose(
           this.setState({
             refresh: newRefresh
           })
+        },
+        onMarkerClicked: (id) => {
+    	var { onRelicMarkerClicked } = this.props;
+            onRelicMarkerClicked(id);
         },
         onBoundsChanged: () => debounce(
         	() => {
@@ -116,9 +123,9 @@ const MapWithLocations = compose(
                     destination: endLocation.location,
                     travelMode: google.maps.TravelMode.DRIVING,
                     waypoints: waypts
-                    
+
                 }, (result, status) => {
-                    if (status === google.maps.DirectionsStatus.OK) {             
+                    if (status === google.maps.DirectionsStatus.OK) {
                       this.setState({
                         directions: result,
                       });
@@ -143,9 +150,9 @@ const MapWithLocations = compose(
           destination: endLoc.location,
           travelMode: google.maps.TravelMode.DRIVING,
           waypoints: waypts2
-            
+
       }, (result, status) => {
-          if (status === google.maps.DirectionsStatus.OK) {             
+          if (status === google.maps.DirectionsStatus.OK) {
             this.setState({
               directions: result,
             });
@@ -155,7 +162,7 @@ const MapWithLocations = compose(
       });
     },
     componentWillUpdate(nextProps, nextState){
-    	var { onSearch } = this.props;
+    	var { relic_zoomed, onSearch } = this.props;
     	if (nextProps.route_searched != this.props.route_searched){
     		if (typeof this.state.directions !== 'undefined'){
     			var routePoints = []
@@ -174,6 +181,10 @@ const MapWithLocations = compose(
     	        buffer: nextProps.found_buffer,
     	        markers: nextProps.found_relics,
     	    })
+    	} else if (typeof nextProps.relic_zoomed !== 'undefined' && nextProps.relic_zoomed != relic_zoomed){
+    	    const center = {lat: nextProps.relic_zoomed[0], lng: nextProps.relic_zoomed[1]};
+    	    console.log(this.state.zoom);
+    	    this.setState({center: center, zoom: 25})
     	}
     }
   })
@@ -189,12 +200,11 @@ const MapWithLocations = compose(
                                        }}/>
   <GoogleMap
     ref={props.onMapMounted}
+    zoom={props.zoom}
     defaultZoom={6}
     center={props.center}
-    onBoundsChanged={props.onBoundsChanged}
   >
     <MarkerClusterer
-      onClick={props.onMarkerClustererClick}
       averageCenter
       enableRetinaIcons
       gridSize={60}
@@ -207,6 +217,7 @@ const MapWithLocations = compose(
             labelVisible={marker.labelVisible}
             onMouseOver={() => props.onShowMarkLabel(marker.id, true)}
             onMouseOut={() => props.onShowMarkLabel(marker.id, false)}
+            onClick={ () => props.onMarkerClicked(marker.id)}
          >
             <Card className="marker-pop">
               <CardHeader>
@@ -232,14 +243,19 @@ MapWithLocations.propTypes = {
 	route_relics: PropTypes.array,
 	found_relics: PropTypes.array,
 	found_buffer: PropTypes.array,
-	onSearch: PropTypes.func,		
+	relic_clicked: PropTypes.number,
+	relic_zoomed: PropTypes.array,
+	onSearch: PropTypes.func,
+	onRelicMarkerClicked: PropTypes.func
 }
 
 const mapStateToProps = (state) => {
   return {
   	  route_searched: state.route_searched,
   	  found_relics: state.found_relics,
-  	  found_buffer: state.found_buffer
+  	  found_buffer: state.found_buffer,
+  	  relic_clicked: state.relic_clicked,
+  	  relic_zoomed: state.relic_zoomed
   }
 }
 
@@ -247,7 +263,10 @@ const mapDispatchToProps = (dispatch) => {
 	  return {
 		  onSearch: (routePoints) => (
 			  dispatch({ type: 'ROUTE_RELICS', route_relics: routePoints })
-		  )
+		  ),
+		  onRelicMarkerClicked: (id) => {
+		      dispatch({ type: 'RELIC_MARKER', relic_clicked: id})
+		  },
 	  }
 };
 

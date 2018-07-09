@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {Card, CardBody, CardHeader, InputGroup, CardFooter, ListGroup, ListGroupItem, Col, Label, Button, Input, NavLink, Alert, Table} from 'reactstrap';
+import React, { Component } from "react";
+import { Card, CardHeader, InputGroup, CardFooter, Button, Input } from 'reactstrap';
 const { StandaloneSearchBox } = require("react-google-maps/lib/components/places/StandaloneSearchBox");
 
 export default class DirectionsWindow extends Component {
@@ -75,13 +75,13 @@ export default class DirectionsWindow extends Component {
         return (
         	<Card className="directions-card" >
         	<CardHeader className="directions-color">Trasa</CardHeader>
-        		<CardBody className="scroller">
+        		<div className="scroller">
         			{startRow}
                     {this.state.rows.map((r) => (
                     	this.renderRow("default", r)
                     ))}
                     {endRow}
-        		</CardBody>
+        		</div>
         		<CardFooter className="directions-color">
     				<Button className="float-right" onClick={this.addRow}>
 						Dodaj przystanek

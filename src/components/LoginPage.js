@@ -90,11 +90,11 @@ class LoginPage extends Component {
                 					onChange={this.handlePasswordChange}/>
                 			<Label className="error-label">{ this.state.errorMessage}</Label>
                 			<Button outline color="success" className="float-right" onClick={this.handleLogin}>Login</Button><br/><br/>
-                            <CardFooter >
-                				<Label>Nie posiadasz jeszcze konta?</Label>
-                				<NavLink style={{display:'contents'}} href="/register"> Zarejestruj sie!</NavLink>
-                			</CardFooter>
                 		</CardBody>
+                		<CardFooter >
+                            <Label>Nie posiadasz jeszcze konta?</Label>
+                                <NavLink style={{display:'contents'}} href="/register"> Zarejestruj sie!</NavLink>
+                        </CardFooter>
                 	</Card>
                 </Col>
             </div>

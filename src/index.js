@@ -6,12 +6,9 @@ import { Router } from 'react-router'
 import { createBrowserHistory } from 'history'
 import { createStore, combineReducers } from 'redux';
 import { Provider } from 'react-redux'
-
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap/dist/css/glyphicon.css';
-
-let state;
 
 function reducer(state = [], action) {
   switch (action.type) {
@@ -25,6 +22,8 @@ function reducer(state = [], action) {
         return {...state, pending: action.pending}
     case 'ROUTE_RELICS_FOUND':
         return {...state, found_relics: action.found_relics, found_buffer: action.found_buffer}
+    case 'RELIC_MARKER':
+        return {...state, relic_clicked: action.relic_clicked, relic_zoomed: action.relic_zoomed}
     default:
       return { ...state, persistedState };
     }
