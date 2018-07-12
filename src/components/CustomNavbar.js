@@ -1,8 +1,15 @@
 import React from 'react';
 import {Button, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavbarBrand, NavItem} from 'reactstrap';
 import LoginControl from '../components/LoginControl'
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux'
 
-export default class CustomNavbar extends React.Component {
+class CustomNavbar extends React.Component {
+
+	static propTypes = {
+		user_role: PropTypes.string,
+    };
+
     constructor(props) {
         super(props);
 
@@ -26,7 +33,17 @@ export default class CustomNavbar extends React.Component {
     }
 
     render() {
+        const { user_role } = this.props;
         var searchBtn;
+        let roleButton;
+        var roleNavPadding= "0px";
+        if (user_role === 'USER') {
+            roleButton = <Button outline color="primary" href="/my-profile">Mój profil</Button>
+            roleNavPadding = "5px";
+        } else if (user_role === 'ADMIN'){
+            roleButton = <Button outline color="primary" href="/admin">Administracja</Button>
+            roleNavPadding = "5px";
+        }
 
         if (this.state.searchPhrase == "") {
             searchBtn = (
@@ -64,8 +81,8 @@ export default class CustomNavbar extends React.Component {
                         <NavItem style={{padding: '5px'}}>
                             <Button outline color="primary" href="/add">Dodaj</Button>
                         </NavItem>
-                        <NavItem style={{padding: '5px'}}>
-                            <Button outline color="primary" href="/my-profile">Mój profil</Button>
+                        <NavItem style={{padding: roleNavPadding}}>
+                            {roleButton}
                         </NavItem>
                         <NavItem style={{padding: '5px'}}>
                             <LoginControl/>
@@ -76,3 +93,9 @@ export default class CustomNavbar extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return { user_role: state.user_role };
+};
+
+export default connect(mapStateToProps, null)(CustomNavbar);

@@ -13,7 +13,7 @@ import 'bootstrap/dist/css/glyphicon.css';
 function reducer(state = [], action) {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, logged: action.logged };
+      return { ...state, logged: action.logged, user_role: action.user_type };
     case 'SEARCH_ROUTE':
     	return { ...state, route_searched: action.dir_searched, route_buffer: parseFloat(action.route_buffer) }
     case 'ROUTE_RELICS':
@@ -29,7 +29,7 @@ function reducer(state = [], action) {
     }
 };
 
-const persistedState = sessionStorage.getItem('jwtToken') ? {logged: true} : {logged: false}
+const persistedState = sessionStorage.getItem('jwtToken') ? {logged: true, user_role: sessionStorage.getItem('role')} : {logged: false}
 
 const store = createStore(
 	  reducer,

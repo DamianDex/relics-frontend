@@ -46,6 +46,7 @@ class LoginPage extends Component {
             var jwtToken = response.headers['authorization'];
             if (jwtToken != null){
                 sessionStorage.setItem("jwtToken", response.headers['authorization']);
+                sessionStorage.setItem("role", response.data);
                 onLogin(true);
                 history.goBack();
             }   
