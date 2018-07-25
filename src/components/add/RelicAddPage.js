@@ -48,6 +48,7 @@ export default class RelicAddPage extends React.Component {
                 longitude: '',
             }
         };
+        this.baseState = this.state;
 
         this.handleIdentificationChange = this.handleIdentificationChange.bind(this);
         this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -63,6 +64,7 @@ export default class RelicAddPage extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleCoordinatesChange = this.handleCoordinatesChange.bind(this);
         this.handlePickerClick = this.handlePickerClick.bind(this);
+        this.onDismiss = this.onDismiss.bind(this);
         this.toggle = this.toggle.bind(this);
     }
 
@@ -125,6 +127,12 @@ export default class RelicAddPage extends React.Component {
         })
     }
 
+    onDismiss() {
+        this.setState({
+            visible: false
+        })
+    }
+
     toggle() {
         this.setState({
             modal: !this.state.modal
@@ -136,7 +144,6 @@ export default class RelicAddPage extends React.Component {
             this.setState({modal: true})
         }
         else {
-            this.setState({visible: true})
             var identification = this.state.identification;
             var description = this.state.description;
             var registerNumber = this.state.registerNumber;
@@ -152,6 +159,10 @@ export default class RelicAddPage extends React.Component {
 
             var latitude = this.state.coordinates.latitude;
             var longitude = this.state.coordinates.longitude;
+
+            this.setState(this.baseState);
+            this.setState({visible: true});
+
 
             axios.post('http://localhost:8090/api/relics', {
 
@@ -337,7 +348,7 @@ export default class RelicAddPage extends React.Component {
                                                     Zabytek</Button>
                                             </Col>
                                         </FormGroup>
-                                        <Alert color="success" isOpen={this.state.visible}>
+                                        <Alert color="success" isOpen={this.state.visible} toggle={this.onDismiss}>
                                             Zabytek został dodany do bazy.
                                         </Alert>
                                     </Form>
