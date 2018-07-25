@@ -207,19 +207,23 @@ export default class RelicAddPage extends React.Component {
                                         danych zabytek
                                         zostanie umieszczeony w bazie.</p><br/>
                                     <Form>
-                                        <FormGroup row>
-                                            <Label for="identification" sm={2}>Nazwa zabytku *</Label>
+                                        <FormGroup row >
+                                            <Col sm={2}>
+                                            <Label for="identification">Nazwa zabytku*</Label>
+                                            </Col>
                                             <Col sm={10}>
-                                                <Input type="text" name="identification"
+                                                <Input  type="text" name="identification"
                                                        id="identification"
                                                        value={this.state.identification}
                                                        onChange={this.handleIdentificationChange}/>
                                             </Col>
                                         </FormGroup>
-                                        <CategoryFilterDropdown labelName='Kategoria *' value={this.state.category}
+                                        <CategoryFilterDropdown labelName='Kategoria*' value={this.state.category}
                                                                 onChangeValue={this.handleCategory}/>
                                         <FormGroup row>
-                                            <Label for="registerNumber" sm={2}>Numer w rejestrze *</Label>
+                                            <Col sm={2}>
+                                                <Label for="registerNumber">Numer w rejestrze*</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="registerNumber"
                                                        id="registerNumber"
@@ -228,7 +232,9 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
-                                            <Label for="datingOfObject" sm={2}>Data powstania</Label>
+                                            <Col sm={2}>
+                                                <Label for="datingOfObject">Data powstania</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="datingOfObject"
                                                        id="datingOfObject"
@@ -239,7 +245,9 @@ export default class RelicAddPage extends React.Component {
                                         <VoivodeshipFilterDropdown value={this.state.voivodeshipName}
                                                                    onChangeValue={this.handleVoivodeshipName}/>
                                         <FormGroup row>
-                                            <Label for="districtName" sm={2}>Powiat</Label>
+                                            <Col sm={2}>
+                                                <Label for="districtName">Powiat</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="districtName"
                                                        id="districtName"
@@ -248,7 +256,9 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
-                                            <Label for="communeName" sm={2}>Gmina</Label>
+                                            <Col sm={2}>
+                                                <Label for="communeName">Gmina</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="communeName"
                                                        id="communeName"
@@ -257,7 +267,9 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
-                                            <Label for="placeName" sm={2}>Miejscowość</Label>
+                                            <Col sm={2}>
+                                                <Label for="placeName">Miejscowość</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="placeName"
                                                        id="placeName"
@@ -266,7 +278,9 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
-                                            <Label for="street" sm={2}>Ulica</Label>
+                                            <Col sm={2}>
+                                                <Label for="street">Ulica</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="text" name="street"
                                                        id="street"
@@ -276,7 +290,9 @@ export default class RelicAddPage extends React.Component {
                                         </FormGroup>
 
                                         <FormGroup row>
-                                            <Label for="coordinates" sm={2}>Współrzędne geograficzne</Label>
+                                            <Col sm={2}>
+                                                <Label for="coordinates">Współrzędne</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <InputGroup>
                                                     <Input type="text" name="latitude"
@@ -294,7 +310,9 @@ export default class RelicAddPage extends React.Component {
                                         </FormGroup>
 
                                         <FormGroup row>
-                                            <Label for="description" sm={2}>Opis</Label>
+                                            <Col sm={2}>
+                                                <Label for="description">Opis</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="textarea" name="description"
                                                        id="description"
@@ -303,7 +321,9 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup row>
-                                            <Label for="profileImage" sm={2}>Zdjęcie profilowe</Label>
+                                            <Col sm={2}>
+                                                <Label for="profileImage">Zdjęcie profilowe</Label>
+                                            </Col>
                                             <Col sm={10}>
                                                 <Input type="file" name="profileImage"
                                                        id="profileImage"
@@ -312,7 +332,7 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup check row>
-                                            <Col sm={{size: 2, offset: 10}}>
+                                            <Col sm={{size: 2, offset: 9}}>
                                                 <Button outline color="primary" onClick={this.handleClick}>Dodaj
                                                     Zabytek</Button>
                                             </Col>
