@@ -36,6 +36,7 @@ class CustomNavbar extends React.Component {
         const { user_role } = this.props;
         var searchBtn;
         let roleButton;
+        let addButton;
         var roleNavPadding= "0px";
         if (user_role === 'USER') {
             roleButton = <Button outline color="primary" href="/my-profile">Mój profil</Button>
@@ -43,6 +44,10 @@ class CustomNavbar extends React.Component {
         } else if (user_role === 'ADMIN'){
             roleButton = <Button outline color="primary" href="/admin">Administracja</Button>
             roleNavPadding = "5px";
+        }
+
+        if(user_role === 'USER' || user_role === 'ADMIN'){
+            addButton = <Button outline color="primary" href="/add">Dodaj</Button>
         }
 
         if (this.state.searchPhrase == "") {
@@ -78,8 +83,8 @@ class CustomNavbar extends React.Component {
                         <NavItem style={{padding: '5px'}}>
                             <Button outline color="primary" href="/ranking">Ranking</Button>
                         </NavItem>
-                        <NavItem style={{padding: '5px'}}>
-                            <Button outline color="primary" href="/add">Dodaj</Button>
+                        <NavItem style={{padding: roleNavPadding}}>
+                            {addButton}
                         </NavItem>
                         <NavItem style={{padding: roleNavPadding}}>
                             {roleButton}
