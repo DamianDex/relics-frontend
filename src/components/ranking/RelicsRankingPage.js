@@ -45,20 +45,25 @@ export default class RelicsRankingPage extends Component {
         return (
             <div>
                 <br/>
-                <Col sm="12" md={{size: 10, offset: 1}}>
+                <Col sm="12">
                     <Card>
                         <CardHeader>Filtruj ranking</CardHeader>
                         <CardBody>
                             <div className="filter-component">
-                                <Form inline>
-                                    <Col sm={6}>
-                                        <CategoryFilterDropdown labelName="Kategoria" value={this.state.categoryFilter}
+                                <Form>
+
+                                        <CategoryFilterDropdown labelName="Kategoria"
+                                                                categoryLabelWidth={1}
+                                                                categoryInputWidth={4}
+                                                                value={this.state.categoryFilter}
                                                                 onChangeValue={this.handleCategoryFilterChange}/>
-                                    </Col>
-                                    <Col sm={6}>
+
+
                                         <VoivodeshipFilterDropdown value={this.state.voivodeshipFilter}
+                                                                   voivodeshipLabelWidth={1}
+                                                                   voivodeshipInputWidth={4}
                                                                    onChangeValue={this.handleVoivodeshipFilterChange}/>
-                                    </Col>
+
                                 </Form>
                                 <br/>
                                 <Button outline color="success"
@@ -72,25 +77,25 @@ export default class RelicsRankingPage extends Component {
                     </Card>
                 </Col>
                 <br/>
-                <Col sm="12" md={{size: 10, offset: 1}}>
+                <Col sm="12" >
                     <Card>
                         <CardHeader>Najwyżej oceniane</CardHeader>
                         <CardBody>
-                            <ListGroup>
+                            <ol>
                                 {
                                     this.state.IDs.map(id => {
                                             return (
-                                                <RankingListItem id={id}/>
+                                                <li><RankingListItem id={id}/></li>
                                             );
                                         }
                                     )
                                 }
-                            </ListGroup>
+                            </ol>
                         </CardBody>
                     </Card>
                 </Col>
                 <br/>
-                <Col sm="12" md={{size: 10, offset: 1}}>
+                <Col sm="12">
                     <Button block outline color="success" onClick={this.handleMore}>Załaduj więcej (+2)
                         / {this.state.rankingSize}</Button>
                     <Button block outline color="primary" onClick={this.handleLess}>Zwiń listę (-2)

@@ -21,8 +21,8 @@ export default class VoivodeshipFilterDropdown extends Component {
     render() {
         return (
             <FormGroup class="voivodeship-filter" row>
-                <Label for="exampleSelect" sm={2}>Województwo</Label>
-                <Col sm={10}>
+                <Label for="exampleSelect" sm={this.props.voivodeshipLabelWidth}>Województwo</Label>
+                <Col sm={this.props.voivodeshipInputWidth}>
                 <Input type="select"
                        name="voivodeship"
                        id="exampleSelect"

@@ -19,8 +19,8 @@ export default class CategoryFilterDropdown extends Component {
     render() {
         return (
             <FormGroup row>
-                <Label for="exampleSelect1" sm={2}>{this.props.labelName}</Label>
-                <Col sm={10}>
+                <Label for="exampleSelect1" sm={this.props.categoryLabelWidth}>{this.props.labelName}</Label>
+                <Col sm={this.props.categoryInputWidth}>
                 <Input type="select" name="category"
                        id="exampleSelect1"
                        value={[this.props.value]}

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Card, CardBody, CardHeader, ListGroup} from "reactstrap";
-import RankingListItem from "../ranking/RankingListItem";
+import BaseListItem from "./BaseListItem";
 import RelicController from "../../controllers/RelicController";
 
 export default class ResultsPanel extends Component {
@@ -35,7 +35,7 @@ export default class ResultsPanel extends Component {
                         {
                             this.state.IDs.map(id => {
                                     return (
-                                        <RankingListItem id={id}/>
+                                        <BaseListItem id={id}/>
                                     );
                                 }
                             )

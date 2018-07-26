@@ -33,8 +33,8 @@ export default class SearchPanel extends Component {
                     <Form style={{padding: "15px"}}>
                         <br/>
                         <FormGroup row>
-                            <Label for="identification" sm={4}>Nazwa zabytku</Label>
-                            <Col sm={8}>
+                            <Label for="identification" sm={5}>Nazwa</Label>
+                            <Col sm={7}>
                                 <Input value={this.state.name} onChange={this.handleNameChange} type="text"
                                        name="identification"
                                        id="identification"/>
@@ -42,8 +42,8 @@ export default class SearchPanel extends Component {
                         </FormGroup>
 
                         <FormGroup row>
-                            <Label for="registerNumber" sm={4}>Numer w rejestrze</Label>
-                            <Col sm={8}>
+                            <Label for="registerNumber" sm={5}>Rejestr</Label>
+                            <Col sm={7}>
                                 <Input value={this.state.register} onChange={this.handleRegisterChange} type="text"
                                        name="registerNumber"
                                        id="registerNumber"/>
@@ -51,8 +51,8 @@ export default class SearchPanel extends Component {
                         </FormGroup>
 
                         <FormGroup row>
-                            <Label for="place" sm={4}>Miejscowość</Label>
-                            <Col sm={8}>
+                            <Label for="place" sm={5}>Miejscowość</Label>
+                            <Col sm={7}>
                                 <Input value={this.state.place} onChange={this.handlePlaceChange} type="text"
                                        name="place"
                                        id="place"/>
@@ -60,9 +60,13 @@ export default class SearchPanel extends Component {
                         </FormGroup>
 
                         <VoivodeshipFilterDropdown value={this.state.voivodeship}
+                                                   voivodeshipLabelWidth={5}
+                                                   voivodeshipInputWidth={7}
                                                    onChangeValue={this.handleVoivodeshipChange}/>
 
                         <CategoryFilterDropdown labelName='Kategoria' value={this.state.category}
+                                                categoryLabelWidth={5}
+                                                categoryInputWidth={7}
                                                 onChangeValue={this.handleCategoryChange}/>
 
                         <div>
