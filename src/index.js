@@ -36,8 +36,8 @@ const store = createStore(
 	  persistedState
 )
 
-export const history = createBrowserHistory();
- 
+export const history = createBrowserHistory({ basename: 'localhost:3000' });
+
 ReactDOM.render((
 	<Provider store={store}>
 		<Router history={history}>
