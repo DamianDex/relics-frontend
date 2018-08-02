@@ -42,6 +42,7 @@ export default class AdminMainPage extends Component {
             this.setState({isLoading: false})
         }).catch((error) => {
             if (error.response){
+                this.setState({errorMessage: NOT_AUTHORIZED_MESSAGE})
                 console.log(error.response.data);
                 console.log(error.response.status);
                 console.log(error.response.headers);

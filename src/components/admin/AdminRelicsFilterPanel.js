@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Button, Card, CardBody, CardHeader, Col, Form, FormGroup, Input, Label} from "reactstrap";
 import VoivodeshipFilterDropdown from "../ranking/filter/VoivodeshipFilterDropdown";
 import CategoryFilterDropdown from "../ranking/filter/CategoryFilterDropdown";
+import {CONFIGURATION} from '../../configuration/configuration'
 import axios from 'axios';
 
 
@@ -15,14 +16,13 @@ export default class AdminRelicsFilterPanel extends Component {
             approved: false,
             category: "",
             voivodeship: "",
-            disctrictName: "",
+            districtName: "",
             communeName: "",
             placeName: "",
             changedIndex: -1,
             districtNames: [],
             communeNames: [],
             placeNames: []
-
         }
 
         this.handleSearch = this.handleSearch.bind(this);
@@ -30,7 +30,7 @@ export default class AdminRelicsFilterPanel extends Component {
         this.handleApprovedChange = this.handleApprovedChange.bind(this);
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleVoivodeshipChange = this.handleVoivodeshipChange.bind(this);
-        this.handledDisctrictNameChange = this.handledDisctrictNameChange.bind(this);
+        this.handledDistrictNameChange = this.handledDistrictNameChange.bind(this);
         this.handleCommuneNameChange = this.handleCommuneNameChange.bind(this);
         this.handlePlaceNameChange = this.handlePlaceNameChange.bind(this);
 
@@ -38,17 +38,19 @@ export default class AdminRelicsFilterPanel extends Component {
         this.loadCommuneNames = this.loadCommuneNames.bind(this);
         this.loadPlaceNames = this.loadPlaceNames.bind(this);
 
+        this.endpoint = 'http://' + CONFIGURATION.HOST + ':' + CONFIGURATION.PORT;
     }
 
-    componentWillMount() {
+    async componentWillMount() {
         this.loadDistrictNames();
         this.loadCommuneNames();
         this.loadPlaceNames();
     }
 
-
-    async loadDistrictNames() {
-        await axios.get(this.endpoint + '/api/admin', {
+    async loadDistrictNames(voivodeship) {
+        var filterChain = "";
+        if (typeof voivodeship !== 'undefined' && voivodeship !== '') filterChain += "?voivodeship=" + voivodeship;
+        await axios.get(this.endpoint + '/api/admin/districts' + filterChain, {
          	headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -56,14 +58,17 @@ export default class AdminRelicsFilterPanel extends Component {
              }},
              {withCredentials: true})
         .then((response) => {
-            this.setState({loadDistrictNames: response.data})
+            this.setState({districtNames: response.data})
         }).catch((error) => {
             console.log(error);
         })
     }
 
-    async loadCommuneNames() {
-        await axios.get(this.endpoint + '/api/admin', {
+    async loadCommuneNames(voivodeship, districtName) {
+        var filterChain = "";
+        if (typeof voivodeship !== 'undefined' && voivodeship !== '') filterChain += "?voivodeship=" + voivodeship;
+        if (typeof districtName !== 'undefined' && districtName !== '') filterChain += "&districtName=" + districtName;
+        await axios.get(this.endpoint + '/api/admin/communes' + filterChain, {
           	headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -71,14 +76,18 @@ export default class AdminRelicsFilterPanel extends Component {
              }},
              {withCredentials: true})
         .then((response) => {
-            this.setState({loadDistrictNames: response.data})
+            this.setState({communeNames: response.data})
         }).catch((error) => {
             console.log(error);
         })
     }
 
-    async loadPlaceNames() {
-        await axios.get(this.endpoint + '/api/admin', {
+    async loadPlaceNames(voivodeship, districtName, communeName) {
+        var filterChain = "";
+        if (typeof voivodeship !== 'undefined' && voivodeship !== '') filterChain += "?voivodeship=" + voivodeship;
+        if (typeof districtName !== 'undefined' && districtName !== '') filterChain += "&districtName=" + districtName;
+        if (typeof communeName !== 'undefined' && communeName !== '') filterChain += "&communeName=" + communeName;
+        await axios.get(this.endpoint + '/api/admin/places' + filterChain, {
         	headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -86,7 +95,7 @@ export default class AdminRelicsFilterPanel extends Component {
             }},
             {withCredentials: true})
         .then((response) => {
-            this.setState({loadDistrictNames: response.data})
+            this.setState({placeNames: response.data})
         }).catch((error) => {
             console.log(error);
         })
@@ -110,17 +119,30 @@ export default class AdminRelicsFilterPanel extends Component {
                         </FormGroup>
 
                         <CategoryFilterDropdown labelName='Kategoria' value={this.state.category}
+                                                categoryLabelWidth={4}
+                                                categoryInputWidth={8}
                                                 onChangeValue={this.handleCategoryChange}/>
 
                         <VoivodeshipFilterDropdown value={this.state.voivodeship}
+                                                   voivodeshipLabelWidth={4}
+                                                   voivodeshipInputWidth={8}
                                                    onChangeValue={this.handleVoivodeshipChange}/>
 
                         <FormGroup row>
                             <Label for="districtName" sm={4}>Powiat</Label>
                             <Col sm={8}>
-                                <Input value={this.state.disctrictName} onChange={this.handledDisctrictNameChange} type="select"
+                                <Input value={this.state.districtName} onChange={this.handledDistrictNameChange} type="select"
                                        name="districtName"
-                                       id="districtName"/>
+                                       id="districtName">
+                                    <option></option>
+                                    {
+                                        this.state.districtNames.map(item => {
+                                            return (
+                                                <option>{item}</option>
+                                                );
+                                        })
+                                    }
+                                </Input>
                             </Col>
                         </FormGroup>
 
@@ -129,7 +151,16 @@ export default class AdminRelicsFilterPanel extends Component {
                             <Col sm={8}>
                                 <Input value={this.state.communeName} onChange={this.handleCommuneNameChange} type="select"
                                        name="communeName"
-                                       id="communeName"/>
+                                       id="communeName">
+                                    <option></option>
+                                    {
+                                        this.state.communeNames.map(item => {
+                                            return (
+                                                <option>{item}</option>
+                                                );
+                                        })
+                                    }
+                                </Input>
                             </Col>
                         </FormGroup>
 
@@ -138,7 +169,16 @@ export default class AdminRelicsFilterPanel extends Component {
                             <Col sm={8}>
                                 <Input value={this.state.placeName} onChange={this.handlePlaceNameChange} type="select"
                                        name="placeName"
-                                       id="placeName"/>
+                                       id="placeName">
+                                    <option></option>
+                                    {
+                                        this.state.placeNames.map(item => {
+                                            return (
+                                                <option>{item}</option>
+                                                );
+                                        })
+                                    }
+                                </Input>
                             </Col>
                         </FormGroup>
 
@@ -162,25 +202,37 @@ export default class AdminRelicsFilterPanel extends Component {
         this.setState({category: e.target.value})
     }
 
-    handleVoivodeshipChange(e) {
-        this.setState({voivodeship: e.target.value})
+    async handleVoivodeshipChange(e) {
+        var voivodeship = e.target.value;
+        this.setState({voivodeship: voivodeship})
+        this.loadDistrictNames(voivodeship);
+        this.loadCommuneNames(voivodeship);
+        this.loadPlaceNames(voivodeship);
     }
 
-    handledDisctrictNameChange(e) {
-        this.setState({disctrictName: e.target.value})
+    async handledDistrictNameChange(e) {
+        var districtName = e.target.value;
+        this.setState({districtName: districtName})
+        this.loadCommuneNames(this.state.voivodeship, districtName);
+        this.loadPlaceNames(this.state.voivodeship, districtName);
     }
 
-    handleCommuneNameChange(e) {
-        this.setState({communeName: e.target.value})
+    async handleCommuneNameChange(e) {
+        var communeName = e.target.value;
+        this.setState({communeName: communeName})
+        if (typeof this.state.districtName === 'undefined' || this.state.districtName === '' ) this.loadDistrictNames();
+        this.loadPlaceNames(this.state.voivodeship, this.state.districtName, communeName);
     }
 
-    handlePlaceNameChange(e) {
+    async handlePlaceNameChange(e) {
         this.setState({placeName: e.target.value})
+        if (typeof this.state.districtName === 'undefined' || this.state.districtName === '' ) this.loadDistrictNames();
+        if (typeof this.state.communeName === 'undefined' || this.state.communeName === '' )  this.loadCommuneNames();
     }
 
     handleSearch() {
         this.props.filterHandler(this.state.approved, this.state.category, this.state.voivodeship,
-            this.state.disctrictName, this.state.communeName, this.state.placeName);
+            this.state.districtName, this.state.communeName, this.state.placeName);
     }
 }
 
