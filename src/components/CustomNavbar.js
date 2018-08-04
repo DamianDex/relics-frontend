@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Input, InputGroup, InputGroupAddon, Nav, Navbar, NavbarBrand, NavItem} from 'reactstrap';
+import {Button, Input, InputGroup, InputGroupAddon, Nav, Navbar,
+        NavbarBrand, NavItem, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import LoginControl from '../components/LoginControl'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'
@@ -16,6 +17,7 @@ class CustomNavbar extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
             isOpen: false,
+            dropdownOpen: false,
             searchPhrase: ''
         };
 
@@ -24,7 +26,8 @@ class CustomNavbar extends React.Component {
 
     toggle() {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
+            dropdownOpen: !this.state.dropdownOpen
         });
     }
 
@@ -39,7 +42,16 @@ class CustomNavbar extends React.Component {
         let addButton;
         var roleNavPadding= "0px";
         if (user_role === 'USER') {
-            roleButton = <Button outline color="primary" href="/my-profile">Mój profil</Button>
+            roleButton = <ButtonDropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                                 <DropdownToggle caret outline color="primary">
+                                   Mój Profil
+                                 </DropdownToggle>
+                                 <DropdownMenu>
+                                   <DropdownItem href="/my-profile">O mnie</DropdownItem>
+                                   <DropdownItem href="/my-reviews">Moje oceny</DropdownItem>
+                                   <DropdownItem href="/my-relicsToSee">Chcę zobaczyć</DropdownItem>
+                                 </DropdownMenu>
+                         </ButtonDropdown>
             roleNavPadding = "5px";
         } else if (user_role === 'ADMIN'){
             roleButton = <Button outline color="primary" href="/admin">Administracja</Button>

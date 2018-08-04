@@ -206,7 +206,7 @@ export default class RelicAddPage extends React.Component {
     render() {
         return (
             <div>
-                <Row>
+
                     <Col sm="12" md={{size: 6, offset: 3}}>
                         <br/>
                         <Card>
@@ -325,7 +325,7 @@ export default class RelicAddPage extends React.Component {
                                             </Col>
                                         </FormGroup>
                                         <FormGroup check row>
-                                            <Col sm={{size: 2, offset: 9}}>
+                                            <Col sm={{size: 3, offset: 8}}>
                                                 <Button outline color="primary" onClick={this.handleClick}>Dodaj
                                                     Zabytek</Button>
                                             </Col>
@@ -349,7 +349,7 @@ export default class RelicAddPage extends React.Component {
                             </CardBody>
                         </Card>
                     </Col>
-                </Row>
+                
 
                 <CoordinatesPicker coordinates={this.state.coordinates}
                                    onChangeValue={this.handleCoordinatesChange}

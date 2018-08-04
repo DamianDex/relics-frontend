@@ -1,15 +1,14 @@
 import React, {Component} from "react";
 import {Card, CardBody, CardHeader, ListGroup} from "reactstrap";
-import RelicController from "../../controllers/RelicController";
-import UserRelicListItem from "../profiles/user/userReviews/UserRelicListItem.js";
+import UserRelicsToSeeListItem from "./UserRelicsToSeeListItem";
+import RelicsToSeeController from "../../../../controllers/RelicsToSeeController";
 
-export default class ResultsPanel extends Component {
-
+export default class UserReviewsResultPanel extends Component {
 
     constructor(props) {
         super(props);
 
-        this.relicController = new RelicController();
+        this.relicsToSeeController = new RelicsToSeeController();
 
         this.state = {
             IDs: [],
@@ -17,13 +16,11 @@ export default class ResultsPanel extends Component {
     }
 
     componentDidMount() {
-        this.getDatabaseItemsWithFilter(this.props.name, this.props.register,
-            this.props.voivodeship, this.props.category, this.props.place);
+        this.getRelicsToSeeByUser(this.props.category,this.props.place);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getDatabaseItemsWithFilter(nextProps.name, nextProps.register,
-            nextProps.voivodeship, nextProps.category, nextProps.place);
+        this.getRelicsToSeeByUser(nextProps.category, nextProps.place);
     }
 
     render() {
@@ -35,7 +32,7 @@ export default class ResultsPanel extends Component {
                         {
                             this.state.IDs.map(id => {
                                     return (
-                                        <UserRelicListItem id={id}/>
+                                        <UserRelicsToSeeListItem id={id}/>
                                     );
                                 }
                             )
@@ -46,7 +43,7 @@ export default class ResultsPanel extends Component {
         );
     }
 
-    getDatabaseItemsWithFilter(name, register, voivodeship, category, place) {
+    getRelicsToSeeByUser(category, place) {
         this.setState(
             {
                 IDs: []
@@ -54,7 +51,7 @@ export default class ResultsPanel extends Component {
         )
 
         let self = this;
-        this.relicController.getDatabaseItemsWithFilter(name, register, voivodeship, category, place)
+        this.relicsToSeeController.getRelicsToSeeByUser(category, place)
             .then(response => {
                 self.setState(
                     {
@@ -67,5 +64,3 @@ export default class ResultsPanel extends Component {
             })
     }
 }
-
-

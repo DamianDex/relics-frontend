@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {ListGroupItem} from 'reactstrap';
-import RelicBaseCard from "./RelicBaseCard";
+import UserRelicBaseCard from "./UserRelicBaseCard";
 
-export default class BaseListItem extends Component {
+export default class UserRelicListItem extends Component {
     constructor(props) {
         super(props);
     }
@@ -10,7 +10,7 @@ export default class BaseListItem extends Component {
     render() {
         return (
             <ListGroupItem>
-                <RelicBaseCard relicId={this.props.id}/>
+                <UserRelicBaseCard relicId={this.props.id}/>
             </ListGroupItem>
         );
     }

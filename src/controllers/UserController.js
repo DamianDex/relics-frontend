@@ -16,4 +16,16 @@ export default class UserController {
         })
         return response;
     }
+
+    getUserDetails(){
+            var response = axios.get(this.endpoint+'my-profile',{
+                              headers: {
+                                     'Accept': 'application/json',
+                                     'Content-Type': 'application/json',
+                                     'authorization': sessionStorage.getItem("jwtToken")
+                                       }
+                           });
+            return response;
+    }
+
 }

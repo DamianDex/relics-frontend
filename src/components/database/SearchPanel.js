@@ -33,7 +33,8 @@ export default class SearchPanel extends Component {
                     <Form style={{padding: "15px"}}>
                         <br/>
                         <FormGroup row>
-                            <Label for="identification" sm={5}>Nazwa</Label>
+                            <Label for="identification" sm={5}>Nazwa
+                            </Label>
                             <Col sm={7}>
                                 <Input value={this.state.name} onChange={this.handleNameChange} type="text"
                                        name="identification"

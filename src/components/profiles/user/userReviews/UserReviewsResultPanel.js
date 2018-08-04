@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Card, CardBody, CardHeader, ListGroup} from "reactstrap";
-import RelicController from "../../controllers/RelicController";
-import UserRelicListItem from "../profiles/user/userReviews/UserRelicListItem.js";
+import UserRelicListItem from "./UserRelicListItem";
+import RelicController from "../../../../controllers/RelicController";
 
-export default class ResultsPanel extends Component {
+export default class UserReviewsResultPanel extends Component {
 
 
     constructor(props) {
@@ -17,13 +17,11 @@ export default class ResultsPanel extends Component {
     }
 
     componentDidMount() {
-        this.getDatabaseItemsWithFilter(this.props.name, this.props.register,
-            this.props.voivodeship, this.props.category, this.props.place);
+        this.getRelicsReviewdByUser(this.props.vote,this.props.category);
     }
 
     componentWillReceiveProps(nextProps) {
-        this.getDatabaseItemsWithFilter(nextProps.name, nextProps.register,
-            nextProps.voivodeship, nextProps.category, nextProps.place);
+        this.getRelicsReviewdByUser(nextProps.vote,nextProps.category);
     }
 
     render() {
@@ -46,7 +44,7 @@ export default class ResultsPanel extends Component {
         );
     }
 
-    getDatabaseItemsWithFilter(name, register, voivodeship, category, place) {
+    getRelicsReviewdByUser(vote,category) {
         this.setState(
             {
                 IDs: []
@@ -54,7 +52,7 @@ export default class ResultsPanel extends Component {
         )
 
         let self = this;
-        this.relicController.getDatabaseItemsWithFilter(name, register, voivodeship, category, place)
+        this.relicController.getRelicsReviewdByUser(vote,category)
             .then(response => {
                 self.setState(
                     {
@@ -67,5 +65,3 @@ export default class ResultsPanel extends Component {
             })
     }
 }
-
-

@@ -85,7 +85,7 @@ class LoginPage extends Component {
                 	<Card >
                 		<CardHeader>Zaloguj się</CardHeader>                	
             			<CardBody>
-                			<Input className="sm-outside-marigins" type="text" name="username" placeholder="Email" value={this.state.username}
+                			<Input className="sm-outside-marigins" type="text" name="username" placeholder="Login" value={this.state.username}
                 					onChange={this.handleUsernameChange}/>
                 			<Input className="sm-outside-marigins" type="password" name="password" placeholder="Hasło" value={this.state.password}
                 					onChange={this.handlePasswordChange}/>

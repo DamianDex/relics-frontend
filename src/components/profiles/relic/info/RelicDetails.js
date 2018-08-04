@@ -28,6 +28,7 @@ export default class RelicDetails extends Component {
                         <h2>Dane ogólne</h2>
                         <b>Nazwa miejsca:</b> {this.state.identification} <br/>
                         <b>Opis:</b> {this.state.description} <br/>
+                        <b>Kategoria:</b> {this.state.categoryName} <br/>
                         <b>Rejestr:</b> {this.state.registerNumber} <br/>
                         <b>Datowany:</b> {this.state.datingOfObject} <br/>
 
@@ -59,6 +60,7 @@ export default class RelicDetails extends Component {
                         description: response.data.description,
                         registerNumber: response.data.registerNumber,
                         datingOfObject: response.data.datingOfObject,
+                        categoryName: response.data.categories[0].categoryName
                     }
                 )
             })

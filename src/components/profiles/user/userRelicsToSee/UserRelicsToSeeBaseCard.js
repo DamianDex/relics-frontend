@@ -1,11 +1,11 @@
 import React, {Component} from "react";
-import RelicController from "../../controllers/RelicController";
+import RelicController from "../../../../controllers/RelicController";
 import {Button, Col, Container, Row} from "reactstrap";
-import GeographyController from "../../controllers/GeographyController";
-import ReviewController from "../../controllers/ReviewController";
-import CoordinatesPicker from "../add/CoordinatesPicker";
+import GeographyController from "../../../../controllers/GeographyController";
+import ReviewController from "../../../../controllers/ReviewController";
+import CoordinatesPicker from "../../../add/CoordinatesPicker";
 
-export default class RelicRankingCard extends Component {
+export default class UserRelicsToSeeBaseCard extends Component {
     constructor(props) {
         super(props);
         this.relicController = new RelicController();
@@ -16,7 +16,6 @@ export default class RelicRankingCard extends Component {
             id: '',
             identification: '',
             imageSrc: '/images/icon.jpg',
-            myRating: ''
         }
 
         this.modalMapClick = this.modalMapClick.bind(this);
@@ -27,33 +26,24 @@ export default class RelicRankingCard extends Component {
         this.getRelicGeography();
         this.getAvgRating();
         this.getRatingCount();
-        this.getMyRating();
     }
 
     render() {
         return (
-            <div>
-                <Container>
-                    <Row>
-                        <Col xs="3">
+                <Row>
+                        <Col sm="3" md={{size: 3}}>
                             <img src={process.env.PUBLIC_URL + this.state.imageSrc}/>
                         </Col>
-                        <Col xs="2">
+                        <Col sm="9" md={{size: 6, offset: 3}}>
                             <b>Nazwa miejsca:</b> {this.state.identification} <br/>
                             <b>Rejestr:</b> {this.state.registerNumber} <br/>
                             <b>Województwo:</b> {this.state.voivodeshipName} <br/>
                             <b>Miejscowość:</b> {this.state.placeName} <br/>
-                        </Col>
-                        <Col xs="2">
+                            <b>Kategoria:</b> {this.state.categoryName} <br/>
                             <b>Ocena użytkowników:</b> {this.state.avg} / 5.0 <br/>
                             <b>Liczba głosów:</b> {this.state.count} <br/>
-                            <b>Twoja ocena: </b> {this.state.myRating} <br/>
                         </Col>
-                    </Row>
-                </Container>
-                <Container>
-                    <Row>
-                        <Col xs="4">
+                        <Col sm="12">
                             <Button outline color="success" href={this.state.href}>Do profilu!</Button>{'   '}
                             <Button outline color="primary" onClick={this.modalMapClick}>Lokalizacja</Button>
                             <CoordinatesPicker coordinates={this.state.coordinates}
@@ -65,9 +55,7 @@ export default class RelicRankingCard extends Component {
                                                mLongitude={this.state.longitude}
                                                mLatitude={this.state.latitude}/>
                         </Col>
-                    </Row>
-                </Container>
-            </div>
+                </Row>
         );
     }
 
@@ -80,8 +68,8 @@ export default class RelicRankingCard extends Component {
                     {
                         identification: response.data.identification,
                         registerNumber: response.data.registerNumber,
-                        datingOfObject: response.data.datingOfObject,
                         href: 'relic/'.concat(response.data.id),
+                        categoryName: response.data.categories[0].categoryName
                     }
                 )
             })
@@ -98,11 +86,8 @@ export default class RelicRankingCard extends Component {
                     {
                         longitude: response.data.longitude,
                         latitude: response.data.latitude,
-                        voivodeshipName: response.data.voivodeshipName,
-                        districtName: response.data.districtName,
-                        communeName: response.data.communeName,
                         placeName: response.data.placeName,
-                        street: response.data.street
+                        voivodeshipName: response.data.voivodeshipName
                     }
                 )
             })
@@ -145,29 +130,5 @@ export default class RelicRankingCard extends Component {
         this.setState({
             isMapOpen: !this.state.isMapOpen
         })
-    }
-
-    getMyRating() {
-        let self = this;
-
-        var ratingToSet = "Nie jesteś zalogowany";
-
-        this.reviewController.getMyRating(this.props.relicId)
-            .then(response => {
-
-                if (response.data != "") {
-                    ratingToSet = response.data;
-                } else {
-                    ratingToSet = "--";
-                }
-            })
-            .catch(error => {
-                console.log(error);
-            })
-
-
-        this.setState({
-            myRating: ratingToSet
-        });
     }
 }

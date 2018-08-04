@@ -3,6 +3,7 @@ import SearchPanel from "./database/SearchPanel";
 import {Col, Row} from "reactstrap";
 import ResultsPanel from "./database/ResultsPanel";
 
+
 export default class RelicsDbPage extends Component {
 
     constructor(props) {
@@ -32,11 +33,11 @@ export default class RelicsDbPage extends Component {
     render() {
         return (
             <Row>
-                <Col sm="12" md={{size: 3, offset: 1}}>
+                <Col sm="3" md={{size: 3, offset: 1}}>
                     <br/>
                     <SearchPanel searchPhrase={this.props.match.params.search} filterHandler={this.handleFilter}/>
                 </Col>
-                <Col sm="12" md={{size: 7, offset: -1}}>
+                <Col sm="7" md={{size: 7, offset: -1}}>
                     <br/>
                     <ResultsPanel name={this.state.name} register={this.state.register}
                                   voivodeship={this.state.voivodeship} category={this.state.category}

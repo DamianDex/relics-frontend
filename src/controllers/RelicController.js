@@ -55,4 +55,17 @@ export default class RelicController {
                	console.log(error);
             }
     }
+
+    getRelicsReviewdByUser(vote,category){
+        var filterChain = "?vote=" + vote + "&category=" + category;
+        var response = axios.get(this.endpoint + "my-reviews" + filterChain,
+        {
+              headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'authorization': sessionStorage.getItem("jwtToken")
+                        }
+        });
+        return response;
+    }
 }
