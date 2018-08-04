@@ -10,7 +10,7 @@ export default class SearchPanel extends Component {
         super(props);
 
         this.state = {
-            name: this.props.searchPhrase,
+            name: "",
             register: "",
             category: "",
             voivodeship: "",

@@ -14,6 +14,7 @@ export default class UserProfilePage extends Component{
         this.state = {
             imageSrc: '/images/profileImage.png',
             accessInputField: true,
+            userId:""
         }
 
         this.handleNickNameChange = this.handleNickNameChange.bind(this);
@@ -54,7 +55,7 @@ export default class UserProfilePage extends Component{
     }
 
     handleChangeButton(e) {
-            axios.put('http://localhost:8090/api/my-profile', {
+            axios.post('http://localhost:8090/api/my-profile/' + this.state.userId, {
                 username: this.state.nickName,
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,

@@ -10,7 +10,7 @@ export default class RelicsDbPage extends Component {
         super(props);
 
         this.state = {
-            name: "",
+            name: this.props.match.params.search,
             register: "",
             voivodeship: "",
             category: "",
