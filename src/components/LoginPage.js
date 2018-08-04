@@ -56,20 +56,6 @@ class LoginPage extends Component {
         }
     }
 
-//    async test(e) {
-//        try {
-//            var response = await axios.post(this.endpoint + '/api/my-profile', {},
-//            	{headers:{
-//            		'authorization': sessionStorage.getItem('jwtToken')
-//            	}},
-//                {withCredentials: true});            
-//        } catch (error) {
-//            this.changeErrorMessage(error.response.data['message']);
-//
-//        }
-//    }
-	//<Button className="sm-bottom-marigin" type="button" onClick={this.test}>Profile test</Button><br/>
-
     render() {
     	let alert = null; 
     	if (this.state.logout != null){

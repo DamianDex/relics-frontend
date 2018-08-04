@@ -3,7 +3,7 @@ import {Button, Input, InputGroup, InputGroupAddon, Nav, Navbar,
         NavbarBrand, NavItem, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap';
 import LoginControl from '../components/LoginControl'
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class CustomNavbar extends React.Component {
 

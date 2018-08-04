@@ -27,6 +27,7 @@ class LoginControl extends React.Component {
     	var response = await axios.get(this.endpoint + '/api/logout'); 
     	this.setState({loggingOut: true});
     	sessionStorage.clear("jwtToken");
+    	sessionStorage.clear("userRole");
     	window.location = "/login?logout";
     }
 

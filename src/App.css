@@ -49,6 +49,12 @@
     color: red;
 }
 
+.big-checkbox {
+    width: 25px;
+    height: 25px;
+    margin-left: 0px !important;
+}
+
 @media(max-height: 400px){
 .small-flex {
     display: flex;
