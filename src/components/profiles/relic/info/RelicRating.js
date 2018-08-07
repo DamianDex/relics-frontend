@@ -13,7 +13,6 @@ export default class RelicRating extends Component {
 
         this.state = {
             isChecked: false,
-            accessToCheck: true
         };
 
         this.postRelicToSee = this.postRelicToSee.bind(this);
@@ -39,7 +38,6 @@ export default class RelicRating extends Component {
                 self.setState(
                     {
                         isChecked: response.data,
-                        accessToCheck: response.data
                     }
                 )
             })
@@ -61,7 +59,6 @@ export default class RelicRating extends Component {
                               <Input type="checkbox" name="relicToSee"
                                      id="relicToSee"
                                      checked={this.state.isChecked}
-                                     disabled={this.state.accessToCheck}
                                      onChange={this.postRelicToSee}
                                      />
                               <b>Chcę zobaczyć</b>
