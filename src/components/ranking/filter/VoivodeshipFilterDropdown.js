@@ -20,7 +20,7 @@ export default class VoivodeshipFilterDropdown extends Component {
 
     render() {
         return (
-            <FormGroup class="voivodeship-filter" row>
+            <FormGroup className="voivodeship-filter" row>
                 <Label for="exampleSelect" sm={this.props.voivodeshipLabelWidth}>Województwo</Label>
                 <Col sm={this.props.voivodeshipInputWidth}>
                 <Input type="select"
@@ -32,7 +32,7 @@ export default class VoivodeshipFilterDropdown extends Component {
                     {
                         this.state.voivodeships.map(item => {
                             return (
-                                <option>{item}</option>
+                                <option key = {item}>{item}</option>
                             );
                         })
                     }

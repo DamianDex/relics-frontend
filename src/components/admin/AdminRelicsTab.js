@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col, CardSubtitle } from 'reactstrap'
 import AdminRelicsFilterPanel from "./AdminRelicsFilterPanel";
-import AdminRelicsResultPanel from "./AdminRelicsResultPanel";
+import ResultsPanel from "../../components/database/ResultsPanel";
+import {CONFIGURATION} from '../../configuration/configuration';
 import axios from 'axios';
 
 export default class AdminRelicsTab extends Component {
@@ -9,25 +10,13 @@ export default class AdminRelicsTab extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            approved: false,
-            category: "",
-            voivodeship: "",
-            disctrictName: "",
-            communeName: "",
-            placeName: "",
+            filterSuffix: '/',
         }
         this.handleFilter = this.handleFilter.bind(this);
     }
 
-    handleFilter(approved, category, voivodeship, disctrictName, communeName, placeName) {
-        this.setState({
-            approved: approved,
-            category: category,
-            voivodeship: voivodeship,
-            disctrictName: disctrictName,
-            communeName: communeName,
-            placeName: placeName,
-        })
+    handleFilter(filterSuffix) {
+        this.setState({filterSuffix: filterSuffix});
     }
 
     render() {
@@ -41,7 +30,7 @@ export default class AdminRelicsTab extends Component {
                         </Card>
                     </Col>
                     <Col sm="12" md={{size: 8}}>
-                        <AdminRelicsResultPanel />
+                        <ResultsPanel filterSuffix={this.state.filterSuffix} />
                     </Col>
                 </Row>
             </Card>

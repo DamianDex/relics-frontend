@@ -10,10 +10,6 @@ export default class AdminRelicsResultPanel extends Component {
         super(props);
 
         this.relicController = new RelicController();
-
-        this.state = {
-            IDs: [],
-        }
     }
 
     componentDidMount() {
@@ -44,27 +40,6 @@ export default class AdminRelicsResultPanel extends Component {
                 </CardBody>
             </Card>
         );
-    }
-
-    getDatabaseItemsWithFilter(name, register, voivodeship, category, place) {
-        this.setState(
-            {
-                IDs: []
-            }
-        )
-
-        let self = this;
-        this.relicController.getDatabaseItemsWithFilter(name, register, voivodeship, category, place)
-            .then(response => {
-                self.setState(
-                    {
-                        IDs: response.data
-                    }
-                )
-            })
-            .catch(error => {
-                console.log(error);
-            })
     }
 }
 

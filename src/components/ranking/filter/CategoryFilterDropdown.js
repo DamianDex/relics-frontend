@@ -29,7 +29,7 @@ export default class CategoryFilterDropdown extends Component {
                     {
                         this.state.categories.map(item => {
                             return (
-                                <option>{item}</option>
+                                <option key = {item}>{item}</option>
                             );
                         })
                     }

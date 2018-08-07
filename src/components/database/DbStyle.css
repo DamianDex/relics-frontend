@@ -1,0 +1,8 @@
+.pages-chooser{
+    float: right !important;
+}
+
+.pages-chooser-input {
+    width: 50px !important;
+    text-align: center;
+}

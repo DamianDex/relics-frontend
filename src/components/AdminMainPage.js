@@ -66,7 +66,7 @@ export default class AdminMainPage extends Component {
      	        body = <div><Nav tabs>
                         <NavItem>
                             <NavLink
-                                className={{ active: this.state.activeTab === '1' }}
+                                className={'{ active: this.state.activeTab === \'1\' }'}
                                 onClick={() => { this.toggle('1'); }}
                             >
                                 Zabytki
@@ -74,7 +74,7 @@ export default class AdminMainPage extends Component {
                         </NavItem>
                         <NavItem>
                             <NavLink
-                                className={{ active: this.state.activeTab === '2' }}
+                                className={'{ active: this.state.activeTab === \'2\' }'}
                                 onClick={() => { this.toggle('2'); }}
                             >
                                 Komentarze
