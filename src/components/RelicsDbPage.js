@@ -9,8 +9,12 @@ export default class RelicsDbPage extends Component {
     constructor(props) {
         super(props);
 
+        var name = this.props.match.params.search;
+        if (typeof name === 'undefined'){
+            name = ''
+        }
         this.state = {
-            name: this.props.match.params.search,
+            name: name,
             register: "",
             voivodeship: "",
             category: "",
