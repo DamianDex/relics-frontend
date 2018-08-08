@@ -36,7 +36,9 @@ export default class ResultsPanel extends Component {
         } else {
             this.getAdminDatabaseItemsWithFilter(nextProps.filterSuffix);
         }
-        this.child.setPageToFirst();
+        if (sessionStorage.getItem('role') === 'ADMIN'){
+            this.child.setPageToFirst();
+        }
     }
 
     render() {
