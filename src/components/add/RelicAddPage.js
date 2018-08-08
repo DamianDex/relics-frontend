@@ -170,6 +170,7 @@ export default class RelicAddPage extends React.Component {
                 description: description,
                 registerNumber: registerNumber,
                 datingOfObject: datingOfObject,
+                approved: false,
                 geographicLocation: {
                     voivodeshipName: voivodeshipName,
                     districtName: districtName,
