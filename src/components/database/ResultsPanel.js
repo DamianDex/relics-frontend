@@ -31,8 +31,8 @@ export default class ResultsPanel extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (typeof this.props.place !== 'undefined'){
-            this.getDatabaseItemsWithFilter(this.props.name, this.props.register,
-                this.props.voivodeship, this.props.category, this.props.place);
+            this.getDatabaseItemsWithFilter(nextProps.name, nextProps.register,
+                nextProps.voivodeship, nextProps.category, nextProps.place);
         } else {
             this.getAdminDatabaseItemsWithFilter(nextProps.filterSuffix);
         }
